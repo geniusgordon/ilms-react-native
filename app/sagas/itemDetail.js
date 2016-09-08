@@ -25,6 +25,13 @@ const fetchItemFunc = {
       cid: itemId,
     });
   },
+  assignment(courseId, itemId) {
+    return api.get('/course.php', {
+      courseID: courseId,
+      f: 'hw',
+      hw: itemId,
+    });
+  },
 };
 
 function* fetchItemDetail({ courseId, itemType, itemId }) {
@@ -33,7 +40,6 @@ function* fetchItemDetail({ courseId, itemType, itemId }) {
     const item = parseItemDetail(itemType, html);
     yield put(fetchItemDetailSuccess(itemType, itemId, item));
   } catch (error) {
-    console.log(error);
     ToastAndroid.show('無法載入', ToastAndroid.SHORT);
     yield put(fetchItemDetailFail(itemType, itemId, error));
   }

@@ -139,12 +139,35 @@ function parseMaterialDetail(html) {
   };
 }
 
+function parseAssignmentDetail(html) {
+  const root = HTMLParser.parse(html);
+  const title = root.querySelector('#main span.curr').text;
+  const tr = root.querySelectorAll('tr');
+  const dateStr = `${tr[5].querySelectorAll('td')[1].text}:00`;
+  const content = tr[6].querySelectorAll('td')[1].text;
+  const links = tr[7].querySelectorAll('a');
+  const attachments = links.map((link) => ({
+    id: link.attributes.href.match(/.*id=(\d+).*/)[1],
+    name: link.text,
+  }));
+  return {
+    title,
+    content,
+    dateStr,
+    date: parseDate(dateStr),
+    attachments,
+  };
+}
+
 export function parseItemDetail(itemType, html) {
   if (itemType === 'announcement') {
     return parseAnnouncementDetail(html);
   }
   if (itemType === 'material') {
     return parseMaterialDetail(html);
+  }
+  if (itemType === 'assignment') {
+    return parseAssignmentDetail(html);
   }
   return {};
 }
