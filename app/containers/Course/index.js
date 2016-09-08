@@ -2,9 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Text, View } from 'react-native';
 import TabView from '../../components/TabView';
-import Announcement from './Announcement';
-import Material from './Material';
-import Assignment from './Assignment';
+import List from './List';
 import { fetchItemList } from './actions/itemList';
 import styles from './styles';
 
@@ -16,14 +14,17 @@ class Course extends Component {
   };
   componentDidMount() {
     const { id, dispatch } = this.props;
-    dispatch(fetchItemList(id, 'announcement'));
+    this.itemTypes.forEach((itemType) => {
+      dispatch(fetchItemList(id, itemType));
+    });
   }
-  getAnnoucements = () => {
+  getItems = (itemType) => {
     const { id, courseCollection } = this.props;
     const course = courseCollection.courseById[id] || {};
-    const announcements = course.announcement || [];
-    return announcements.map((aid) => courseCollection.itemsById.announcement[aid]);
+    const items = course[itemType] || [];
+    return items.map((itemId) => courseCollection.itemsById[itemType][itemId]);
   };
+  itemTypes = ['announcement', 'material', 'assignment'];
   render() {
     const { id, courseCollection } = this.props;
     const course = courseCollection.courseById[id] || {};
@@ -40,9 +41,9 @@ class Course extends Component {
           </Text>
         </View>
         <TabView backgroundColor="#ffc107">
-          <Announcement tabLabel="公告" announcements={this.getAnnoucements()} />
-          <Material tabLabel="教材" />
-          <Assignment tabLabel="作業" />
+          <List tabLabel="公告" items={this.getItems('announcement')} />
+          <List tabLabel="教材" items={this.getItems('material')} />
+          <List tabLabel="作業" items={this.getItems('assignment')} />
         </TabView>
       </View>
     );

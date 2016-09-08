@@ -1,15 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import { Text, View } from 'react-native';
+import RippleView from '../../components/RippleView';
 import styles from './styles';
 
 const month = [
   'JAN', 'FEB', 'MAY', 'APR', 'MAR', 'JUN',
   'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC',
 ];
-
-const leftPad = (str) => {
-  return String(str).length < 2 ? `0${str}` : str;
-};
 
 class ListItem extends Component {
   static propTypes = {
@@ -20,19 +17,21 @@ class ListItem extends Component {
     const { date } = this.props;
     return (
       <View style={styles.listItemDate}>
-        <Text style={styles.listItemYear}>{date.getFullYear()}</Text>
-        <Text style={styles.listItemDay}>{leftPad(date.getDate())}</Text>
-        <Text style={styles.listItemMonth}>{month[date.getMonth()]}</Text>
+        <Text style={styles.listItemYear}>{date.year}</Text>
+        <Text style={styles.listItemDay}>{date.day}</Text>
+        <Text style={styles.listItemMonth}>{month[date.month - 1]}</Text>
       </View>
     );
   };
   render() {
     const { title } = this.props;
     return (
-      <View style={styles.listItem}>
-        {this.renderDate()}
-        <Text style={styles.listItemTitle}>{title}</Text>
-      </View>
+      <RippleView darkRipple>
+        <View style={styles.listItem}>
+          {this.renderDate()}
+          <Text style={styles.listItemTitle}>{title}</Text>
+        </View>
+      </RippleView>
     );
   }
 }

@@ -1,19 +1,20 @@
 import React, { Component, PropTypes } from 'react';
 import { ScrollView, View } from 'react-native';
 import ListItem from './ListItem';
-import NoData from'./NoData';
+import NoData from './NoData';
 import styles from './styles';
 
-class Announcement extends Component {
+class List extends Component {
   static propTypes = {
-    announcements: PropTypes.array,
+    itemType: PropTypes.string,
+    items: PropTypes.array,
   };
   renderList = () => {
-    const { announcements } = this.props;
-    if (announcements.length === 0) {
+    const { items } = this.props;
+    if (items.length === 0) {
       return <NoData />;
     }
-    return announcements.map(({ id, title, date }) => (
+    return items.map(({ id, title, date }) => (
       <ListItem key={id} title={title} date={date} />
     ));
   };
@@ -29,5 +30,5 @@ class Announcement extends Component {
   }
 }
 
-export default Announcement;
+export default List;
 
