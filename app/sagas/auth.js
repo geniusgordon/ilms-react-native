@@ -13,12 +13,15 @@ import {
   loginFail,
   loginError,
 } from '../containers/Auth/actions';
+import { fetchCourseList } from '../containers/Home/actions';
 
 function* checkLogin() {
   const home = yield call(api.get, '/home.php');
   if (home.indexOf('權限不足') !== -1) {
     ToastAndroid.show('尚未登入', ToastAndroid.SHORT);
     Actions.login({ type: ActionConst.REPLACE });
+  } else {
+    yield put(fetchCourseList());
   }
 }
 
