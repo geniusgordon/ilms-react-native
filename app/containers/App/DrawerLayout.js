@@ -1,26 +1,24 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import {
   DrawerLayoutAndroid,
   ToolbarAndroid,
   View,
   Text,
-  StyleSheet,
 } from 'react-native';
+import styles from './styles';
 import menuIcon from '../../assets/ic_menu_black.png';
 
-const styles = StyleSheet.create({
-  toolbar: {
-    backgroundColor: '#888',
-    height: 56,
-  },
-});
-
 class App extends Component {
+  static propTypes = {
+    children: PropTypes.node,
+  };
   handleIconClick = () => {
     this.openDrawer();
   };
   openDrawerRef = (ref) => {
-    this.openDrawer = ref.openDrawer;
+    if (ref) {
+      this.openDrawer = ref.openDrawer;
+    }
   };
   renderNavigationView = () => (
     <View>
@@ -28,6 +26,7 @@ class App extends Component {
     </View>
   );
   render() {
+    const { children } = this.props;
     return (
       <DrawerLayoutAndroid
         drawerWidth={300}
@@ -43,9 +42,7 @@ class App extends Component {
           style={styles.toolbar}
           elevation={5}
         />
-        <View>
-          <Text>iLms</Text>
-        </View>
+        {children}
       </DrawerLayoutAndroid>
     );
   }

@@ -1,12 +1,28 @@
+import { takeEvery } from 'redux-saga';
 import { call, fork, put, take } from 'redux-saga/effects';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import api from '../utils/api';
-import { LOGIN, LOGOUT } from '../containers/Auth/actionTypes';
+import {
+  CHECK_LOGIN,
+  LOGIN,
+  LOGOUT,
+} from '../containers/Auth/actionTypes';
 import {
   loginSuccess,
   loginFail,
   loginError,
 } from '../containers/Auth/actions';
+
+function* checkLogin() {
+  const home = yield call(api.get, '/home.php');
+  if (home.indexOf('權限不足') !== -1) {
+    Actions.login({ type: ActionConst.REPLACE });
+  }
+}
+
+function* watchCheckLogin() {
+  yield* takeEvery(CHECK_LOGIN, checkLogin);
+}
 
 function* loginFlow() {
   while (true) { // eslint-disable-line no-constant-condition
@@ -24,6 +40,7 @@ function* loginFlow() {
         yield put(loginSuccess(ret.email));
         Actions.home({ type: ActionConst.REPLACE });
         yield take(LOGOUT);
+        yield call(api.post, '/sys/lib/ajax/logout.php');
       } else {
         yield put(loginFail(ret.msg));
       }
@@ -34,6 +51,7 @@ function* loginFlow() {
 }
 
 export default function* authSaga() {
+  yield fork(watchCheckLogin);
   yield fork(loginFlow);
 }
 

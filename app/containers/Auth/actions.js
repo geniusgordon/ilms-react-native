@@ -1,10 +1,13 @@
 import {
+  CHECK_LOGIN,
   LOGIN,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGIN_ERROR,
   LOGOUT,
 } from './actionTypes';
+
+export const checkLogin = () => ({ type: CHECK_LOGIN });
 
 export const login = (account, password) => ({
   type: LOGIN,
