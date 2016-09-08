@@ -1,5 +1,6 @@
 import { takeEvery } from 'redux-saga';
 import { call, fork, put, take } from 'redux-saga/effects';
+import { ToastAndroid } from 'react-native';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import api from '../utils/api';
 import {
@@ -16,6 +17,7 @@ import {
 function* checkLogin() {
   const home = yield call(api.get, '/home.php');
   if (home.indexOf('權限不足') !== -1) {
+    ToastAndroid.show('尚未登入', ToastAndroid.SHORT);
     Actions.login({ type: ActionConst.REPLACE });
   }
 }
@@ -42,9 +44,11 @@ function* loginFlow() {
         yield take(LOGOUT);
         yield call(api.post, '/sys/lib/ajax/logout.php');
       } else {
+        ToastAndroid.show(ret.msg, ToastAndroid.SHORT);
         yield put(loginFail(ret.msg));
       }
     } catch (error) {
+        ToastAndroid.show('登入失敗', ToastAndroid.SHORT);
       yield put(loginError(error));
     }
   }
