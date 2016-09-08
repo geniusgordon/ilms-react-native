@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { TouchableNativeFeedback } from 'react-native';
 
 const RippleView = ({ darkRipple, children, onPress }) => {
-  const rippleColor = darkRipple ? 'rgba(0, 0, 0, 0.5)' : '#ffffff';
+  const rippleColor = darkRipple ? 'rgba(0, 0, 0, 0.2)' : '#ffffff';
   return (
     <TouchableNativeFeedback
       background={new TouchableNativeFeedback.Ripple(rippleColor)}
