@@ -116,9 +116,35 @@ function parseAnnouncementDetail(html) {
   };
 }
 
+function parseMaterialDetail(html) {
+  const root = HTMLParser.parse(html);
+  const title = root.querySelector('#doc .title').text;
+  const poster = root.querySelector('.poster').text;
+  const dateStr = `${poster.split(', ')[1]}:00`;
+  const content = root.querySelector('#doc .article').text;
+  const attachments = root.querySelectorAll('div.attach div.block div')
+  .map((attach) => {
+    const link = attach.querySelectorAll('a')[1];
+    return {
+      id: link.attributes.href.match(/.*id=(\d+).*/)[1],
+      name: link.attributes.title,
+    };
+  });
+  return {
+    title,
+    content,
+    dateStr,
+    date: parseDate(dateStr),
+    attachments,
+  };
+}
+
 export function parseItemDetail(itemType, html) {
   if (itemType === 'announcement') {
     return parseAnnouncementDetail(html);
+  }
+  if (itemType === 'material') {
+    return parseMaterialDetail(html);
   }
   return {};
 }

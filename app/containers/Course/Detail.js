@@ -8,21 +8,24 @@ import styles from './styles';
 
 class Detail extends Component {
   static propTypes = {
-    id: PropTypes.string,
+    courseId: PropTypes.string,
+    itemId: PropTypes.string,
     itemType: PropTypes.string,
     itemsById: PropTypes.object,
     dispatch: PropTypes.func,
   };
   componentDidMount() {
-    const { id, itemType, dispatch } = this.props;
-    dispatch(fetchItemDetail(itemType, id));
+    const { courseId, itemId, itemType, dispatch } = this.props;
+    dispatch(fetchItemDetail(courseId, itemType, itemId));
   }
   itemTitles = {
     announcement: '公告',
+    material: '教材',
+    assignment: '作業',
   };
   renderAttachments = () => {
-    const { id, itemType, itemsById } = this.props;
-    const item = itemsById[itemType][id] || {};
+    const { itemId, itemType, itemsById } = this.props;
+    const item = itemsById[itemType][itemId] || {};
     const attachments = item.attachments || [];
     if (attachments.length === 0) {
       return null;
@@ -40,8 +43,8 @@ class Detail extends Component {
     );
   };
   render() {
-    const { id, itemType, itemsById } = this.props;
-    const item = itemsById[itemType][id] || {};
+    const { itemId, itemType, itemsById } = this.props;
+    const item = itemsById[itemType][itemId] || {};
     return (
       <View style={styles.base}>
         <View style={styles.titleContainer}>

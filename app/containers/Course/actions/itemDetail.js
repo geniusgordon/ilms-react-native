@@ -4,8 +4,9 @@ import {
   FETCH_ITEM_DETAIL_FAIL,
 } from './actionTypes';
 
-export const fetchItemDetail = (itemType, itemId) => ({
+export const fetchItemDetail = (courseId, itemType, itemId) => ({
   type: FETCH_ITEM_DETAIL,
+  courseId,
   itemType,
   itemId,
 });

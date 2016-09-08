@@ -12,20 +12,28 @@ import {
 } from '../containers/Course/actions/itemDetail';
 
 const fetchItemFunc = {
-  announcement(id) {
+  announcement(courseId, itemId) {
     return api.post('/home/http_event_select.php', {
-      id,
+      id: itemId,
       type: 'n',
+    });
+  },
+  material(courseId, itemId) {
+    return api.get('/course.php', {
+      courseID: courseId,
+      f: 'doc',
+      cid: itemId,
     });
   },
 };
 
-function* fetchItemDetail({ itemType, itemId }) {
+function* fetchItemDetail({ courseId, itemType, itemId }) {
   try {
-    const html = yield call(fetchItemFunc[itemType], itemId);
+    const html = yield call(fetchItemFunc[itemType], courseId, itemId);
     const item = parseItemDetail(itemType, html);
     yield put(fetchItemDetailSuccess(itemType, itemId, item));
   } catch (error) {
+    console.log(error);
     ToastAndroid.show('無法載入', ToastAndroid.SHORT);
     yield put(fetchItemDetailFail(itemType, itemId, error));
   }

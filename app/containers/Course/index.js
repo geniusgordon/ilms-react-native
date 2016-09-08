@@ -25,8 +25,13 @@ class Course extends Component {
     const items = course[itemType] || [];
     return items.map((itemId) => courseCollection.itemsById[itemType][itemId]);
   };
-  handleItemPress = (itemType, id) => {
-    this.props.dispatch(route('detail', { itemType, id }));
+  handleItemPress = (itemType, itemId) => {
+    const courseId = this.props.id;
+    this.props.dispatch(route('detail', {
+      itemType,
+      courseId,
+      itemId,
+    }));
   };
   itemTypes = ['announcement', 'material', 'assignment'];
   render() {
