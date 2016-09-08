@@ -1,12 +1,12 @@
 import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
 import {
   Image,
   Text,
   TextInput,
-  TouchableNativeFeedback,
   View,
 } from 'react-native';
-import { connect } from 'react-redux';
+import RippleView from '../../components/RippleView';
 import { login } from './actions';
 import styles from './styles';
 import logo from '../../assets/iLms.png';
@@ -50,15 +50,11 @@ class Auth extends Component {
             onChangeText={this.handlePasswordChange}
             secureTextEntry
           />
-          <TouchableNativeFeedback
-            background={new TouchableNativeFeedback.Ripple('#ffffff')}
-            delayPressIn={0}
-            onPress={this.handleSubmit}
-          >
+          <RippleView onPress={this.handleSubmit}>
             <View style={styles.button} elevation={1}>
               <Text>Log In</Text>
             </View>
-          </TouchableNativeFeedback>
+          </RippleView>
         </View>
       </View>
     );

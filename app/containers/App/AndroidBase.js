@@ -5,6 +5,7 @@ import {
   View,
   Text,
 } from 'react-native';
+import Drawer from './Drawer';
 import styles from './styles';
 import menuIcon from '../../assets/ic_menu_black.png';
 
@@ -20,11 +21,9 @@ class App extends Component {
       this.openDrawer = ref.openDrawer;
     }
   };
-  renderNavigationView = () => (
-    <View>
-      <Text>Drawer</Text>
-    </View>
-  );
+  renderNavigationView() {
+    return <Drawer />;
+  }
   render() {
     const { children } = this.props;
     return (
