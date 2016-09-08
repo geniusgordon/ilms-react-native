@@ -1,17 +1,29 @@
-import React from 'react';
+import React, { Component, PropTypes } from 'react';
 import { Text, View } from 'react-native';
+import ListItem from './ListItem';
+import styles from './styles';
 
-const Announcement = () => (
-  <View>
-    <View
-      style={{
-        backgroundColor: '#ffc107',
-        height: 50,
-      }}
-    />
-    <Text>Announcement</Text>
-  </View>
-);
+class Announcement extends Component {
+  static propTypes = {
+    announcements: PropTypes.array,
+  };
+  renderList = () => {
+    const { announcements } = this.props;
+    return announcements.map(({ id, title }) => (
+      <ListItem key={id} title={title} />
+    ));
+  };
+  render() {
+    return (
+      <View>
+        <View style={styles.padding} />
+        <View style={styles.list}>
+          {this.renderList()}
+        </View>
+      </View>
+    );
+  }
+}
 
 export default Announcement;
 
