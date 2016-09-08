@@ -12,7 +12,7 @@ const RippleView = ({ darkRipple, children, onPress }) => {
       {children}
     </TouchableNativeFeedback>
   );
-}
+};
 
 RippleView.propTypes = {
   darkRipple: PropTypes.bool,

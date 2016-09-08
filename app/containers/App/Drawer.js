@@ -17,7 +17,7 @@ class Drawer extends Component {
     return (
       <View style={styles.drawer}>
         <RippleView>
-          <View style={styles.drawerHeader}/>
+          <View style={styles.drawerHeader} />
         </RippleView>
         <CourseList courseList={courseList} />
         <RippleView>

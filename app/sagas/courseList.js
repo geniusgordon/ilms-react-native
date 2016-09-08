@@ -24,15 +24,16 @@ function* fetchCourseList() {
     }));
     yield put(fetchCourseListSuccess(courseList));
   } catch (error) {
+    ToastAndroid.show('無法取得課程列表', ToastAndroid.SHORT);
     yield put(fetchCourseListFail(error));
   }
 }
 
 function* watchFetchCourseList() {
-yield* takeEvery(FETCH_COURSE_LIST, fetchCourseList);
+  yield* takeEvery(FETCH_COURSE_LIST, fetchCourseList);
 }
 
 export default function* courseListSaga() {
-yield fork(watchFetchCourseList);
+  yield fork(watchFetchCourseList);
 }
 
