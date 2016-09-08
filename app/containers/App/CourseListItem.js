@@ -13,7 +13,7 @@ class CourseListItem extends Component {
     onPress(course.id);
   };
   render() {
-    const { course, onPress } = this.props;
+    const { course } = this.props;
     return (
       <RippleView onPress={this.handlePress} darkRipple>
         <View style={styles.courseListItem}>

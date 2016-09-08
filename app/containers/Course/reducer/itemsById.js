@@ -13,7 +13,7 @@ const reducer = handleActions({
       ...reduction,
       [item.id]: {
         ...state[itemType][item.id],
-        item,
+        ...item,
       },
     }), state[itemType]);
     return {

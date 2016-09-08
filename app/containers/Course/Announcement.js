@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
-import { View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import ListItem from './ListItem';
+import NoData from'./NoData';
 import styles from './styles';
 
 class Announcement extends Component {
@@ -9,18 +10,21 @@ class Announcement extends Component {
   };
   renderList = () => {
     const { announcements } = this.props;
-    return announcements.map(({ id, title }) => (
-      <ListItem key={id} title={title} />
+    if (announcements.length === 0) {
+      return <NoData />;
+    }
+    return announcements.map(({ id, title, date }) => (
+      <ListItem key={id} title={title} date={date} />
     ));
   };
   render() {
     return (
-      <View>
+      <ScrollView>
         <View style={styles.padding} />
         <View style={styles.list}>
           {this.renderList()}
         </View>
-      </View>
+      </ScrollView>
     );
   }
 }

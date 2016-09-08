@@ -5,13 +5,24 @@ import TabView from '../../components/TabView';
 import Announcement from './Announcement';
 import Material from './Material';
 import Assignment from './Assignment';
+import { fetchItemList } from './actions/itemList';
 import styles from './styles';
 
 class Course extends Component {
+  static propTypes = {
+    id: PropTypes.string,
+    courseCollection: PropTypes.object,
+    dispatch: PropTypes.func,
+  };
+  componentDidMount() {
+    const { id, dispatch } = this.props;
+    dispatch(fetchItemList(id, 'announcement'));
+  }
   getAnnoucements = () => {
     const { id, courseCollection } = this.props;
-    const announcements = courseCollection.courseById[id].announcements || [];
-    return announcements.map((id) => courseCollection.itemsById.announcement[id]);
+    const course = courseCollection.courseById[id] || {};
+    const announcements = course.announcement || [];
+    return announcements.map((aid) => courseCollection.itemsById.announcement[aid]);
   };
   render() {
     const { id, courseCollection } = this.props;
@@ -37,11 +48,6 @@ class Course extends Component {
     );
   }
 }
-
-Course.propTypes = {
-  id: PropTypes.string,
-  courseCollection: PropTypes.object,
-};
 
 const mapStateToProps = (state) => ({
   courseCollection: state.course,

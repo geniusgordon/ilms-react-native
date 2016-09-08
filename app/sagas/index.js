@@ -4,8 +4,9 @@ import { Actions } from 'react-native-router-flux';
 import { ROUTE } from '../containers/App/actionTypes';
 import authSaga from './auth';
 import courseListSaga from './courseList';
+import itemListSaga from './itemList';
 
-function* route({ key, params }) {
+function route({ key, params }) {
   if (Actions[key]) {
     Actions[key](params);
   }
@@ -19,5 +20,6 @@ export default function* rootSaga() {
   yield fork(watchRoute);
   yield fork(authSaga);
   yield fork(courseListSaga);
+  yield fork(itemListSaga);
 }
 

@@ -17,10 +17,11 @@ const reducer = handleActions({
     }), state);
     return byId;
   },
-  [FETCH_ITEM_LIST_SUCCESS]: (state, { courseId, itemType, itemList }) => ({
+  [FETCH_ITEM_LIST_SUCCESS]: (state, { courseId, courseName, itemType, itemList }) => ({
     ...state,
     [courseId]: {
       ...state[courseId],
+      name: courseName,
       [itemType]: itemList.map((item) => item.id),
     },
   }),

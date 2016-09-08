@@ -7,7 +7,7 @@ import Course from '../Course';
 const App = () => (
   <Router>
     <Scene key="root">
-      <Scene key="home" component={Home} title="Home" hideNavBar initial />
+      <Scene key="home" component={Home} title="Home" hideNavBar />
       <Scene key="login" component={Login} title="Login" hideNavBar />
       <Scene key="course" component={Course} title="Course" hideNavBar />
     </Scene>

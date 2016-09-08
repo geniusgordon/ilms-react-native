@@ -10,9 +10,10 @@ export const fetchItemList = (courseId, itemType) => ({
   itemType,
 });
 
-export const fetchItemListSuccess = (courseId, itemType, itemList) => ({
+export const fetchItemListSuccess = (courseId, courseName, itemType, itemList) => ({
   type: FETCH_ITEM_LIST_SUCCESS,
   courseId,
+  courseName,
   itemType,
   itemList,
 });
