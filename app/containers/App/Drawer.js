@@ -6,11 +6,16 @@ import {
 } from 'react-native';
 import CourseList from './CourseList';
 import RippleView from '../../components/RippleView';
+import { route } from './actions';
 import styles from './styles';
 
 class Drawer extends Component {
   static propTypes = {
     courseList: PropTypes.array,
+    dispatch: PropTypes.func,
+  };
+  handleCoursePress = (id) => {
+    this.props.dispatch(route('course', { id }));
   };
   render() {
     const { courseList } = this.props;
@@ -19,7 +24,10 @@ class Drawer extends Component {
         <RippleView>
           <View style={styles.drawerHeader} />
         </RippleView>
-        <CourseList courseList={courseList} />
+        <CourseList
+          courseList={courseList}
+          onCoursePress={this.handleCoursePress}
+        />
         <RippleView>
           <View style={styles.logout}>
             <Text>登出</Text>

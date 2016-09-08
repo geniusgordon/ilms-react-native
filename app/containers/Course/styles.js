@@ -1,6 +1,18 @@
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
+  base: {
+    flex: 1,
+  },
+  titleContainer: {
+    height: 72,
+    backgroundColor: '#ffc107',
+    padding: 16,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+  },
   padding: {
     height: 56,
     backgroundColor: '#ffc107',

@@ -24,6 +24,7 @@ function* fetchCourseList() {
     }));
     yield put(fetchCourseListSuccess(courseList));
   } catch (error) {
+    console.log(error);
     ToastAndroid.show('無法取得課程列表', ToastAndroid.SHORT);
     yield put(fetchCourseListFail(error));
   }
