@@ -10,7 +10,7 @@ function toQueryString(data) {
 }
 
 function get(path, qs) {
-  return fetch(`${BASE_URL}${path}${toQueryString(qs)}`)
+  return fetch(`${BASE_URL}${path}?${toQueryString(qs)}`)
   .then((res) => res.text());
 }
 

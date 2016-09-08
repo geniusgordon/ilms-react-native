@@ -2,8 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import {
   DrawerLayoutAndroid,
   ToolbarAndroid,
-  View,
-  Text,
 } from 'react-native';
 import Drawer from './Drawer';
 import styles from './styles';

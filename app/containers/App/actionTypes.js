@@ -1,4 +1,2 @@
-export const FETCH_COURSE_LIST = 'course/FETCH_COURSE_LIST';
-export const FETCH_COURSE_LIST_SUCCESS = 'course/FETCH_COURSE_LIST_SUCCESS';
-export const FETCH_COURSE_LIST_FAIL = 'course/FETCH_COURSE_LIST_FAIL';
+export const ROUTE = 'app/ROUTE';
 

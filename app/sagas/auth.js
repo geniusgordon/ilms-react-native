@@ -13,7 +13,7 @@ import {
   loginFail,
   loginError,
 } from '../containers/Auth/actions';
-import { fetchCourseList } from '../containers/App/actions';
+import { fetchCourseList } from '../containers/Course/actions/courseList';
 
 function* checkLogin() {
   const home = yield call(api.get, '/home.php');
@@ -51,7 +51,7 @@ function* loginFlow() {
         yield put(loginFail(ret.msg));
       }
     } catch (error) {
-        ToastAndroid.show('登入失敗', ToastAndroid.SHORT);
+      ToastAndroid.show('登入失敗', ToastAndroid.SHORT);
       yield put(loginError(error));
     }
   }

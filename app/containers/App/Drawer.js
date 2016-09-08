@@ -6,20 +6,28 @@ import {
 } from 'react-native';
 import CourseList from './CourseList';
 import RippleView from '../../components/RippleView';
+import { route } from './actions';
 import styles from './styles';
 
 class Drawer extends Component {
   static propTypes = {
     courseList: PropTypes.array,
+    dispatch: PropTypes.func,
+  };
+  handleCoursePress = (id) => {
+    this.props.dispatch(route('course', { id }));
   };
   render() {
     const { courseList } = this.props;
     return (
       <View style={styles.drawer}>
         <RippleView>
-          <View style={styles.drawerHeader}/>
+          <View style={styles.drawerHeader} />
         </RippleView>
-        <CourseList courseList={courseList} />
+        <CourseList
+          courseList={courseList}
+          onCoursePress={this.handleCoursePress}
+        />
         <RippleView>
           <View style={styles.logout}>
             <Text>登出</Text>
@@ -30,8 +38,12 @@ class Drawer extends Component {
   }
 }
 
+const getCourseList = ({ courseById, courseList }) => (
+  courseList.current.map((id) => courseById[id])
+);
+
 const mapStateToProps = (state) => ({
-  courseList: state.app.courseList,
+  courseList: getCourseList(state.course),
 });
 
 export default connect(mapStateToProps)(Drawer);

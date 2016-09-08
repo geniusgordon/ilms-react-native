@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { TouchableNativeFeedback } from 'react-native';
 
 const RippleView = ({ darkRipple, children, onPress }) => {
-  const rippleColor = darkRipple ? '#000000' : '#ffffff';
+  const rippleColor = darkRipple ? 'rgba(0, 0, 0, 0.2)' : '#ffffff';
   return (
     <TouchableNativeFeedback
       background={new TouchableNativeFeedback.Ripple(rippleColor)}
@@ -12,7 +12,7 @@ const RippleView = ({ darkRipple, children, onPress }) => {
       {children}
     </TouchableNativeFeedback>
   );
-}
+};
 
 RippleView.propTypes = {
   darkRipple: PropTypes.bool,

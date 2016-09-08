@@ -1,14 +1,13 @@
 import { handleActions } from 'redux-actions';
-import { FETCH_COURSE_LIST_SUCCESS } from './actionTypes';
+import { FETCH_COURSE_LIST_SUCCESS } from '../actions/actionTypes';
 
 const initalState = {
-  courseList: [],
+  current: [],
 };
 
 const reducer = handleActions({
   [FETCH_COURSE_LIST_SUCCESS]: (state, { courseList }) => ({
-    ...state,
-    courseList,
+    current: courseList.map(({ id }) => id),
   }),
 }, initalState);
 

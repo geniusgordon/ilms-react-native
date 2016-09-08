@@ -6,10 +6,17 @@ import styles from './styles';
 class CourseList extends Component {
   static propTypes = {
     courseList: PropTypes.array,
+    onCoursePress: PropTypes.func,
   };
   renderCourseList = () => {
-    const { courseList } = this.props;
-    return courseList.map((course, i) => <CourseListItem key={i} course={course} />);
+    const { courseList, onCoursePress } = this.props;
+    return courseList.map((course, i) => (
+      <CourseListItem
+        key={i}
+        course={course}
+        onPress={onCoursePress}
+      />
+    ));
   };
   render() {
     return (
