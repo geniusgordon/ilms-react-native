@@ -72,10 +72,12 @@ function parseAssignmentList(html) {
   return tr.map((r) => {
     const td = r.querySelectorAll('td');
     const href = td[1].childNodes[0].attributes.href;
+    const dateStr = parseDate(td[4].childNodes[0].attributes.title);
     return {
       id: href.match(/.*hw=(\d+).*/)[1],
       title: td[1].text.trim(),
-      date: parseDate(td[4].childNodes[0].attributes.title),
+      date: parseDate(dateStr),
+      dateStr,
     };
   });
 }
@@ -91,5 +93,29 @@ export function parseItemList(itemType, html) {
     return parseAssignmentList(html);
   }
   return [];
+}
+
+
+function parseAnnouncementDetail(html) {
+  const item = JSON.parse(html).news;
+  const attachRoot = HTMLParser.parse(item.attach);
+  const attachments = attachRoot.querySelectorAll('a')
+  .map((attach) => ({
+    id: attach.attributes.href.match(/.*id=(\d+).*/)[1],
+    name: attach.text,
+  }));
+  return {
+    content: item.note,
+    dateStr: item.createTime,
+    date: parseDate(item.createTime),
+    attachments,
+  };
+}
+
+export function parseItemDetail(itemType, html) {
+  if (itemType === 'announcement') {
+    return parseAnnouncementDetail(html);
+  }
+  return {};
 }
 

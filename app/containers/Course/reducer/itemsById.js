@@ -1,5 +1,8 @@
 import { handleActions } from 'redux-actions';
-import { FETCH_ITEM_LIST_SUCCESS } from '../actions/actionTypes';
+import {
+  FETCH_ITEM_LIST_SUCCESS,
+  FETCH_ITEM_DETAIL_SUCCESS,
+} from '../actions/actionTypes';
 
 const initalState = {
   announcement: {},
@@ -21,6 +24,16 @@ const reducer = handleActions({
       [itemType]: byId,
     };
   },
+  [FETCH_ITEM_DETAIL_SUCCESS]: (state, { itemType, itemId, item }) => ({
+    ...state,
+    [itemType]: {
+      ...state[itemType],
+      [itemId]: {
+        ...state[itemType][itemId],
+        ...item,
+      },
+    },
+  }),
 }, initalState);
 
 export default reducer;

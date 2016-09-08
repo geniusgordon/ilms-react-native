@@ -48,6 +48,46 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 16,
   },
+  detailContainer: {
+    transform: [{
+      translateY: -50,
+    }],
+  },
+  detailInfo: {
+    margin: 8,
+    padding: 16,
+    backgroundColor: 'white',
+    elevation: 2,
+  },
+  detailTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  detailDate: {
+    fontWeight: '100',
+    textAlign: 'center',
+  },
+  detailContent: {
+    margin: 8,
+    padding: 16,
+    backgroundColor: 'white',
+    elevation: 2,
+  },
+  attachmentHeader: {
+    paddingLeft: 16,
+    margin: 8,
+    marginTop: 24,
+    fontWeight: 'bold',
+  },
+  attachmentList: {
+    margin: 8,
+    backgroundColor: 'white',
+    elevation: 2,
+  },
+  attachment: {
+    padding: 16,
+  },
 });
 
 export default styles;

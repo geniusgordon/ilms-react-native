@@ -5,6 +5,7 @@ import { ROUTE } from '../containers/App/actionTypes';
 import authSaga from './auth';
 import courseListSaga from './courseList';
 import itemListSaga from './itemList';
+import itemDetailSaga from './itemDetail';
 
 function route({ key, params }) {
   if (Actions[key]) {
@@ -21,5 +22,6 @@ export default function* rootSaga() {
   yield fork(authSaga);
   yield fork(courseListSaga);
   yield fork(itemListSaga);
+  yield fork(itemDetailSaga);
 }
 
