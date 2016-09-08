@@ -1,4 +1,5 @@
 import { call, fork, put, take } from 'redux-saga/effects';
+import { Actions, ActionConst } from 'react-native-router-flux';
 import api from '../utils/api';
 import { LOGIN, LOGOUT } from '../containers/Auth/actionTypes';
 import {
@@ -21,6 +22,7 @@ function* loginFlow() {
       const { ret } = JSON.parse(result);
       if (ret.status === 'true') {
         yield put(loginSuccess(ret.email));
+        Actions.home({ type: ActionConst.REPLACE });
         yield take(LOGOUT);
       } else {
         yield put(loginFail(ret.msg));
