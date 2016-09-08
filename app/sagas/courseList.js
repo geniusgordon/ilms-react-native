@@ -3,11 +3,11 @@ import { call, fork, put } from 'redux-saga/effects';
 import { ToastAndroid } from 'react-native';
 import HTMLParser from 'fast-html-parser';
 import api from '../utils/api';
-import { FETCH_COURSE_LIST } from '../containers/Home/actionTypes';
+import { FETCH_COURSE_LIST } from '../containers/App/actionTypes';
 import {
   fetchCourseListSuccess,
   fetchCourseListFail,
-} from '../containers/Home/actions';
+} from '../containers/App/actions';
 
 function* fetchCourseList() {
   try {

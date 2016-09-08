@@ -1,29 +1,17 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
 import {
   View,
   Text,
 } from 'react-native';
-import { connect } from 'react-redux';
-import DrawerLayout from '../App/DrawerLayout';
-import { checkLogin } from '../Auth/actions';
+import Base from '../App/Base';
 
-class Home extends Component {
-  static propTypes = {
-    dispatch: PropTypes.func,
-  };
-  componentDidMount() {
-    this.props.dispatch(checkLogin());
-  }
-  render() {
-    return (
-      <DrawerLayout>
-        <View>
-          <Text>Home</Text>
-        </View>
-      </DrawerLayout>
-    );
-  }
-}
+const Home = () => (
+  <Base>
+    <View>
+      <Text>Home</Text>
+    </View>
+  </Base>
+);
 
-export default connect()(Home);
+export default Home;
 

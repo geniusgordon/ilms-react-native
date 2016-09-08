@@ -13,7 +13,7 @@ import {
   loginFail,
   loginError,
 } from '../containers/Auth/actions';
-import { fetchCourseList } from '../containers/Home/actions';
+import { fetchCourseList } from '../containers/App/actions';
 
 function* checkLogin() {
   const home = yield call(api.get, '/home.php');
