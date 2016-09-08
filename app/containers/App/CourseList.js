@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { View } from 'react-native';
+import { ScrollView } from 'react-native';
 import CourseListItem from './CourseListItem';
 import styles from './styles';
 
@@ -13,9 +13,9 @@ class CourseList extends Component {
   };
   render() {
     return (
-      <View style={styles.courseList}>
+      <ScrollView style={styles.courseList}>
         {this.renderCourseList()}
-      </View>
+      </ScrollView>
     );
   }
 }

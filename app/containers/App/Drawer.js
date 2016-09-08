@@ -15,11 +15,16 @@ class Drawer extends Component {
   render() {
     const { courseList } = this.props;
     return (
-      <View>
+      <View style={styles.drawer}>
         <RippleView>
           <View style={styles.drawerHeader}/>
         </RippleView>
         <CourseList courseList={courseList} />
+        <RippleView>
+          <View style={styles.logout}>
+            <Text>登出</Text>
+          </View>
+        </RippleView>
       </View>
     );
   }
