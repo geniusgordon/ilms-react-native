@@ -9,7 +9,7 @@ const App = () => (
     <Scene key="root">
       <Scene key="home" component={Home} title="Home" hideNavBar />
       <Scene key="login" component={Login} title="Login" hideNavBar />
-      <Scene key="course" component={Course} title="Course" hideNavBar initial />
+      <Scene key="course" component={Course} title="Course" hideNavBar />
     </Scene>
   </Router>
 );

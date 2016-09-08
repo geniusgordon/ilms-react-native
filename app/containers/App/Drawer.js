@@ -30,8 +30,12 @@ class Drawer extends Component {
   }
 }
 
+const getCourseList = ({ courseById, courseList }) => (
+  courseList.current.map((id) => courseById[id])
+);
+
 const mapStateToProps = (state) => ({
-  courseList: state.app.courseList,
+  courseList: getCourseList(state.course),
 });
 
 export default connect(mapStateToProps)(Drawer);
