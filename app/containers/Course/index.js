@@ -4,6 +4,7 @@ import { Text, View } from 'react-native';
 import TabView from '../../components/TabView';
 import List from './List';
 import { fetchItemList } from './actions/itemList';
+import { route } from '../App/actions';
 import styles from './styles';
 
 class Course extends Component {
@@ -24,6 +25,9 @@ class Course extends Component {
     const items = course[itemType] || [];
     return items.map((itemId) => courseCollection.itemsById[itemType][itemId]);
   };
+  handleItemPress = (itemType, id) => {
+    this.props.dispatch(route('detail', { itemType, id }));
+  };
   itemTypes = ['announcement', 'material', 'assignment'];
   render() {
     const { id, courseCollection } = this.props;
@@ -41,9 +45,24 @@ class Course extends Component {
           </Text>
         </View>
         <TabView backgroundColor="#ffc107">
-          <List tabLabel="公告" items={this.getItems('announcement')} />
-          <List tabLabel="教材" items={this.getItems('material')} />
-          <List tabLabel="作業" items={this.getItems('assignment')} />
+          <List
+            tabLabel="公告"
+            itemType="announcement"
+            items={this.getItems('announcement')}
+            onItemPress={this.handleItemPress}
+          />
+          <List
+            tabLabel="教材"
+            itemType="material"
+            items={this.getItems('material')}
+            onItemPress={this.handleItemPress}
+          />
+          <List
+            tabLabel="作業"
+            itemType="assignment"
+            items={this.getItems('assignment')}
+            onItemPress={this.handleItemPress}
+          />
         </TabView>
       </View>
     );

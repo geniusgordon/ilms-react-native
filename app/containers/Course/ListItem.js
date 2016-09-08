@@ -10,11 +10,15 @@ const month = [
 
 class ListItem extends Component {
   static propTypes = {
-    title: PropTypes.string,
-    date: PropTypes.object,
+    item: PropTypes.object,
+    onPress: PropTypes.func,
+  };
+  handlePress = () => {
+    const { item, onPress } = this.props;
+    onPress(item.id);
   };
   renderDate = () => {
-    const { date } = this.props;
+    const { date } = this.props.item;
     return (
       <View style={styles.listItemDate}>
         <Text style={styles.listItemYear}>{date.year}</Text>
@@ -24,9 +28,9 @@ class ListItem extends Component {
     );
   };
   render() {
-    const { title } = this.props;
+    const { title } = this.props.item;
     return (
-      <RippleView darkRipple>
+      <RippleView onPress={this.handlePress} darkRipple>
         <View style={styles.listItem}>
           {this.renderDate()}
           <Text style={styles.listItemTitle}>{title}</Text>

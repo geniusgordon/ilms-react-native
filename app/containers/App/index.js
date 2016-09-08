@@ -11,8 +11,7 @@ const App = () => (
       <Scene key="home" component={Home} title="Home" hideNavBar />
       <Scene key="login" component={Login} title="Login" hideNavBar />
       <Scene key="course" component={Course} title="Course" hideNavBar />
-      <Scene key="detail" component={Detail} title="Detail" id="1005760" itemType="announcement"
-        hideNavBar initial passProps />
+      <Scene key="detail" component={Detail} title="Detail" hideNavBar />
     </Scene>
   </Router>
 );

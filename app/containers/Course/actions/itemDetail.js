@@ -14,7 +14,7 @@ export const fetchItemDetailSuccess = (itemType, itemId, item) => ({
   type: FETCH_ITEM_DETAIL_SUCCESS,
   itemType,
   itemId,
-  item
+  item,
 });
 
 export const fetchItemDetailFail = (itemType, itemId, error) => ({

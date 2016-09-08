@@ -39,10 +39,12 @@ function parseAnnouncementList(html) {
   }
   return tr.map((r) => {
     const td = r.querySelectorAll('td');
+    const dateStr = td[3].childNodes[0].attributes.title;
     return {
       id: td[0].text,
       title: td[1].text,
-      date: parseDate(td[3].childNodes[0].attributes.title),
+      date: parseDate(dateStr),
+      dateStr,
     };
   });
 }
@@ -55,10 +57,12 @@ function parseMaterialList(html) {
   }
   return tr.map((r) => {
     const td = r.querySelectorAll('td');
+    const dateStr = td[5].childNodes[0].attributes.title;
     return {
       id: td[0].text,
       title: td[1].text.trim(),
-      date: parseDate(td[5].childNodes[0].attributes.title),
+      date: parseDate(dateStr),
+      dateStr,
     };
   });
 }
@@ -72,7 +76,7 @@ function parseAssignmentList(html) {
   return tr.map((r) => {
     const td = r.querySelectorAll('td');
     const href = td[1].childNodes[0].attributes.href;
-    const dateStr = parseDate(td[4].childNodes[0].attributes.title);
+    const dateStr = td[4].childNodes[0].attributes.title;
     return {
       id: href.match(/.*hw=(\d+).*/)[1],
       title: td[1].text.trim(),
