@@ -10,12 +10,12 @@ function toQueryString(data) {
 }
 
 function get(path, qs) {
-  fetch(`${BASE_URL}${path}${toQueryString(qs)}`)
+  return fetch(`${BASE_URL}${path}${toQueryString(qs)}`)
   .then((res) => res.text());
 }
 
 function post(path, data) {
-  fetch(`${BASE_URL}${path}`, {
+  return fetch(`${BASE_URL}${path}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
