@@ -8,6 +8,7 @@ const initalState = {
   announcement: {},
   material: {},
   assignment: {},
+  forum: {},
 };
 
 const reducer = handleActions({

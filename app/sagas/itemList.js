@@ -16,6 +16,7 @@ const itemUrlParams = {
   announcement: 'news',
   material: 'doclist',
   assignment: 'hwlist',
+  forum: 'forumlist',
 };
 
 function* fetchItemList({ courseId, itemType }) {
@@ -28,6 +29,7 @@ function* fetchItemList({ courseId, itemType }) {
     const itemList = parseItemList(itemType, html);
     yield put(fetchItemListSuccess(courseId, courseName, itemType, itemList));
   } catch (error) {
+    console.log(error);
     ToastAndroid.show('無法載入課程', ToastAndroid.SHORT);
     yield put(fetchItemListFail(courseId, itemType, error));
   }

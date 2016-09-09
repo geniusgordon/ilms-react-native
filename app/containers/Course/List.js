@@ -15,13 +15,14 @@ class List extends Component {
     onItemPress(itemType, id);
   };
   renderList = () => {
-    const { items } = this.props;
+    const { itemType, items } = this.props;
     if (items.length === 0) {
       return <NoData />;
     }
     return items.map((item) => (
       <ListItem
         key={item.id}
+        itemType={itemType}
         item={item}
         onPress={this.handleItemPress}
       />

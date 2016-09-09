@@ -34,7 +34,7 @@ class Course extends Component {
       itemId,
     }));
   };
-  itemTypes = ['announcement', 'material', 'assignment'];
+  itemTypes = ['announcement', 'material', 'assignment', 'forum'];
   render() {
     const { id, courseCollection } = this.props;
     const course = courseCollection.courseById[id] || {};
@@ -59,6 +59,12 @@ class Course extends Component {
             itemType="assignment"
             items={this.getItems('assignment')}
             onItemPress={this.handleItemPress}
+          />
+          <List
+            tabLabel="討論區"
+            itemType="forum"
+            items={this.getItems('forum')}
+            onItemPress={() => {}}
           />
         </TabView>
       </Base>

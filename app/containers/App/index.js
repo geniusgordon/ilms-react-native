@@ -8,10 +8,10 @@ import Detail from '../Course/Detail';
 const App = () => (
   <Router>
     <Scene key="root">
-      <Scene key="home" component={Home} title="Home" hideNavBar />
-      <Scene key="login" component={Login} title="Login" hideNavBar />
-      <Scene key="course" component={Course} title="Course" hideNavBar />
-      <Scene key="detail" component={Detail} title="Detail" hideNavBar />
+      <Scene key="home" component={Home} direction="vertical" hideNavBar />
+      <Scene key="login" component={Login} direction="vertical" hideNavBar />
+      <Scene key="course" component={Course} direction="vertical" hideNavBar />
+      <Scene key="detail" component={Detail} direction="vertical" hideNavBar />
     </Scene>
   </Router>
 );

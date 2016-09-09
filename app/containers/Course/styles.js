@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     elevation: 2,
     borderRadius: 1,
   },
-  listItemDate: {
+  listItemInfo: {
     width: 96,
     padding: 16,
     alignItems: 'center',
@@ -46,9 +46,14 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
   },
-  listItemTitle: {
+  listItemContent: {
     flex: 1,
     padding: 16,
+  },
+  listItemTitle: {
+    fontWeight: 'bold',
+  },
+  listItemSubtitle: {
   },
   detailContainer: {
     transform: [{

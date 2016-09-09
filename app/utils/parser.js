@@ -86,6 +86,25 @@ function parseAssignmentList(html) {
   });
 }
 
+function parseForumList(html) {
+  const root = HTMLParser.parse(html);
+  const tr = root.querySelectorAll('#main tr').filter((r, i) => i % 2 === 1);
+  if (root.querySelector('#main').text.indexOf('目前尚無資料') !== -1) {
+    return [];
+  }
+  return tr.map((r) => {
+    const td = r.querySelectorAll('td');
+    const count = td[2].querySelectorAll('span')[0].text;
+    const lastEdit = td[3].text.trim();
+    return {
+      id: td[0].text,
+      title: td[1].text,
+      count,
+      lastEdit,
+    };
+  });
+}
+
 export function parseItemList(itemType, html) {
   if (itemType === 'announcement') {
     return parseAnnouncementList(html);
@@ -95,6 +114,9 @@ export function parseItemList(itemType, html) {
   }
   if (itemType === 'assignment') {
     return parseAssignmentList(html);
+  }
+  if (itemType === 'forum') {
+    return parseForumList(html);
   }
   return [];
 }

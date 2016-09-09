@@ -9,6 +9,7 @@ const TabView = ({ children, backgroundColor, tabBarStyle }) => (
     tabBarActiveTextColor="rgba(0, 0, 0, 0.5)"
     tabBarInactiveTextColor="rgba(0, 0, 0, 0.3)"
     tabBarUnderlineStyle={styles.tabBarUnderline}
+    prerenderingSiblingsNumber={2}
     renderTabBar={() => <DefaultTabBar style={[{ borderWidth: 0 }, tabBarStyle]} />}
   >
     {children}
