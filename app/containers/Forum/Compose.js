@@ -6,6 +6,7 @@ import {
   Text,
   TextInput,
   View,
+  StatusBar,
 } from 'react-native';
 import { sendPost } from './actions';
 import closeIcon from '../../assets/ic_close_black.png';
@@ -77,6 +78,7 @@ class Compose extends Component {
     const title = action === 'reply' ? '回覆' : '發表討論';
     return (
       <View style={styles.base}>
+        <StatusBar backgroundColor="#9e9e9e" />
         <ToolbarAndroid
           title={title}
           navIcon={closeIcon}

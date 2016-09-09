@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { Image, View, Text, ScrollView } from 'react-native';
+import { Image, View, Text, ScrollView, StatusBar } from 'react-native';
 import Post from './Post';
 import NoData from '../Course/NoData';
 import Title from '../../components/Title';
@@ -48,8 +48,9 @@ class Forum extends Component {
     const forum = forumCollection[id] || {};
     return (
       <View style={styles.base}>
-        <Title title="討論區" backgroundColor="#ffc107" />
-        <Padding backgroundColor="#ffc107" />
+        <StatusBar backgroundColor="#1565c0" />
+        <Title title="討論區" backgroundColor="#1e88e5" />
+        <Padding backgroundColor="#1e88e5" />
         <View style={styles.list}>
           <View style={styles.forumTitleContainer}>
             <Text style={styles.forumTitle}>{forum.title}</Text>
