@@ -34,6 +34,9 @@ class Course extends Component {
       itemId,
     }));
   };
+  handleForumPress = (itemType, itemId) => {
+    this.props.dispatch(route('forum', { id: itemId }));
+  };
   itemTypes = ['announcement', 'material', 'assignment', 'forum'];
   render() {
     const { id, courseCollection } = this.props;
@@ -64,7 +67,7 @@ class Course extends Component {
             tabLabel="討論區"
             itemType="forum"
             items={this.getItems('forum')}
-            onItemPress={() => {}}
+            onItemPress={this.handleForumPress}
           />
         </TabView>
       </Base>

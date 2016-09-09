@@ -18,8 +18,9 @@ class Forum extends Component {
   }
   renderList = () => {
     const { id, forumCollection } = this.props;
-    const forum = forumCollection[id];
-    if (!forum) {
+    const forum = forumCollection[id] || {};
+    const posts = forum.posts || [];
+    if (posts.length === 0) {
       return <NoData />;
     }
     return forum.posts.map((post) => (
