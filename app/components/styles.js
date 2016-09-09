@@ -5,11 +5,15 @@ const styles = StyleSheet.create({
     height: 56,
     flexDirection: 'row',
   },
-  toolbarIcon: {
+  toolbarIconContainer: {
     width: 56,
     height: 56,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  toolbarIcon: {
+    width: 24,
+    height: 24,
   },
   toolbarTitleContainer: {
     height: 56,

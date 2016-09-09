@@ -7,8 +7,8 @@ import styles from './styles';
 const Toolbar = ({ backgroundColor, style, title, onIconClicked }) => (
   <View style={[styles.toolbar, { backgroundColor }, style]}>
     <RippleView onPress={onIconClicked} borderless>
-      <View style={styles.toolbarIcon}>
-        <Image source={menuIcon} />
+      <View style={styles.toolbarIconContainer}>
+        <Image source={menuIcon} style={styles.toolbarIcon} />
       </View>
     </RippleView>
     <View style={styles.toolbarTitleContainer}>
