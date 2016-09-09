@@ -8,14 +8,23 @@ class List extends Component {
   static propTypes = {
     itemType: PropTypes.string,
     items: PropTypes.array,
+    onItemPress: PropTypes.func,
+  };
+  handleItemPress = (id) => {
+    const { itemType, onItemPress } = this.props;
+    onItemPress(itemType, id);
   };
   renderList = () => {
     const { items } = this.props;
     if (items.length === 0) {
       return <NoData />;
     }
-    return items.map(({ id, title, date }) => (
-      <ListItem key={id} title={title} date={date} />
+    return items.map((item) => (
+      <ListItem
+        key={item.id}
+        item={item}
+        onPress={this.handleItemPress}
+      />
     ));
   };
   render() {

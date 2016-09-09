@@ -1,15 +1,10 @@
 import React from 'react';
-import {
-  View,
-  Text,
-} from 'react-native';
+import { Text } from 'react-native';
 import Base from '../App/Base';
 
 const Home = () => (
-  <Base>
-    <View>
-      <Text>Home</Text>
-    </View>
+  <Base title="iLms" toolbarBackgroundColor="#888">
+    <Text>Home</Text>
   </Base>
 );
 

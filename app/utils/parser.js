@@ -39,10 +39,12 @@ function parseAnnouncementList(html) {
   }
   return tr.map((r) => {
     const td = r.querySelectorAll('td');
+    const dateStr = td[3].childNodes[0].attributes.title;
     return {
       id: td[0].text,
       title: td[1].text,
-      date: parseDate(td[3].childNodes[0].attributes.title),
+      date: parseDate(dateStr),
+      dateStr,
     };
   });
 }
@@ -55,10 +57,12 @@ function parseMaterialList(html) {
   }
   return tr.map((r) => {
     const td = r.querySelectorAll('td');
+    const dateStr = td[5].childNodes[0].attributes.title;
     return {
       id: td[0].text,
       title: td[1].text.trim(),
-      date: parseDate(td[5].childNodes[0].attributes.title),
+      date: parseDate(dateStr),
+      dateStr,
     };
   });
 }
@@ -72,10 +76,12 @@ function parseAssignmentList(html) {
   return tr.map((r) => {
     const td = r.querySelectorAll('td');
     const href = td[1].childNodes[0].attributes.href;
+    const dateStr = td[4].childNodes[0].attributes.title;
     return {
       id: href.match(/.*hw=(\d+).*/)[1],
       title: td[1].text.trim(),
-      date: parseDate(td[4].childNodes[0].attributes.title),
+      date: parseDate(dateStr),
+      dateStr,
     };
   });
 }
@@ -91,5 +97,78 @@ export function parseItemList(itemType, html) {
     return parseAssignmentList(html);
   }
   return [];
+}
+
+
+function parseAnnouncementDetail(html) {
+  const item = JSON.parse(html).news;
+  const attachRoot = HTMLParser.parse(item.attach);
+  const attachments = attachRoot.querySelectorAll('a')
+  .map((attach) => ({
+    id: attach.attributes.href.match(/.*id=(\d+).*/)[1],
+    name: attach.text,
+  }));
+  return {
+    content: item.note,
+    dateStr: item.createTime,
+    date: parseDate(item.createTime),
+    attachments,
+  };
+}
+
+function parseMaterialDetail(html) {
+  const root = HTMLParser.parse(html);
+  const title = root.querySelector('#doc .title').text;
+  const poster = root.querySelector('.poster').text;
+  const dateStr = `${poster.split(', ')[1]}:00`;
+  const content = root.querySelector('#doc .article').text;
+  const attachments = root.querySelectorAll('div.attach div.block div')
+  .map((attach) => {
+    const link = attach.querySelectorAll('a')[1];
+    return {
+      id: link.attributes.href.match(/.*id=(\d+).*/)[1],
+      name: link.attributes.title,
+    };
+  });
+  return {
+    title,
+    content,
+    dateStr,
+    date: parseDate(dateStr),
+    attachments,
+  };
+}
+
+function parseAssignmentDetail(html) {
+  const root = HTMLParser.parse(html);
+  const title = root.querySelector('#main span.curr').text;
+  const tr = root.querySelectorAll('tr');
+  const dateStr = `${tr[5].querySelectorAll('td')[1].text}:00`;
+  const content = tr[6].querySelectorAll('td')[1].text;
+  const links = tr[7].querySelectorAll('a');
+  const attachments = links.map((link) => ({
+    id: link.attributes.href.match(/.*id=(\d+).*/)[1],
+    name: link.text,
+  }));
+  return {
+    title,
+    content,
+    dateStr,
+    date: parseDate(dateStr),
+    attachments,
+  };
+}
+
+export function parseItemDetail(itemType, html) {
+  if (itemType === 'announcement') {
+    return parseAnnouncementDetail(html);
+  }
+  if (itemType === 'material') {
+    return parseMaterialDetail(html);
+  }
+  if (itemType === 'assignment') {
+    return parseAssignmentDetail(html);
+  }
+  return {};
 }
 
