@@ -12,6 +12,13 @@ function parseDate(dateStr) {
   };
 }
 
+export function parseProfile(html) {
+  const root = HTMLParser.parse(html);
+  const name = root.querySelector('#fmName').attributes.value;
+  const email = root.querySelector('#fmEmail').attributes.value;
+  return { name, email };
+}
+
 export function parseCourseList(html) {
   const root = HTMLParser.parse(html);
   const mnuItems = root.querySelectorAll('.mnuItem a');
@@ -86,6 +93,25 @@ function parseAssignmentList(html) {
   });
 }
 
+function parseForumList(html) {
+  const root = HTMLParser.parse(html);
+  const tr = root.querySelectorAll('#main tr').filter((r, i) => i % 2 === 1);
+  if (root.querySelector('#main').text.indexOf('目前尚無資料') !== -1) {
+    return [];
+  }
+  return tr.map((r) => {
+    const td = r.querySelectorAll('td');
+    const count = td[2].querySelectorAll('span')[0].text;
+    const lastEdit = td[3].text.trim();
+    return {
+      id: td[0].text,
+      title: td[1].text,
+      count,
+      lastEdit,
+    };
+  });
+}
+
 export function parseItemList(itemType, html) {
   if (itemType === 'announcement') {
     return parseAnnouncementList(html);
@@ -95,6 +121,9 @@ export function parseItemList(itemType, html) {
   }
   if (itemType === 'assignment') {
     return parseAssignmentList(html);
+  }
+  if (itemType === 'forum') {
+    return parseForumList(html);
   }
   return [];
 }
@@ -170,5 +199,22 @@ export function parseItemDetail(itemType, html) {
     return parseAssignmentDetail(html);
   }
   return {};
+}
+
+export function parseForum(html) {
+  const res = JSON.parse(html).posts;
+  return {
+    id: res.id,
+    title: res.title,
+    count: res.items.length - 1,
+    posts: res.items.map((item) => ({
+      id: item.id,
+      name: item.name,
+      account: item.account,
+      email: item.email,
+      date: item.date,
+      content: item.note,
+    })),
+  };
 }
 

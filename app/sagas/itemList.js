@@ -16,6 +16,7 @@ const itemUrlParams = {
   announcement: 'news',
   material: 'doclist',
   assignment: 'hwlist',
+  forum: 'forumlist',
 };
 
 function* fetchItemList({ courseId, itemType }) {

@@ -1,13 +1,10 @@
 import React from 'react';
-import { Text } from 'react-native';
-import TabView from '../../components/TabView';
+import FixedActionButton from '../../components/FixedActionButton';
 import Base from '../App/Base';
 
 const Home = () => (
   <Base title="iLms" toolbarBackgroundColor="#888">
-    <TabView backgroundColor="#888">
-      <Text tabLabel="home">Home</Text>
-    </TabView>
+    <FixedActionButton style={{ backgroundColor: 'steelblue' }} />
   </Base>
 );
 

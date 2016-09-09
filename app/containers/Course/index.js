@@ -1,12 +1,13 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { View } from 'react-native';
+import { Image } from 'react-native';
 import Base from '../App/Base';
-import TabView from '../../components/TabView';
 import List from './List';
+import TabView from '../../components/TabView';
+import FixedActionButton from '../../components/FixedActionButton';
 import { fetchItemList } from './actions/itemList';
 import { route } from '../App/actions';
-import styles from './styles';
+import editIcon from '../../assets/ic_edit_white.png';
 
 class Course extends Component {
   static propTypes = {
@@ -14,6 +15,12 @@ class Course extends Component {
     courseCollection: PropTypes.object,
     dispatch: PropTypes.func,
   };
+  constructor(props) {
+    super(props);
+    this.state = {
+      fabScale: 0,
+    };
+  }
   componentDidMount() {
     const { id, dispatch } = this.props;
     this.itemTypes.forEach((itemType) => {
@@ -34,14 +41,48 @@ class Course extends Component {
       itemId,
     }));
   };
-  itemTypes = ['announcement', 'material', 'assignment'];
+  handleForumPress = (itemType, itemId) => {
+    const { id, dispatch } = this.props;
+    dispatch(route('forum', {
+      id: itemId,
+      courseId: id,
+    }));
+  };
+  handleTabChange = (tab) => {
+    this.setState({ fabScale: tab.i === 3 ? 1 : 0 });
+  };
+  handleFabPress = () => {
+    const { id, dispatch } = this.props;
+    dispatch(route('compose', {
+      action: 'post',
+      courseId: id,
+      postId: 0,
+    }));
+  };
+  itemTypes = ['announcement', 'material', 'assignment', 'forum'];
+  renderFixedActionButton = () => {
+    if (this.state.fabScale === 0) {
+      return null;
+    }
+    return (
+      <FixedActionButton
+        style={{ backgroundColor: '#f44336' }}
+        onPress={this.handleFabPress}
+      >
+        <Image source={editIcon} style={{ width: 24, height: 24 }} />
+      </FixedActionButton>
+    );
+  };
   render() {
     const { id, courseCollection } = this.props;
     const course = courseCollection.courseById[id] || {};
     const name = course.name;
     return (
       <Base title={name} toolbarBackgroundColor="#ffc107">
-        <TabView backgroundColor="#ffc107">
+        <TabView
+          backgroundColor="#ffc107"
+          onChangeTab={this.handleTabChange}
+        >
           <List
             tabLabel="公告"
             itemType="announcement"
@@ -60,7 +101,14 @@ class Course extends Component {
             items={this.getItems('assignment')}
             onItemPress={this.handleItemPress}
           />
+          <List
+            tabLabel="討論區"
+            itemType="forum"
+            items={this.getItems('forum')}
+            onItemPress={this.handleForumPress}
+          />
         </TabView>
+        {this.renderFixedActionButton()}
       </Base>
     );
   }

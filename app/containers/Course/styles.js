@@ -18,11 +18,7 @@ const styles = StyleSheet.create({
   padding: {
     height: 56,
     backgroundColor: '#ffc107',
-  },
-  list: {
-    transform: [{
-      translateY: -50,
-    }],
+    marginBottom: -50,
   },
   listItem: {
     flex: 1,
@@ -33,7 +29,7 @@ const styles = StyleSheet.create({
     elevation: 2,
     borderRadius: 1,
   },
-  listItemDate: {
+  listItemInfo: {
     width: 96,
     padding: 16,
     alignItems: 'center',
@@ -46,14 +42,12 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
   },
-  listItemTitle: {
+  listItemContent: {
     flex: 1,
     padding: 16,
   },
-  detailContainer: {
-    transform: [{
-      translateY: -50,
-    }],
+  listItemTitle: {
+    fontWeight: 'bold',
   },
   detailInfo: {
     margin: 8,

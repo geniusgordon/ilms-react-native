@@ -25,5 +25,21 @@ function post(path, data) {
   .then((res) => res.text());
 }
 
-export default { get, post };
+function postMultipart(path, data) {
+  const formData = new FormData();
+  Object.keys(data).forEach((key) => {
+    formData.append(key, data[key]);
+  });
+  return fetch(`${BASE_URL}${path}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'multipart/form-data;',
+      Referer: 'http://lms.nthu.edu.tw/post_insert.php?courseID=19025&action=post',
+    },
+    body: formData,
+  })
+  .then((res) => res.text());
+}
+
+export default { get, post, postMultipart };
 

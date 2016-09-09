@@ -6,6 +6,7 @@ import authSaga from './auth';
 import courseListSaga from './courseList';
 import itemListSaga from './itemList';
 import itemDetailSaga from './itemDetail';
+import forumSaga from './forum';
 
 function route({ key, params }) {
   if (Actions[key]) {
@@ -17,11 +18,12 @@ function* watchRoute() {
   yield* takeEvery(ROUTE, route);
 }
 
-export default function* rootSaga() {
+export default function* rootSaga(store) {
   yield fork(watchRoute);
   yield fork(authSaga);
   yield fork(courseListSaga);
   yield fork(itemListSaga);
   yield fork(itemDetailSaga);
+  yield fork(forumSaga, store);
 }
 

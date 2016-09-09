@@ -50,14 +50,14 @@ class Detail extends Component {
         <View style={styles.titleContainer}>
           <Text style={styles.title}>{this.itemTitles[itemType]}</Text>
         </View>
+        <View style={styles.padding} />
+        <View style={styles.detailInfo}>
+          <Text style={styles.detailTitle}>{item.title}</Text>
+          <Divider />
+          <Text style={styles.detailDate}>{item.dateStr}</Text>
+        </View>
         <ScrollView>
-          <View style={styles.padding} />
           <View style={styles.detailContainer}>
-            <View style={styles.detailInfo}>
-              <Text style={styles.detailTitle}>{item.title}</Text>
-              <Divider />
-              <Text style={styles.detailDate}>{item.dateStr}</Text>
-            </View>
             <View style={styles.detailContent}>
               <Text>{item.content}</Text>
             </View>

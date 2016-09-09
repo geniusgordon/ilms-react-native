@@ -11,7 +11,7 @@ export default function configureStore() {
     global.reduxNativeDevTools ? global.reduxNativeDevTools() : nope => nope,
   );
   const store = createStore(reducer, enhancer);
-  sagaMiddleware.run(saga);
+  sagaMiddleware.run(saga, store);
 
   if (global.reduxNativeDevTools) {
     global.reduxNativeDevTools.updateStore(store);

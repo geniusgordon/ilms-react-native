@@ -37,6 +37,17 @@ const styles = StyleSheet.create({
     height: 1,
     backgroundColor: 'rgba(0, 0, 0, 0.3)',
   },
+  fixedActionButton: {
+    position: 'absolute',
+    right: 24,
+    bottom: 24,
+    width: 56,
+    height: 56,
+    borderRadius: 28,
+    elevation: 3,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });
 
 export default styles;
