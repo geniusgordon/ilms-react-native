@@ -1,7 +1,20 @@
 import React, { PropTypes } from 'react';
-import { Animated, View } from 'react-native';
+import { Animated, View, StyleSheet } from 'react-native';
 import RippleView from './RippleView';
-import styles from './styles';
+
+const styles = StyleSheet.create({
+  fixedActionButton: {
+    position: 'absolute',
+    right: 24,
+    bottom: 24,
+    width: 56,
+    height: 56,
+    borderRadius: 28,
+    elevation: 3,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});
 
 const FixedActionButton = ({ style, children, onPress }) => (
   <RippleView onPress={onPress}>

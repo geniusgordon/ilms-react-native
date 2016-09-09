@@ -6,6 +6,7 @@ import { checkLogin } from '../Auth/actions';
 class Base extends Component {
   static propTypes = {
     title: PropTypes.string,
+    statusBarBackgroundColor: PropTypes.string,
     toolbarBackgroundColor: PropTypes.string,
     children: PropTypes.node,
     dispatch: PropTypes.func,
@@ -14,9 +15,18 @@ class Base extends Component {
     this.props.dispatch(checkLogin());
   }
   render() {
-    const { title, toolbarBackgroundColor, children } = this.props;
+    const {
+      title,
+      statusBarBackgroundColor,
+      toolbarBackgroundColor,
+      children,
+    } = this.props;
     return (
-      <AndroidBase title={title} toolbarBackgroundColor={toolbarBackgroundColor}>
+      <AndroidBase
+        title={title}
+        statusBarBackgroundColor={statusBarBackgroundColor}
+        toolbarBackgroundColor={toolbarBackgroundColor}
+      >
         {children}
       </AndroidBase>
     );

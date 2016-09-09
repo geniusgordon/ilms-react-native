@@ -3,22 +3,7 @@ import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
   base: {
     flex: 1,
-  },
-  titleContainer: {
-    height: 56,
-    backgroundColor: '#ffc107',
-    paddingLeft: 16,
-    paddingRight: 16,
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-  },
-  padding: {
-    height: 56,
-    backgroundColor: '#ffc107',
-    marginBottom: -50,
+    backgroundColor: '#f9f9f9',
   },
   forumTitleContainer: {
     margin: 8,

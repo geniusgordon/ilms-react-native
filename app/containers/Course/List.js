@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { ScrollView, View } from 'react-native';
 import ListItem from './ListItem';
 import NoData from './NoData';
+import Padding from '../../components/Padding';
 import styles from './styles';
 
 class List extends Component {
@@ -31,7 +32,7 @@ class List extends Component {
   render() {
     return (
       <ScrollView>
-        <View style={styles.padding} />
+        <Padding backgroundColor="#ffc107" />
         <View style={styles.list}>
           {this.renderList()}
         </View>

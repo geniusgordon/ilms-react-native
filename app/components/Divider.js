@@ -1,6 +1,15 @@
 import React from 'react';
-import { View } from 'react-native';
-import styles from './styles';
+import { View, StyleSheet } from 'react-native';
+
+const styles = StyleSheet.create({
+  dividerContainer: {
+    padding: 16,
+  },
+  divider: {
+    height: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+  },
+});
 
 const Divider = () => (
   <View style={styles.dividerContainer}>

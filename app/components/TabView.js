@@ -1,7 +1,13 @@
 import React, { PropTypes } from 'react';
-import { View } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import ScrollableTabView, { DefaultTabBar } from 'react-native-scrollable-tab-view';
-import styles from './styles';
+
+const styles = StyleSheet.create({
+  tabBarUnderline: {
+    height: 2,
+    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+  },
+});
 
 const TabView = ({ children, backgroundColor, tabBarStyle, onChangeTab }) => (
   <ScrollableTabView

@@ -2,6 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { ScrollView, Text, View } from 'react-native';
 import Attachment from './Attachment';
+import Title from '../../components/Title';
+import Padding from '../../components/Padding';
 import Divider from '../../components/Divider';
 import { fetchItemDetail } from './actions/itemDetail';
 import styles from './styles';
@@ -47,10 +49,8 @@ class Detail extends Component {
     const item = itemsById[itemType][itemId] || {};
     return (
       <View style={styles.base}>
-        <View style={styles.titleContainer}>
-          <Text style={styles.title}>{this.itemTitles[itemType]}</Text>
-        </View>
-        <View style={styles.padding} />
+        <Title title={this.itemTitles[itemType]} backgroundColor="#ffc107" />
+        <Padding backgroundColor="#ffc107" />
         <View style={styles.detailInfo}>
           <Text style={styles.detailTitle}>{item.title}</Text>
           <Divider />

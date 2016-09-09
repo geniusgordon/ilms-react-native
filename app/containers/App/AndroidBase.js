@@ -1,11 +1,16 @@
 import React, { Component, PropTypes } from 'react';
-import { DrawerLayoutAndroid, ToolbarAndroid } from 'react-native';
+import {
+  DrawerLayoutAndroid,
+  ToolbarAndroid,
+  StatusBar,
+} from 'react-native';
 import Drawer from './Drawer';
 import menuIcon from '../../assets/ic_menu_black.png';
 
 class AndroidBase extends Component {
   static propTypes = {
     title: PropTypes.string,
+    statusBarBackgroundColor: PropTypes.string,
     toolbarBackgroundColor: PropTypes.string,
     children: PropTypes.node,
   };
@@ -22,7 +27,12 @@ class AndroidBase extends Component {
     }
   };
   render() {
-    const { title, toolbarBackgroundColor, children } = this.props;
+    const {
+      title,
+      statusBarBackgroundColor,
+      toolbarBackgroundColor,
+      children,
+    } = this.props;
     const renderDrawer = () => <Drawer onItemClick={this.handleDrawerItemClick} />;
     return (
       <DrawerLayoutAndroid
@@ -31,6 +41,7 @@ class AndroidBase extends Component {
         renderNavigationView={renderDrawer}
         ref={this.drawerRef}
       >
+        <StatusBar backgroundColor={statusBarBackgroundColor} />
         <ToolbarAndroid
           title={title}
           navIcon={menuIcon}

@@ -78,7 +78,11 @@ class Course extends Component {
     const course = courseCollection.courseById[id] || {};
     const name = course.name;
     return (
-      <Base title={name} toolbarBackgroundColor="#ffc107">
+      <Base
+        title={name}
+        statusBarBackgroundColor="#ffa000"
+        toolbarBackgroundColor="#ffc107"
+      >
         <TabView
           backgroundColor="#ffc107"
           onChangeTab={this.handleTabChange}

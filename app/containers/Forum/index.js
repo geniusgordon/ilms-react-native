@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { Image, View, Text, ScrollView } from 'react-native';
 import Post from './Post';
 import NoData from '../Course/NoData';
+import Title from '../../components/Title';
+import Padding from '../../components/Padding';
 import FixedActionButton from '../../components/FixedActionButton';
 import { fetchForum } from './actions';
 import { route } from '../App/actions';
@@ -46,10 +48,8 @@ class Forum extends Component {
     const forum = forumCollection[id] || {};
     return (
       <View style={styles.base}>
-        <View style={styles.titleContainer}>
-          <Text style={styles.title}>討論區</Text>
-        </View>
-        <View style={styles.padding} />
+        <Title title="討論區" backgroundColor="#ffc107" />
+        <Padding backgroundColor="#ffc107" />
         <View style={styles.list}>
           <View style={styles.forumTitleContainer}>
             <Text style={styles.forumTitle}>{forum.title}</Text>
