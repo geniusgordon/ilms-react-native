@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import ScrollableTabView, { DefaultTabBar } from 'react-native-scrollable-tab-view';
 import styles from './styles';
 
-const TabView = ({ children, backgroundColor, tabBarStyle }) => (
+const TabView = ({ children, backgroundColor, tabBarStyle, onChangeTab }) => (
   <ScrollableTabView
     tabBarBackgroundColor={backgroundColor}
     tabBarActiveTextColor="rgba(0, 0, 0, 0.5)"
@@ -11,6 +11,7 @@ const TabView = ({ children, backgroundColor, tabBarStyle }) => (
     tabBarUnderlineStyle={styles.tabBarUnderline}
     prerenderingSiblingsNumber={2}
     renderTabBar={() => <DefaultTabBar style={[{ borderWidth: 0 }, tabBarStyle]} />}
+    onChangeTab={onChangeTab}
   >
     {children}
   </ScrollableTabView>
@@ -20,6 +21,7 @@ TabView.propTypes = {
   children: PropTypes.node,
   backgroundColor: PropTypes.string,
   tabBarStyle: View.propTypes.style,
+  onChangeTab: PropTypes.func,
 };
 
 export default TabView;

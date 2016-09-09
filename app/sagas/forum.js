@@ -15,7 +15,6 @@ function* fetchForum({ forumId }) {
     const forum = parseForum(html);
     yield put(fetchForumSuccess(forum));
   } catch (error) {
-    console.log(error);
     ToastAndroid.show('無法載入', ToastAndroid.SHORT);
     yield put(fetchForumFail(error));
   }

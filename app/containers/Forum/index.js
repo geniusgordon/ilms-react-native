@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { Image, View, Text, ScrollView } from 'react-native';
+import { View, Text, ScrollView } from 'react-native';
 import Post from './Post';
 import NoData from '../Course/NoData';
 import { fetchForum } from './actions';
