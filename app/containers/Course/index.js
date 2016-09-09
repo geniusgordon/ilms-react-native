@@ -47,13 +47,19 @@ class Course extends Component {
   handleTabChange = (tab) => {
     this.setState({ fabScale: tab.i === 3 ? 1 : 0 });
   };
+  handleFabPress = () => {
+    this.props.dispatch(route('compose'));
+  };
   itemTypes = ['announcement', 'material', 'assignment', 'forum'];
   renderFixedActionButton = () => {
     if (this.state.fabScale === 0) {
       return null;
     }
     return (
-      <FixedActionButton style={{ backgroundColor: '#f44336' }}>
+      <FixedActionButton
+        style={{ backgroundColor: '#f44336' }}
+        onPress={this.handleFabPress}
+      >
         <Image source={editIcon} style={{ width: 24, height: 24 }} />
       </FixedActionButton>
     );

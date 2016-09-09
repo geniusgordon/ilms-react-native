@@ -28,7 +28,7 @@ const App = () => (
       <Scene key="course" component={Course} {...mainScene} />
       <Scene key="detail" component={Detail} {...detailScene} />
       <Scene key="forum" component={Forum} {...detailScene} />
-      <Scene key="compose" component={Compose} {...detailScene} initial />
+      <Scene key="compose" component={Compose} {...detailScene} />
     </Scene>
   </Router>
 );
