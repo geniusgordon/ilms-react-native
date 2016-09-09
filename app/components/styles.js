@@ -13,7 +13,8 @@ const styles = StyleSheet.create({
   },
   toolbarTitleContainer: {
     height: 56,
-    padding: 16,
+    paddingLeft: 16,
+    paddingRight: 16,
     justifyContent: 'center',
     flex: 1,
   },

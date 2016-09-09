@@ -5,9 +5,11 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   titleContainer: {
-    height: 72,
+    height: 56,
     backgroundColor: '#ffc107',
-    padding: 16,
+    paddingLeft: 16,
+    paddingRight: 16,
+    justifyContent: 'center',
   },
   title: {
     fontSize: 24,

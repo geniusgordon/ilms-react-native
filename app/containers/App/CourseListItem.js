@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
-import { View, Text } from 'react-native';
+import { Image, View, Text } from 'react-native';
 import RippleView from '../../components/RippleView';
+import courseIcon from '../../assets/ic_copyright_black.png';
 import styles from './styles';
 
 class CourseListItem extends Component {
@@ -17,7 +18,14 @@ class CourseListItem extends Component {
     return (
       <RippleView onPress={this.handlePress} darkRipple>
         <View style={styles.courseListItem}>
-          <Text>{course.name}</Text>
+          <Image source={courseIcon} style={styles.courseIcon} />
+          <Text
+            style={styles.courseName}
+            ellipsizeMode="tail"
+            numberOfLines={1}
+          >
+            {course.name}
+          </Text>
         </View>
       </RippleView>
     );

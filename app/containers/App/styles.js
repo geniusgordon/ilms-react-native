@@ -9,7 +9,12 @@ const styles = StyleSheet.create({
   },
   drawerHeader: {
     height: 168,
-    backgroundColor: 'skyblue',
+    alignItems: 'center',
+  },
+  logo: {
+    width: 96,
+    height: 96,
+    marginTop: 16,
   },
   courseList: {
     flex: 1,
@@ -18,15 +23,25 @@ const styles = StyleSheet.create({
   },
   courseListItem: {
     height: 48,
-    justifyContent: 'center',
     paddingLeft: 16,
     paddingRight: 16,
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+  courseIcon: {
+    width: 24,
+    height: 24,
+  },
+  courseName: {
+    flex: 1,
+    paddingLeft: 16,
   },
   logout: {
     height: 48,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#f44336',
+    paddingLeft: 16,
   },
 });
 

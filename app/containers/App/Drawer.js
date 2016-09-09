@@ -1,12 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import {
-  View,
-  Text,
-} from 'react-native';
+import { Image, View, Text } from 'react-native';
 import CourseList from './CourseList';
 import RippleView from '../../components/RippleView';
 import { route } from './actions';
+import logo from '../../assets/iLms.png';
 import styles from './styles';
 
 class Drawer extends Component {
@@ -24,7 +22,9 @@ class Drawer extends Component {
     return (
       <View style={styles.drawer}>
         <RippleView>
-          <View style={styles.drawerHeader} />
+          <View style={styles.drawerHeader}>
+            <Image source={logo} style={styles.logo} />
+          </View>
         </RippleView>
         <CourseList
           courseList={courseList}
