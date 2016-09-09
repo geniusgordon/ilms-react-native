@@ -16,13 +16,22 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   padding: {
-    height: 72,
+    height: 56,
     backgroundColor: '#ffc107',
+    marginBottom: -50,
+  },
+  forumTitleContainer: {
+    margin: 8,
+    padding: 16,
+    backgroundColor: 'white',
+    elevation: 2,
+  },
+  forumTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
   },
   list: {
-    transform: [{
-      translateY: -60,
-    }],
+    flex: 1,
   },
   post: {
     margin: 8,

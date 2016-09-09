@@ -194,3 +194,20 @@ export function parseItemDetail(itemType, html) {
   return {};
 }
 
+export function parseForum(html) {
+  const res = JSON.parse(html).posts;
+  return {
+    id: res.id,
+    title: res.title,
+    count: res.replyUsers,
+    posts: res.items.map((item) => ({
+      id: item.id,
+      name: item.name,
+      account: item.account,
+      email: item.email,
+      date: item.date,
+      content: item.note,
+    })),
+  };
+}
+

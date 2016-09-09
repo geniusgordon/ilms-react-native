@@ -3,6 +3,7 @@ import {
   FETCH_ITEM_LIST_SUCCESS,
   FETCH_ITEM_DETAIL_SUCCESS,
 } from '../actions/actionTypes';
+import { FETCH_FORUM_SUCCESS } from '../../Forum/actionTypes';
 
 const initalState = {
   announcement: {},
@@ -33,6 +34,13 @@ const reducer = handleActions({
         ...state[itemType][itemId],
         ...item,
       },
+    },
+  }),
+  [FETCH_FORUM_SUCCESS]: (state, { forum }) => ({
+    ...state,
+    forum: {
+      ...state.forum,
+      [forum.id]: forum,
     },
   }),
 }, initalState);

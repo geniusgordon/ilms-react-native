@@ -18,11 +18,7 @@ const styles = StyleSheet.create({
   padding: {
     height: 56,
     backgroundColor: '#ffc107',
-  },
-  list: {
-    transform: [{
-      translateY: -50,
-    }],
+    marginBottom: -50,
   },
   listItem: {
     flex: 1,
@@ -52,13 +48,6 @@ const styles = StyleSheet.create({
   },
   listItemTitle: {
     fontWeight: 'bold',
-  },
-  listItemSubtitle: {
-  },
-  detailContainer: {
-    transform: [{
-      translateY: -50,
-    }],
   },
   detailInfo: {
     margin: 8,

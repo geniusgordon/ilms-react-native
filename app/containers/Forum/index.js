@@ -1,38 +1,58 @@
-import React from 'react';
-import { Image, View, Text } from 'react-native';
-import accountIcon from '../../assets/ic_account_circle_black.png';
+import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { Image, View, Text, ScrollView } from 'react-native';
+import Post from './Post';
+import NoData from '../Course/NoData';
+import { fetchForum } from './actions';
 import styles from './styles';
 
-const Forum = () => (
-  <View style={styles.base}>
-    <View style={styles.titleContainer}>
-      <Text style={styles.title}>討論區</Text>
-    </View>
-    <View style={styles.padding} />
-    <View style={styles.list}>
-      <View style={styles.post}>
-        <View style={styles.postInfo}>
-          <View style={styles.postIconContainer}>
-            <Image style={styles.postIcon} source={accountIcon} />
-          </View>
-          <View style={styles.postInfoContent}>
-            <View style={styles.postInfoFirstLine}>
-              <Text style={styles.postInfoName}>翁子皓</Text>
-              <Text style={styles.postInfoId}>(102062312)</Text>
-            </View>
-            <Text style={styles.postInfoEmail}>geniusgordon@gmail.com</Text>
-            <Text style={styles.postInfoTime}>2016-09-09 10:58</Text>
-          </View>
+class Forum extends Component {
+  static propTypes = {
+    id: PropTypes.string,
+    forumCollection: PropTypes.object,
+    dispatch: PropTypes.func,
+  };
+  componentDidMount() {
+    const { id, dispatch } = this.props;
+    dispatch(fetchForum(id));
+  }
+  renderList = () => {
+    const { id, forumCollection } = this.props;
+    const forum = forumCollection[id];
+    if (!forum) {
+      return <NoData />;
+    }
+    return forum.posts.map((post) => (
+      <Post key={post.id} post={post} />
+    ));
+  };
+  render() {
+    const { id, forumCollection } = this.props;
+    const forum = forumCollection[id] || {};
+    return (
+      <View style={styles.base}>
+        <View style={styles.titleContainer}>
+          <Text style={styles.title}>討論區</Text>
         </View>
-        <View style={styles.postContentContainer}>
-          <Text style={styles.postContent}>
-            AAAAAAAA
-          </Text>
+        <View style={styles.padding} />
+        <View style={styles.list}>
+          <View style={styles.forumTitleContainer}>
+            <Text style={styles.forumTitle}>{forum.title}</Text>
+          </View>
+          <ScrollView>
+            <View>
+              {this.renderList()}
+            </View>
+          </ScrollView>
         </View>
       </View>
-    </View>
-  </View>
-);
+    );
+  }
+}
 
-export default Forum;
+const mapStateToProps = (state) => ({
+  forumCollection: state.course.itemsById.forum,
+});
+
+export default connect(mapStateToProps)(Forum);
 

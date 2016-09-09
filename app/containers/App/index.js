@@ -13,7 +13,7 @@ const App = () => (
       <Scene key="login" component={Login} direction="vertical" hideNavBar />
       <Scene key="course" component={Course} direction="vertical" hideNavBar />
       <Scene key="detail" component={Detail} direction="vertical" hideNavBar />
-      <Scene key="forum" component={Forum} direction="vertical" hideNavBar initial />
+      <Scene key="forum" component={Forum} direction="vertical" hideNavBar/>
     </Scene>
   </Router>
 );
