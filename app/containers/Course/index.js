@@ -42,13 +42,22 @@ class Course extends Component {
     }));
   };
   handleForumPress = (itemType, itemId) => {
-    this.props.dispatch(route('forum', { id: itemId }));
+    const { id, dispatch } = this.props;
+    dispatch(route('forum', {
+      id: itemId,
+      courseId: id,
+    }));
   };
   handleTabChange = (tab) => {
     this.setState({ fabScale: tab.i === 3 ? 1 : 0 });
   };
   handleFabPress = () => {
-    this.props.dispatch(route('compose'));
+    const { id, dispatch } = this.props;
+    dispatch(route('compose', {
+      action: 'post',
+      courseId: id,
+      postId: 0,
+    }));
   };
   itemTypes = ['announcement', 'material', 'assignment', 'forum'];
   renderFixedActionButton = () => {

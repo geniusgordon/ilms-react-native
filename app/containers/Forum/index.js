@@ -1,14 +1,18 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { View, Text, ScrollView } from 'react-native';
+import { Image, View, Text, ScrollView } from 'react-native';
 import Post from './Post';
 import NoData from '../Course/NoData';
+import FixedActionButton from '../../components/FixedActionButton';
 import { fetchForum } from './actions';
+import { route } from '../App/actions';
+import editIcon from '../../assets/ic_edit_white.png';
 import styles from './styles';
 
 class Forum extends Component {
   static propTypes = {
     id: PropTypes.string,
+    courseId: PropTypes.string,
     forumCollection: PropTypes.object,
     dispatch: PropTypes.func,
   };
@@ -16,6 +20,16 @@ class Forum extends Component {
     const { id, dispatch } = this.props;
     dispatch(fetchForum(id));
   }
+  handleFabPress = () => {
+    const { id, courseId, forumCollection, dispatch } = this.props;
+    const forum = forumCollection[id] || {};
+    dispatch(route('compose', {
+      action: 'reply',
+      title: forum.title,
+      courseId: courseId,
+      postId: id,
+    }));
+  };
   renderList = () => {
     const { id, forumCollection } = this.props;
     const forum = forumCollection[id] || {};
@@ -46,6 +60,12 @@ class Forum extends Component {
             </View>
           </ScrollView>
         </View>
+        <FixedActionButton
+          style={{ backgroundColor: '#f44336' }}
+          onPress={this.handleFabPress}
+        >
+          <Image source={editIcon} style={{ width: 24, height: 24 }} />
+        </FixedActionButton>
       </View>
     );
   }

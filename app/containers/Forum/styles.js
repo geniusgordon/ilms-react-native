@@ -75,6 +75,12 @@ const styles = StyleSheet.create({
   titleInput: {
     fontSize: 20,
   },
+  titleInputText: {
+    fontSize: 20,
+    color: 'black',
+    paddingTop: 16,
+    paddingBottom: 16,
+  },
   inputContainer: {
     paddingLeft: 16,
     paddingRight: 16,
