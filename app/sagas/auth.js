@@ -3,6 +3,7 @@ import { call, fork, put, take } from 'redux-saga/effects';
 import { ToastAndroid } from 'react-native';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import api from '../utils/api';
+import { parseProfile } from '../utils/parser';
 import {
   CHECK_LOGIN,
   LOGIN,
@@ -12,17 +13,20 @@ import {
   loginSuccess,
   loginFail,
   loginError,
+  fetchProfileSuccess,
 } from '../containers/Auth/actions';
 import { fetchCourseList } from '../containers/Course/actions/courseList';
 
 function* checkLogin() {
-  const home = yield call(api.get, '/home.php');
+  const home = yield call(api.get, '/home/profile.php');
   if (home.indexOf('權限不足') !== -1) {
     ToastAndroid.show('尚未登入', ToastAndroid.SHORT);
     Actions.login({ type: ActionConst.REPLACE });
-  } else {
-    yield put(fetchCourseList());
+    return;
   }
+  const user = parseProfile(home);
+  yield put(fetchProfileSuccess(user));
+  yield put(fetchCourseList());
 }
 
 function* watchCheckLogin() {

@@ -12,6 +12,13 @@ function parseDate(dateStr) {
   };
 }
 
+export function parseProfile(html) {
+  const root = HTMLParser.parse(html);
+  const name = root.querySelector('#fmName').attributes.value;
+  const email = root.querySelector('#fmEmail').attributes.value;
+  return { name, email };
+}
+
 export function parseCourseList(html) {
   const root = HTMLParser.parse(html);
   const mnuItems = root.querySelectorAll('.mnuItem a');

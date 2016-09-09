@@ -2,8 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import {
-  Image,
-  Switch,
   ToolbarAndroid,
   Text,
   TextInput,
@@ -15,19 +13,30 @@ import sendIcon from '../../assets/ic_send_black.png';
 import styles from './styles';
 
 class Compose extends Component {
+  static propTypes = {
+    title: PropTypes.string,
+    username: PropTypes.string,
+    action: PropTypes.string,
+    courseId: PropTypes.string,
+    postId: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]),
+    dispatch: PropTypes.func,
+  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      title: props.title || '',
+      name: props.username || '',
+      content: '',
+    };
+  }
   actions = [{
     title: 'send',
     icon: sendIcon,
     show: 'always',
   }];
-  constructor(props) {
-    super(props);
-    this.state = {
-      title: props.title || '',
-      name: '',
-      content: '',
-    };
-  }
   handleTitleChange = (title) => {
     this.setState({ title });
   };
@@ -40,7 +49,7 @@ class Compose extends Component {
   handleSubmit = () => {
     const { action, courseId, postId, dispatch } = this.props;
     const { title, name, content } = this.state;
-    if (title.trim() === '' || name.trim() === '', content.trim() === '') {
+    if (title.trim() === '' || name.trim() === '' || content.trim() === '') {
       return;
     }
     dispatch(sendPost(action, courseId, postId, this.state));
@@ -56,7 +65,7 @@ class Compose extends Component {
     return (
       <TextInput
         style={styles.titleInput}
-        placeholder="標題" 
+        placeholder="標題"
         underlineColorAndroid="rgba(0, 0, 0, 0)"
         onChangeText={this.handleTitleChange}
       />
@@ -64,6 +73,7 @@ class Compose extends Component {
   };
   render() {
     const { action } = this.props;
+    const { name } = this.state;
     const title = action === 'reply' ? '回覆' : '發表討論';
     return (
       <View style={styles.base}>
@@ -80,12 +90,13 @@ class Compose extends Component {
           {this.renderTitle()}
           <TextInput
             placeholder="暱稱"
+            defaultValue={name}
             underlineColorAndroid="rgba(0, 0, 0, 0)"
             onChangeText={this.handleNameChange}
           />
         </View>
         <View style={[styles.inputContainer, styles.contentInputContainer]}>
-          <TextInput 
+          <TextInput
             style={styles.contentInput}
             placeholder="內容"
             underlineColorAndroid="rgba(0, 0, 0, 0)"
@@ -98,5 +109,9 @@ class Compose extends Component {
   }
 }
 
-export default connect()(Compose);
+const mapStateToProps = (state) => ({
+  username: state.auth.name,
+});
+
+export default connect(mapStateToProps)(Compose);
 

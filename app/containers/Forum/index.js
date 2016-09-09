@@ -26,7 +26,7 @@ class Forum extends Component {
     dispatch(route('compose', {
       action: 'reply',
       title: forum.title,
-      courseId: courseId,
+      courseId,
       postId: id,
     }));
   };

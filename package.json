@@ -44,7 +44,8 @@
       ]
     },
     "globals": {
-      "fetch": false
+      "fetch": false,
+      "FormData": false
     }
   }
 }
