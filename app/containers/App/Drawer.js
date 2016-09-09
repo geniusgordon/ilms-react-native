@@ -12,10 +12,12 @@ import styles from './styles';
 class Drawer extends Component {
   static propTypes = {
     courseList: PropTypes.array,
+    onItemClick: PropTypes.func,
     dispatch: PropTypes.func,
   };
   handleCoursePress = (id) => {
     this.props.dispatch(route('course', { id }));
+    this.props.onItemClick();
   };
   render() {
     const { courseList } = this.props;
