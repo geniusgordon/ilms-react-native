@@ -18,12 +18,19 @@ const styles = StyleSheet.create({
     flex: 2,
     padding: 24,
   },
+  inputContainer: {
+    paddingLeft: 16,
+    paddingRight: 16,
+    backgroundColor: 'white',
+    elevation: 2,
+  },
   button: {
     height: 48,
     backgroundColor: '#ef5350',
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 12,
+    elevation: 2,
   },
 });
 

@@ -4,6 +4,7 @@ import { Image, View, Text } from 'react-native';
 import CourseList from './CourseList';
 import RippleView from '../../components/RippleView';
 import { route } from './actions';
+import { logout } from '../Auth/actions';
 import logo from '../../assets/iLms.png';
 import styles from './styles';
 
@@ -16,6 +17,9 @@ class Drawer extends Component {
   handleCoursePress = (id) => {
     this.props.dispatch(route('course', { id }));
     this.props.onItemClick();
+  };
+  handleLogout = () => {
+    this.props.dispatch(logout());
   };
   render() {
     const { courseList } = this.props;
@@ -30,7 +34,7 @@ class Drawer extends Component {
           courseList={courseList}
           onCoursePress={this.handleCoursePress}
         />
-        <RippleView>
+        <RippleView onPress={this.handleLogout}>
           <View style={styles.logout}>
             <Text>登出</Text>
           </View>

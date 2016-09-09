@@ -39,17 +39,23 @@ class Auth extends Component {
           <Image source={logo} style={styles.logo} />
         </View>
         <View style={styles.formContainer}>
-          <TextInput
-            placeholder="Account"
-            value={this.account}
-            onChangeText={this.handleAccountChange}
-          />
-          <TextInput
-            placeholder="Password"
-            value={this.password}
-            onChangeText={this.handlePasswordChange}
-            secureTextEntry
-          />
+          <View style={styles.inputContainer}>
+            <TextInput
+              style={styles.input}
+              placeholder="Account"
+              value={this.account}
+              underlineColorAndroid="rgba(0, 0, 0, 0)"
+              onChangeText={this.handleAccountChange}
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Password"
+              value={this.password}
+              underlineColorAndroid="rgba(0, 0, 0, 0)"
+              onChangeText={this.handlePasswordChange}
+              secureTextEntry
+            />
+          </View>
           <RippleView onPress={this.handleSubmit}>
             <View style={styles.button} elevation={1}>
               <Text>Log In</Text>
