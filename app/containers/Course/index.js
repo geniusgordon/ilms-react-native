@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
+import Toolbar from '../../components/Toolbar';
 import TabView from '../../components/TabView';
 import List from './List';
 import { fetchItemList } from './actions/itemList';
@@ -40,15 +41,7 @@ class Course extends Component {
     const name = course.name;
     return (
       <View style={styles.base}>
-        <View style={styles.titleContainer}>
-          <Text
-            style={styles.title}
-            ellipsizeMode="tail"
-            numberOfLines={1}
-          >
-            {name}
-          </Text>
-        </View>
+        <Toolbar title={name} backgroundColor="#ffc107" />
         <TabView backgroundColor="#ffc107">
           <List
             tabLabel="公告"

@@ -1,43 +1,39 @@
 import React, { Component, PropTypes } from 'react';
-import {
-  DrawerLayoutAndroid,
-  ToolbarAndroid,
-} from 'react-native';
+import { DrawerLayoutAndroid } from 'react-native';
 import Drawer from './Drawer';
-import styles from './styles';
-import menuIcon from '../../assets/ic_menu_black.png';
+import Toolbar from '../../components/Toolbar';
 
-class App extends Component {
+class AndroidBase extends Component {
   static propTypes = {
+    title: PropTypes.string,
+    toolbarBackgroundColor: PropTypes.string,
     children: PropTypes.node,
   };
   handleIconClick = () => {
     this.openDrawer();
   };
-  openDrawerRef = (ref) => {
+  drawerRef = (ref) => {
     if (ref) {
       this.openDrawer = ref.openDrawer;
+      this.closeDrawer = ref.closeDrawer;
     }
   };
   renderNavigationView() {
-    return <Drawer />;
+    return <Drawer />
   }
   render() {
-    const { children } = this.props;
+    const { title, toolbarBackgroundColor, children } = this.props;
     return (
       <DrawerLayoutAndroid
         drawerWidth={300}
         drawerPosition={DrawerLayoutAndroid.positions.left}
         renderNavigationView={this.renderNavigationView}
-        ref={this.openDrawerRef}
+        ref={this.drawerRef}
       >
-        <ToolbarAndroid
-          title="iLms"
-          titleColor="white"
-          navIcon={menuIcon}
+        <Toolbar
+          title={title}
+          backgroundColor={toolbarBackgroundColor}
           onIconClicked={this.handleIconClick}
-          style={styles.toolbar}
-          elevation={5}
         />
         {children}
       </DrawerLayoutAndroid>
@@ -45,5 +41,5 @@ class App extends Component {
   }
 }
 
-export default App;
+export default AndroidBase;
 
