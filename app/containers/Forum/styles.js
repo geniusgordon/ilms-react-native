@@ -72,6 +72,20 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 16,
   },
+  titleInput: {
+    fontSize: 20,
+  },
+  inputContainer: {
+    paddingLeft: 16,
+    paddingRight: 16,
+  },
+  contentInputContainer: {
+    flex: 1,
+  },
+  contentInput: {
+    flex: 1,
+    textAlignVertical: 'top',
+  },
 });
 
 export default styles;

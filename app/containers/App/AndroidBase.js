@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
-import { DrawerLayoutAndroid } from 'react-native';
+import { DrawerLayoutAndroid, ToolbarAndroid } from 'react-native';
 import Drawer from './Drawer';
-import Toolbar from '../../components/Toolbar';
+import menuIcon from '../../assets/ic_menu_black.png';
 
 class AndroidBase extends Component {
   static propTypes = {
@@ -31,9 +31,10 @@ class AndroidBase extends Component {
         renderNavigationView={renderDrawer}
         ref={this.drawerRef}
       >
-        <Toolbar
+        <ToolbarAndroid
           title={title}
-          backgroundColor={toolbarBackgroundColor}
+          navIcon={menuIcon}
+          style={{ height: 56, backgroundColor: toolbarBackgroundColor }}
           onIconClicked={this.handleIconClick}
         />
         {children}

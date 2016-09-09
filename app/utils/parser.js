@@ -199,7 +199,7 @@ export function parseForum(html) {
   return {
     id: res.id,
     title: res.title,
-    count: res.replyUsers,
+    count: res.items.length - 1,
     posts: res.items.map((item) => ({
       id: item.id,
       name: item.name,

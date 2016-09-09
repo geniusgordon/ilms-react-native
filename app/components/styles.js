@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
   fixedActionButton: {
     position: 'absolute',
     right: 24,
-    bottom: 48,
+    bottom: 24,
     width: 56,
     height: 56,
     borderRadius: 28,

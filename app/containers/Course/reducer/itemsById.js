@@ -40,7 +40,10 @@ const reducer = handleActions({
     ...state,
     forum: {
       ...state.forum,
-      [forum.id]: forum,
+      [forum.id]: {
+        ...state.forum[forum.id],
+        ...forum,
+      },
     },
   }),
 }, initalState);

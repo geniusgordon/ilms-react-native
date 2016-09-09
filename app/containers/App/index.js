@@ -5,6 +5,7 @@ import Login from '../Auth';
 import Course from '../Course';
 import Detail from '../Course/Detail';
 import Forum from '../Forum';
+import Compose from '../Forum/Compose';
 
 const mainScene = {
   duration: 100,
@@ -27,6 +28,7 @@ const App = () => (
       <Scene key="course" component={Course} {...mainScene} />
       <Scene key="detail" component={Detail} {...detailScene} />
       <Scene key="forum" component={Forum} {...detailScene} />
+      <Scene key="compose" component={Compose} {...detailScene} initial />
     </Scene>
   </Router>
 );
