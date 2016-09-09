@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { View } from 'react-native';
-import Toolbar from '../../components/Toolbar';
+import Base from '../App/Base';
 import TabView from '../../components/TabView';
 import List from './List';
 import { fetchItemList } from './actions/itemList';
@@ -40,8 +40,7 @@ class Course extends Component {
     const course = courseCollection.courseById[id] || {};
     const name = course.name;
     return (
-      <View style={styles.base}>
-        <Toolbar title={name} backgroundColor="#ffc107" />
+      <Base title={name} toolbarBackgroundColor="#ffc107">
         <TabView backgroundColor="#ffc107">
           <List
             tabLabel="公告"
@@ -62,7 +61,7 @@ class Course extends Component {
             onItemPress={this.handleItemPress}
           />
         </TabView>
-      </View>
+      </Base>
     );
   }
 }
