@@ -51,6 +51,7 @@ const styles = StyleSheet.create({
   },
   detailContent: {
     margin: 8,
+    minHeight: 150,
     padding: 16,
     backgroundColor: 'white',
     elevation: 2,

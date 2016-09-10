@@ -47,7 +47,6 @@ function* sendPost(store, { action, courseId, postId, post }) {
       MAX_FILE_SIZE: '104857600',
       hint: '0',
     });
-    console.log(action);
     if (action === 'reply') {
       yield call(fetchForum, { forumId: postId });
     } else {

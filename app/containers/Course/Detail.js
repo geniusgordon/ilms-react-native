@@ -1,6 +1,13 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { ScrollView, StatusBar, Text, View } from 'react-native';
+import {
+  Linking,
+  ScrollView,
+  StatusBar,
+  Text,
+  View,
+} from 'react-native';
+import HTMLView from 'react-native-htmlview';
 import Attachment from './Attachment';
 import Title from '../../components/Title';
 import Padding from '../../components/Padding';
@@ -60,7 +67,10 @@ class Detail extends Component {
         <ScrollView>
           <View style={styles.detailContainer}>
             <View style={styles.detailContent}>
-              <Text>{item.content}</Text>
+              <HTMLView
+                value={item.content}
+                onLinkPress={(url) => Linking.openURL(url)}
+              />
             </View>
             {this.renderAttachments()}
           </View>
