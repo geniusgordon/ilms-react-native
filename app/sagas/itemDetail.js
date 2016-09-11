@@ -59,10 +59,13 @@ function* downloadAttachment({ attachment }) {
   const path = `/sys/read_attach.php?id=${attachment.id}`;
   const url = `${baseUrl}${path}`;
   const cookie = yield call(api.getCookie);
-  RNFetchBlob.fetch('GET', url, { cookie })
-  .progress((received, total) => {
-  })
-  .then((res) => {});
+  RNFetchBlob.config({
+    addAndroidDownloads : {
+      useDownloadManager: true,
+      title: attachment.name,
+      mime : 'text/plain',
+    },
+  }).fetch('GET', url, { cookie });
 }
 
 function* watchDownloadAttachment() {
