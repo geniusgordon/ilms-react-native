@@ -31,12 +31,14 @@ class List extends Component {
   };
   render() {
     return (
-      <ScrollView>
-        <Padding backgroundColor="#ffc107" />
-        <View style={styles.list}>
-          {this.renderList()}
-        </View>
-      </ScrollView>
+      <View style={styles.base}>
+        <ScrollView>
+          <Padding backgroundColor="#ffc107" />
+          <View style={styles.list}>
+            {this.renderList()}
+          </View>
+        </ScrollView>
+      </View>
     );
   }
 }

@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Linking } from 'react-native';
 import { Router, Scene } from 'react-native-router-flux';
+import RNFetchBlob from 'react-native-fetch-blob';
 import Home from '../Home';
 import Login from '../Auth';
 import Course from '../Course';

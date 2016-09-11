@@ -15,14 +15,25 @@ function get(path, qs) {
 }
 
 function post(path, data) {
+  const formData = new FormData();
+  formData.append('QQ', 'QQ');
+  if (data) {
+    Object.keys(data).forEach((key) => {
+      formData.append(key, data[key]);
+    });
+  }
   return fetch(`${BASE_URL}${path}`, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-    },
-    body: toQueryString(data),
+    // headers: {
+    //   'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+    // },
+    // body: toQueryString(data),
+    body: formData,
   })
-  .then((res) => res.text());
+    .then((res) => {
+      console.log(res.headers);
+      return res.text();
+    });
 }
 
 function postMultipart(path, data) {
