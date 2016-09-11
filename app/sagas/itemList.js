@@ -21,16 +21,17 @@ const itemUrlParams = {
 
 function* fetchItemList({ courseId, itemType }) {
   try {
-    const html = yield call(api.get, '/course.php', {
+    const res = yield call(api.get, '/course.php', {
       courseID: courseId,
       f: itemUrlParams[itemType],
     });
+    const html = yield res.text();
     const courseName = parseCourseName(html);
     const itemList = parseItemList(itemType, html);
     yield put(fetchItemListSuccess(courseId, courseName, itemType, itemList));
   } catch (error) {
     ToastAndroid.show('無法載入課程', ToastAndroid.SHORT);
-    yield put(fetchItemListFail(courseId, itemType, error));
+    yield put(fetchItemListFail(courseId, itemType, error.message));
   }
 }
 

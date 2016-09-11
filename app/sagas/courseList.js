@@ -11,12 +11,13 @@ import {
 
 function* fetchCourseList() {
   try {
-    const html = yield call(api.get, '/home.php');
+    const res = yield call(api.get, '/home.php');
+    const html = yield res.text();
     const courseList = parseCourseList(html);
     yield put(fetchCourseListSuccess(courseList));
   } catch (error) {
     ToastAndroid.show('無法取得課程列表', ToastAndroid.SHORT);
-    yield put(fetchCourseListFail(error));
+    yield put(fetchCourseListFail(error.message));
   }
 }
 

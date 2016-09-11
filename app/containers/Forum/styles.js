@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     paddingRight: 8,
   },
-  postContent: {
+  postContentContainer: {
     flex: 1,
     padding: 16,
   },

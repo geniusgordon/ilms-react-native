@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
-import { Image, Text, View } from 'react-native';
+import { Linking, Image, Text, View } from 'react-native';
+import HTMLView from 'react-native-htmlview';
 import accountIcon from '../../assets/ic_account_circle_black.png';
 import styles from './styles';
 
@@ -19,9 +20,10 @@ const Post = ({ post }) => (
       </View>
     </View>
     <View style={styles.postContentContainer}>
-      <Text style={styles.postContent}>
-        {post.content}
-      </Text>
+      <HTMLView
+        value={post.content}
+        onLinkPress={(url) => Linking.openURL(url)}
+      />
     </View>
   </View>
 );

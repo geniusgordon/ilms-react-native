@@ -7,6 +7,7 @@ import courseListSaga from './courseList';
 import itemListSaga from './itemList';
 import itemDetailSaga from './itemDetail';
 import forumSaga from './forum';
+import deepLinkSaga from './deepLink';
 
 function route({ key, params }) {
   if (Actions[key]) {
@@ -25,5 +26,6 @@ export default function* rootSaga(store) {
   yield fork(itemListSaga);
   yield fork(itemDetailSaga);
   yield fork(forumSaga, store);
+  yield fork(deepLinkSaga);
 }
 

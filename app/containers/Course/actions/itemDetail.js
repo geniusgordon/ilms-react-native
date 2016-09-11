@@ -2,6 +2,8 @@ import {
   FETCH_ITEM_DETAIL,
   FETCH_ITEM_DETAIL_SUCCESS,
   FETCH_ITEM_DETAIL_FAIL,
+  DOWNLOAD_ATTACHMENT,
+  DOWNLOAD_ATTACHMENT_SUCCESS,
 } from './actionTypes';
 
 export const fetchItemDetail = (courseId, itemType, itemId) => ({
@@ -23,5 +25,15 @@ export const fetchItemDetailFail = (itemType, itemId, error) => ({
   itemType,
   itemId,
   error,
+});
+
+export const downloadAttachment = (attachment) => ({
+  type: DOWNLOAD_ATTACHMENT,
+  attachment,
+});
+
+export const downloadAttachmentSuccess = (attachment) => ({
+  type: DOWNLOAD_ATTACHMENT_SUCCESS,
+  attachment,
 });
 
