@@ -16,12 +16,13 @@ import { fetchItemList } from '../containers/Course/actions/itemList';
 
 function* fetchForum({ forumId }) {
   try {
-    const html = yield call(api.post, '/sys/lib/ajax/post.php', { id: forumId });
-    const forum = parseForum(html);
+    const res = yield call(api.post, '/sys/lib/ajax/post.php', { id: forumId });
+    const json = yield res.json();
+    const forum = parseForum(json.posts);
     yield put(fetchForumSuccess(forum));
   } catch (error) {
     ToastAndroid.show('無法載入', ToastAndroid.SHORT);
-    yield put(fetchForumFail(error));
+    yield put(fetchForumFail(error.message));
   }
 }
 

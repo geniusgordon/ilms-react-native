@@ -21,10 +21,11 @@ const itemUrlParams = {
 
 function* fetchItemList({ courseId, itemType }) {
   try {
-    const html = yield call(api.get, '/course.php', {
+    const res = yield call(api.get, '/course.php', {
       courseID: courseId,
       f: itemUrlParams[itemType],
     });
+    const html = yield res.text();
     const courseName = parseCourseName(html);
     const itemList = parseItemList(itemType, html);
     yield put(fetchItemListSuccess(courseId, courseName, itemType, itemList));

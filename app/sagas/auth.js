@@ -18,7 +18,8 @@ import {
 import { fetchCourseList } from '../containers/Course/actions/courseList';
 
 function* checkLogin() {
-  const home = yield call(api.get, '/home/profile.php');
+  const res = yield call(api.get, '/home/profile.php');
+  const home = yield res.text();
   if (home.indexOf('權限不足') !== -1) {
     ToastAndroid.show('尚未登入', ToastAndroid.SHORT);
     Actions.login({ type: ActionConst.REPLACE });
@@ -41,8 +42,8 @@ function* login({ account, password }) {
       secCode: 'na',
       stay: 1,
     };
-    const result = yield call(api.post, '/sys/lib/ajax/login_submit.php', data);
-    const { ret } = JSON.parse(result);
+    const res = yield call(api.post, '/sys/lib/ajax/login_submit.php', data);
+    const { ret } = yield res.json();
     if (ret.status === 'true') {
       yield put(loginSuccess(ret.email));
       Actions.home({ type: ActionConst.REPLACE });

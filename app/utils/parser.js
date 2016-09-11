@@ -201,13 +201,12 @@ export function parseItemDetail(itemType, html) {
   return {};
 }
 
-export function parseForum(html) {
-  const res = JSON.parse(html).posts;
+export function parseForum(posts) {
   return {
-    id: res.id,
-    title: res.title,
-    count: res.items.length - 1,
-    posts: res.items.map((item) => ({
+    id: posts.id,
+    title: posts.title,
+    count: posts.items.length - 1,
+    posts: posts.items.map((item) => ({
       id: item.id,
       name: item.name,
       account: item.account,

@@ -6,7 +6,6 @@ import { DEEP_LINK } from '../containers/App/actionTypes';
 import { route } from '../containers/App/actions';
 
 function* course(urlObject) {
-  console.log('course:', urlObject);
   if (urlObject.pathname.match(/\/course\/(\d+)/)) {
     yield put(route('course', {
       id: urlObject.pathname.match(/\/course\/(\d+)/)[1],
@@ -41,7 +40,8 @@ function* detail(urlObject) {
     material: ['doc'],
   };
   const courseId = urlObject.query.courseID;
-  let itemType, itemId;
+  let itemType;
+  let itemId;
   if (f.assignment.indexOf(urlObject.query.f) !== -1) {
     itemType = 'assignment';
     itemId = urlObject.query.hw;
@@ -88,7 +88,7 @@ function* watchDeepLink() {
   yield* takeEvery(DEEP_LINK, deepLink);
 }
 
-export default function* deepLinkSaga(store) {
+export default function* deepLinkSaga() {
   yield fork(watchDeepLink);
 }
 

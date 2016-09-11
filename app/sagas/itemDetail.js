@@ -36,7 +36,8 @@ const fetchItemFunc = {
 
 function* fetchItemDetail({ courseId, itemType, itemId }) {
   try {
-    const html = yield call(fetchItemFunc[itemType], courseId, itemId);
+    const res = yield call(fetchItemFunc[itemType], courseId, itemId);
+    const html = yield res.text();
     const item = parseItemDetail(itemType, html);
     yield put(fetchItemDetailSuccess(itemType, itemId, item));
   } catch (error) {
