@@ -1,11 +1,15 @@
 import { takeEvery } from 'redux-saga';
 import { call, fork, put } from 'redux-saga/effects';
 import { ToastAndroid } from 'react-native';
+import RNFetchBlob from 'react-native-fetch-blob';
 import api from '../utils/api';
 import {
   parseItemDetail,
 } from '../utils/parser';
-import { FETCH_ITEM_DETAIL } from '../containers/Course/actions/actionTypes';
+import {
+  FETCH_ITEM_DETAIL,
+  DOWNLOAD_ATTACHMENT,
+} from '../containers/Course/actions/actionTypes';
 import {
   fetchItemDetailSuccess,
   fetchItemDetailFail,
@@ -50,7 +54,23 @@ function* watchFetchItemDetail() {
   yield* takeEvery(FETCH_ITEM_DETAIL, fetchItemDetail);
 }
 
+function* downloadAttachment({ attachment }) {
+  const baseUrl = 'http://lms.nthu.edu.tw';
+  const path = `/sys/read_attach.php?id=${attachment.id}`;
+  const url = `${baseUrl}${path}`;
+  const cookie = yield call(api.getCookie);
+  RNFetchBlob.fetch('GET', url, { cookie })
+  .progress((received, total) => {
+  })
+  .then((res) => {});
+}
+
+function* watchDownloadAttachment() {
+  yield* takeEvery(DOWNLOAD_ATTACHMENT, downloadAttachment);
+}
+
 export default function* itemDetailSaga() {
   yield fork(watchFetchItemDetail);
+  yield fork(watchDownloadAttachment);
 }
 

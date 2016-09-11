@@ -19,17 +19,15 @@ import {
 import { fetchCourseList } from '../containers/Course/actions/courseList';
 
 function* checkLogin() {
-  const cookie = yield AsyncStorage.getItem('cookie');
-  const res = yield call(api.get, '/home/profile.php');
-  const home = yield res.text();
-  if (!cookie || home.indexOf('權限不足') !== -1) {
+  const { isLogin, html } = yield call(api.checkLogin);
+  if (!isLogin) {
     ToastAndroid.show('尚未登入', ToastAndroid.SHORT);
     Actions.login({ type: ActionConst.REPLACE });
     return;
   }
-  yield put(checkLoginSuccess(cookie));
+  yield put(checkLoginSuccess());
 
-  const user = parseProfile(home);
+  const user = parseProfile(html);
   yield put(fetchProfileSuccess(user));
   yield put(fetchCourseList());
 }
@@ -49,16 +47,12 @@ function* login({ account, password }) {
     const res = yield call(api.post, '/sys/lib/ajax/login_submit.php', data);
     const { ret } = yield res.json();
     if (ret.status === 'true') {
-      const cookie = res.headers.map['set-cookie'][0];
       yield put(loginSuccess({
         email: ret.email,
-        cookie,
       }));
-      yield AsyncStorage.setItem('cookie', cookie);
       Actions.home({ type: ActionConst.REPLACE });
 
       yield take(LOGOUT);
-      yield AsyncStorage.removeItem('cookie');
     } else {
       ToastAndroid.show(ret.msg, ToastAndroid.SHORT);
       yield put(loginFail(ret.msg));

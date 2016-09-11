@@ -8,18 +8,12 @@ import {
 const initalState = {
   name: null,
   email: null,
-  cookie: null,
 };
 
 const reducer = handleActions({
-  [LOGIN_SUCCESS]: (state, { email, cookie }) => ({
+  [LOGIN_SUCCESS]: (state, { email }) => ({
     ...state,
     email,
-    cookie,
-  }),
-  [CHECK_LOGIN_SUCCESS]: (state, { cookie }) => ({
-    ...state,
-    cookie,
   }),
   [FETCH_PROFILE_SUCCESS]: (state, { name, email }) => ({
     ...state,

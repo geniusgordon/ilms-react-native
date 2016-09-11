@@ -13,9 +13,8 @@ import {
 
 export const checkLogin = () => ({ type: CHECK_LOGIN });
 
-export const checkLoginSuccess = (cookie) => ({
+export const checkLoginSuccess = () => ({
   type: CHECK_LOGIN_SUCCESS,
-  cookie,
 });
 
 export const login = (account, password) => ({
@@ -24,10 +23,9 @@ export const login = (account, password) => ({
   password,
 });
 
-export const loginSuccess = ({ email, cookie }) => ({
+export const loginSuccess = ({ email }) => ({
   type: LOGIN_SUCCESS,
   email,
-  cookie,
 });
 
 export const loginFail = (message) => ({

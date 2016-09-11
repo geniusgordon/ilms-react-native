@@ -1,3 +1,5 @@
+import CookieManager from 'react-native-cookies';
+
 const BASE_URL = 'http://lms.nthu.edu.tw';
 
 function toQueryString(data) {
@@ -9,14 +11,15 @@ function toQueryString(data) {
   )).join('&');
 }
 
-function get(path, qs) {
-  return fetch(`${BASE_URL}${path}?${toQueryString(qs)}`);
+function get(path, qs, headers) {
+  return fetch(`${BASE_URL}${path}?${toQueryString(qs)}`, { headers });
 }
 
-function post(path, data) {
+function post(path, data, headers) {
   return fetch(`${BASE_URL}${path}`, {
     method: 'POST',
     headers: {
+      ...headers,
       'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
     },
     body: toQueryString(data),
@@ -38,5 +41,38 @@ function postMultipart(path, data) {
   });
 }
 
-export default { get, post, postMultipart };
+async function checkLogin() {
+  const url = `${BASE_URL}/home/profile.php`;
+  const res = await fetch(url);
+  const html = await res.text();
+  if (html.indexOf('權限不足') !== -1) {
+    return { isLogin: false };
+  }
+  return {
+    isLogin: true,
+    html,
+  };
+}
+
+function getCookie() {
+  return new Promise((resolve, reject) => {
+    CookieManager.get(BASE_URL, (err, cookie) => {
+      if (err) {
+        reject(err);
+        return;
+      }
+      resolve(Object.keys(cookie).map((key) => (
+        `${key}=${cookie[key]}`
+      )).join('; '));
+    });
+  });
+}
+
+export default {
+  get,
+  post,
+  postMultipart,
+  checkLogin,
+  getCookie,
+};
 

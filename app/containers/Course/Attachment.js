@@ -1,16 +1,18 @@
 import React, { Component, PropTypes } from 'react';
-import RNFetchBlob from 'react-native-fetch-blob'
+import { connect } from 'react-redux';
 import { Text, View } from 'react-native';
 import RippleView from '../../components/RippleView';
+import { downloadAttachment } from './actions/itemDetail';
 import styles from './styles';
-
-const URL = 'http://lms.nthu.edu.tw/sys/read_attach.php';
 
 class Attachment extends Component {
   static propTypes = {
     attachment: PropTypes.object,
+    dispatch: PropTypes.func,
   };
   handleDownload = () => {
+    const { attachment, dispatch } = this.props;
+    dispatch(downloadAttachment(attachment));
   };
   render() {
     const { attachment } = this.props;
@@ -24,5 +26,5 @@ class Attachment extends Component {
   }
 }
 
-export default Attachment;
+export default connect()(Attachment);
 
