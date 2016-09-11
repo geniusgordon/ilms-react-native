@@ -7,6 +7,7 @@ import styles from './styles';
 
 class List extends Component {
   static propTypes = {
+    paddingColor: PropTypes.string,
     itemType: PropTypes.string,
     items: PropTypes.array,
     onItemPress: PropTypes.func,
@@ -30,10 +31,11 @@ class List extends Component {
     ));
   };
   render() {
+    const { paddingColor } = this.props
     return (
       <View style={styles.base}>
         <ScrollView>
-          <Padding backgroundColor="#ffc107" />
+          <Padding backgroundColor={paddingColor} />
           <View style={styles.list}>
             {this.renderList()}
           </View>

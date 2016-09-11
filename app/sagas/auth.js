@@ -1,6 +1,6 @@
 import { takeEvery } from 'redux-saga';
 import { call, fork, put, take } from 'redux-saga/effects';
-import { AsyncStorage, ToastAndroid } from 'react-native';
+import { ToastAndroid } from 'react-native';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import api from '../utils/api';
 import { parseProfile } from '../utils/parser';

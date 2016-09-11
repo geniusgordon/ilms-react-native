@@ -60,10 +60,10 @@ function* downloadAttachment({ attachment }) {
   const url = `${baseUrl}${path}`;
   const cookie = yield call(api.getCookie);
   RNFetchBlob.config({
-    addAndroidDownloads : {
+    addAndroidDownloads: {
       useDownloadManager: true,
       title: attachment.name,
-      mime : 'text/plain',
+      mime: 'text/plain',
     },
   }).fetch('GET', url, { cookie });
 }
