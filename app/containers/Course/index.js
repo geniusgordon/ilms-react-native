@@ -89,24 +89,28 @@ class Course extends Component {
         >
           <List
             tabLabel="公告"
+            paddingColor="#ffc107"
             itemType="announcement"
             items={this.getItems('announcement')}
             onItemPress={this.handleItemPress}
           />
           <List
             tabLabel="教材"
+            paddingColor="#ffc107"
             itemType="material"
             items={this.getItems('material')}
             onItemPress={this.handleItemPress}
           />
           <List
             tabLabel="作業"
+            paddingColor="#ffc107"
             itemType="assignment"
             items={this.getItems('assignment')}
             onItemPress={this.handleItemPress}
           />
           <List
             tabLabel="討論區"
+            paddingColor="#ffc107"
             itemType="forum"
             items={this.getItems('forum')}
             onItemPress={this.handleForumPress}

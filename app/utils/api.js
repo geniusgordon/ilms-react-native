@@ -41,17 +41,18 @@ function postMultipart(path, data) {
   });
 }
 
-async function checkLogin() {
+function checkLogin() {
   const url = `${BASE_URL}/home/profile.php`;
-  const res = await fetch(url);
-  const html = await res.text();
-  if (html.indexOf('權限不足') !== -1) {
-    return { isLogin: false };
-  }
-  return {
-    isLogin: true,
-    html,
-  };
+  return fetch(url).then((res) => res.text())
+  .then((html) => {
+    if (html.indexOf('權限不足') !== -1) {
+      return { isLogin: false };
+    }
+    return {
+      isLogin: true,
+      html,
+    };
+  });
 }
 
 function getCookie() {

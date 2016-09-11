@@ -44,22 +44,27 @@ class ListItem extends Component {
     }
     return this.renderDate();
   };
-  renderSubtitle = () => {
-    const { itemType, item } = this.props;
-    if (itemType !== 'forum') {
-      return null;
-    }
-    return <Text style={styles.listItemSubtitle}>{item.lastEdit}</Text>;
-  };
   render() {
-    const { title } = this.props.item;
+    const { title, subtitle } = this.props.item;
     return (
       <RippleView onPress={this.handlePress} darkRipple>
         <View style={styles.listItem}>
           {this.renderInfo()}
           <View style={styles.listItemContent}>
-            <Text style={styles.listItemTitle}>{title}</Text>
-            {this.renderSubtitle()}
+            <Text
+              style={styles.listItemTitle}
+              ellipsizeMode="tail"
+              numberOfLines={1}
+            >
+              {title}
+            </Text>
+            <Text
+              style={styles.listItemSubtitle}
+              ellipsizeMode="tail"
+              numberOfLines={2}
+            >
+              {subtitle}
+            </Text>
           </View>
         </View>
       </RippleView>

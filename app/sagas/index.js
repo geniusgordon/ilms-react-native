@@ -2,6 +2,7 @@ import { takeEvery } from 'redux-saga';
 import { fork } from 'redux-saga/effects';
 import { Actions } from 'react-native-router-flux';
 import { ROUTE } from '../containers/App/actionTypes';
+import homeSaga from './home';
 import authSaga from './auth';
 import courseListSaga from './courseList';
 import itemListSaga from './itemList';
@@ -21,6 +22,7 @@ function* watchRoute() {
 
 export default function* rootSaga(store) {
   yield fork(watchRoute);
+  yield fork(homeSaga);
   yield fork(authSaga);
   yield fork(courseListSaga);
   yield fork(itemListSaga);

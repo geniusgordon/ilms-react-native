@@ -12,6 +12,24 @@ function parseDate(dateStr) {
   };
 }
 
+export function parseLatestNews(html) {
+  const root = HTMLParser.parse(html);
+  const block = root.querySelectorAll('#right div.BlockR')[1];
+  const blockItems = block.querySelectorAll('.BlockItem');
+  return blockItems.map((item, i) => {
+    const link = item.querySelectorAll('a');
+    const dateStr = `${item.querySelector('.hint').attributes.title} 00:00:00`;
+    return {
+      id: i,
+      title: link[1].text,
+      subtitle: link[0].text,
+      date: parseDate(dateStr),
+      dateStr,
+      courseId: link[1].attributes.href.match(/.*ID=(\d+).*/)[1],
+    };
+  });
+}
+
 export function parseProfile(html) {
   const root = HTMLParser.parse(html);
   const name = root.querySelector('#fmName').attributes.value;
@@ -106,8 +124,8 @@ function parseForumList(html) {
     return {
       id: td[0].text,
       title: td[1].text,
+      subtitle: lastEdit,
       count,
-      lastEdit,
     };
   });
 }
