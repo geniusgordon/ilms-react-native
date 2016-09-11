@@ -31,7 +31,7 @@ function* fetchItemList({ courseId, itemType }) {
     yield put(fetchItemListSuccess(courseId, courseName, itemType, itemList));
   } catch (error) {
     ToastAndroid.show('無法載入課程', ToastAndroid.SHORT);
-    yield put(fetchItemListFail(courseId, itemType, error));
+    yield put(fetchItemListFail(courseId, itemType, error.message));
   }
 }
 

@@ -42,7 +42,7 @@ function* fetchItemDetail({ courseId, itemType, itemId }) {
     yield put(fetchItemDetailSuccess(itemType, itemId, item));
   } catch (error) {
     ToastAndroid.show('無法載入', ToastAndroid.SHORT);
-    yield put(fetchItemDetailFail(itemType, itemId, error));
+    yield put(fetchItemDetailFail(itemType, itemId, error.message));
   }
 }
 

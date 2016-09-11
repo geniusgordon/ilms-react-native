@@ -1,6 +1,6 @@
 import { takeEvery } from 'redux-saga';
 import { call, fork, put, take } from 'redux-saga/effects';
-import { ToastAndroid } from 'react-native';
+import { AsyncStorage, ToastAndroid } from 'react-native';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import api from '../utils/api';
 import { parseProfile } from '../utils/parser';
@@ -10,6 +10,7 @@ import {
   LOGOUT,
 } from '../containers/Auth/actionTypes';
 import {
+  checkLoginSuccess,
   loginSuccess,
   loginFail,
   loginError,
@@ -18,13 +19,16 @@ import {
 import { fetchCourseList } from '../containers/Course/actions/courseList';
 
 function* checkLogin() {
+  const cookie = yield AsyncStorage.getItem('cookie');
   const res = yield call(api.get, '/home/profile.php');
   const home = yield res.text();
-  if (home.indexOf('權限不足') !== -1) {
+  if (!cookie || home.indexOf('權限不足') !== -1) {
     ToastAndroid.show('尚未登入', ToastAndroid.SHORT);
     Actions.login({ type: ActionConst.REPLACE });
     return;
   }
+  yield put(checkLoginSuccess(cookie));
+
   const user = parseProfile(home);
   yield put(fetchProfileSuccess(user));
   yield put(fetchCourseList());
@@ -45,16 +49,23 @@ function* login({ account, password }) {
     const res = yield call(api.post, '/sys/lib/ajax/login_submit.php', data);
     const { ret } = yield res.json();
     if (ret.status === 'true') {
-      yield put(loginSuccess(ret.email));
+      const cookie = res.headers.map['set-cookie'][0];
+      yield put(loginSuccess({
+        email: ret.email,
+        cookie,
+      }));
+      yield AsyncStorage.setItem('cookie', cookie);
       Actions.home({ type: ActionConst.REPLACE });
+
       yield take(LOGOUT);
+      yield AsyncStorage.removeItem('cookie');
     } else {
       ToastAndroid.show(ret.msg, ToastAndroid.SHORT);
       yield put(loginFail(ret.msg));
     }
   } catch (error) {
     ToastAndroid.show('登入失敗', ToastAndroid.SHORT);
-    yield put(loginError(error));
+    yield put(loginError(error.message));
   }
 }
 

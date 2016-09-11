@@ -1,5 +1,6 @@
 import {
   CHECK_LOGIN,
+  CHECK_LOGIN_SUCCESS,
   LOGIN,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
@@ -12,15 +13,21 @@ import {
 
 export const checkLogin = () => ({ type: CHECK_LOGIN });
 
+export const checkLoginSuccess = (cookie) => ({
+  type: CHECK_LOGIN_SUCCESS,
+  cookie,
+});
+
 export const login = (account, password) => ({
   type: LOGIN,
   account,
   password,
 });
 
-export const loginSuccess = (email) => ({
+export const loginSuccess = ({ email, cookie }) => ({
   type: LOGIN_SUCCESS,
   email,
+  cookie,
 });
 
 export const loginFail = (message) => ({

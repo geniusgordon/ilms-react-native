@@ -1,32 +1,25 @@
 import { handleActions } from 'redux-actions';
 import {
   LOGIN_SUCCESS,
-  LOGIN_FAIL,
-  LOGIN_ERROR,
+  CHECK_LOGIN_SUCCESS,
   FETCH_PROFILE_SUCCESS,
 } from './actionTypes';
 
 const initalState = {
   name: null,
   email: null,
-  error: null,
-  message: null,
+  cookie: null,
 };
 
 const reducer = handleActions({
-  [LOGIN_SUCCESS]: (state, { email }) => ({
+  [LOGIN_SUCCESS]: (state, { email, cookie }) => ({
     ...state,
     email,
-    error: null,
-    message: null,
+    cookie,
   }),
-  [LOGIN_FAIL]: (state, { message }) => ({
+  [CHECK_LOGIN_SUCCESS]: (state, { cookie }) => ({
     ...state,
-    message,
-  }),
-  [LOGIN_ERROR]: (state, { error }) => ({
-    ...state,
-    error,
+    cookie,
   }),
   [FETCH_PROFILE_SUCCESS]: (state, { name, email }) => ({
     ...state,
