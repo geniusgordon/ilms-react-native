@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Linking } from 'react-native';
 import { Router, Scene } from 'react-native-router-flux';
 import Home from '../Home';
+import About from '../Home/About';
 import Login from '../Auth';
 import Course from '../Course';
 import Detail from '../Course/Detail';
@@ -46,6 +47,7 @@ class App extends Component {
           <Scene key="forum" component={Forum} {...detailScene} />
           <Scene key="compose" component={Compose} {...detailScene} />
           <Scene key="email" component={EmailList} {...detailScene} />
+          <Scene key="about" component={About} {...detailScene} />
         </Scene>
       </Router>
     );

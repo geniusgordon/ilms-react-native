@@ -1,4 +1,4 @@
-package com.ilms;
+package com.geniusgordon.ilms;
 
 import android.app.Application;
 import android.util.Log;

@@ -17,10 +17,10 @@ class CourseListItem extends Component {
     const { course } = this.props;
     return (
       <RippleView onPress={this.handlePress} darkRipple>
-        <View style={styles.courseListItem}>
+        <View style={styles.drawerItem}>
           <Icon name="copyright" size={24} color="#000" />
           <Text
-            style={styles.courseName}
+            style={styles.drawerItemName}
             ellipsizeMode="tail"
             numberOfLines={1}
           >

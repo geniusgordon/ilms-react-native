@@ -16,23 +16,23 @@ const styles = StyleSheet.create({
     height: 96,
     marginTop: 16,
   },
-  courseList: {
+  drawerItemList: {
     flex: 1,
     paddingTop: 8,
     paddingBottom: 8,
   },
-  courseListItem: {
+  drawerItem: {
     height: 48,
     paddingLeft: 16,
     paddingRight: 16,
     alignItems: 'center',
     flexDirection: 'row',
   },
-  courseIcon: {
+  drawerItemIcon: {
     width: 24,
     height: 24,
   },
-  courseName: {
+  drawerItemName: {
     flex: 1,
     paddingLeft: 16,
   },
