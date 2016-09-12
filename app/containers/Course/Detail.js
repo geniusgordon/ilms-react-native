@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { Actions } from 'react-native-router-flux';
 import {
   ActivityIndicator,
   Linking,
@@ -9,10 +10,10 @@ import {
   View,
 } from 'react-native';
 import HTMLView from 'react-native-htmlview';
+import { ToolbarAndroid } from 'react-native-vector-icons/MaterialIcons';
 import Attachment from './Attachment';
 import Title from '../../components/Title';
 import Padding from '../../components/Padding';
-import Divider from '../../components/Divider';
 import { fetchItemDetail } from './actions/itemDetail';
 import styles from './styles';
 
@@ -72,13 +73,7 @@ class Detail extends Component {
         </View>
       );
     }
-    return (
-      <View style={styles.detailInfo}>
-        <Text style={styles.detailTitle}>{item.title}</Text>
-        <Divider />
-        <Text style={styles.detailDate}>{item.dateStr}</Text>
-      </View>
-    );
+    return <Title title={item.title} subtitle={item.dateStr} />;
   };
   renderDetail = () => {
     const { itemId, itemType, itemsById, loading } = this.props;
@@ -104,7 +99,12 @@ class Detail extends Component {
     return (
       <View style={styles.base}>
         <StatusBar backgroundColor="#388e3c" />
-        <Title title={this.itemTitles[itemType]} backgroundColor="#4caf50" />
+        <ToolbarAndroid
+          title={this.itemTitles[itemType]}
+          navIconName="close"
+          style={{ height: 56, backgroundColor: '#4caf50' }}
+          onIconClicked={Actions.pop}
+        />
         <Padding backgroundColor="#4caf50" />
         {this.renderInfo()}
         <ScrollView>

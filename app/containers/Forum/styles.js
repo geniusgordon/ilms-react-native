@@ -5,16 +5,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#f9f9f9',
   },
-  forumTitleContainer: {
-    margin: 8,
-    padding: 16,
-    backgroundColor: 'white',
-    elevation: 2,
-  },
-  forumTitle: {
-    fontSize: 24,
-    fontWeight: 'bold',
-  },
   loadingContainer: {
     height: 100,
     justifyContent: 'center',

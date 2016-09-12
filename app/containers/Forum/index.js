@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { Actions } from 'react-native-router-flux';
 import {
   ActivityIndicator,
   View,
@@ -7,7 +8,7 @@ import {
   ScrollView,
   StatusBar,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import Icon, { ToolbarAndroid } from 'react-native-vector-icons/MaterialIcons';
 import ActionButton from 'react-native-action-button';
 import Post from './Post';
 import NoData from '../Course/NoData';
@@ -62,12 +63,15 @@ class Forum extends Component {
     return (
       <View style={styles.base}>
         <StatusBar backgroundColor="#1565c0" />
-        <Title title="討論區" backgroundColor="#1e88e5" />
+        <ToolbarAndroid
+          title="討論區"
+          navIconName="close"
+          style={{ height: 56, backgroundColor: '#1e88e5' }}
+          onIconClicked={Actions.pop}
+        />
         <Padding backgroundColor="#1e88e5" />
         <View style={styles.list}>
-          <View style={styles.forumTitleContainer}>
-            <Text style={styles.forumTitle}>{forum.title}</Text>
-          </View>
+          <Title title={forum.title} />
           <ScrollView>
             <View>
               {this.renderList()}
