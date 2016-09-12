@@ -124,7 +124,7 @@ function parseForumList(html) {
     return {
       id: td[0].text,
       title: td[1].text,
-      subtitle: lastEdit,
+      subtitle: `最後編輯: ${lastEdit}`,
       count,
     };
   });

@@ -53,8 +53,8 @@ class Forum extends Component {
         </View>
       );
     }
-    return forum.posts.map((post) => (
-      <Post key={post.id} post={post} />
+    return forum.posts.map((post, i) => (
+      <Post key={post.id} post={post} floor={i} />
     ));
   };
   render() {
@@ -71,7 +71,7 @@ class Forum extends Component {
         />
         <Padding backgroundColor="#1e88e5" />
         <View style={styles.list}>
-          <Title title={forum.title} />
+          <Title title={forum.title} subtitle={forum.subtitle} />
           <ScrollView>
             <View>
               {this.renderList()}

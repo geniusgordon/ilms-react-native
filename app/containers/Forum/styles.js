@@ -21,10 +21,16 @@ const styles = StyleSheet.create({
     height: 200,
     backgroundColor: 'white',
     elevation: 2,
+    position: 'relative',
   },
   postBorderTop: {
     height: 16,
     backgroundColor: 'steelblue',
+  },
+  floor: {
+    position: 'absolute',
+    top: 16,
+    right: 16,
   },
   postInfo: {
     padding: 16,
