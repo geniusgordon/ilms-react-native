@@ -30,7 +30,7 @@ class About extends Component {
           <Image source={logo} style={styles.logo} />
           <View style={styles.info}>
             <Text style={styles.appName}>NTHU iLms</Text>
-            <Text style={styles.version}>Version: 2.0.2</Text>
+            <Text style={styles.version}>Version: 2.1.1</Text>
           </View>
         </View>
         <View style={styles.content}>
