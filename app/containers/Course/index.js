@@ -1,11 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-// import ActionButton from 'react-native-action-button';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import ActionButton from 'react-native-action-button';
 import Base from '../App/Base';
 import List from './List';
+import EmailList from './EmailList';
 import TabView from '../../components/TabView';
-import FixedActionButton from '../../components/FixedActionButton';
 import { fetchItemList } from './actions/itemList';
 import { fetchEmailList } from './actions/emailList';
 import { route } from '../App/actions';
@@ -53,7 +53,7 @@ class Course extends Component {
   handleTabChange = (tab) => {
     this.setState({ fabScale: tab.i === 3 ? 1 : 0 });
   };
-  handleFabPress = () => {
+  handleEditPress = () => {
     const { id, dispatch } = this.props;
     dispatch(route('compose', {
       action: 'post',
@@ -63,25 +63,26 @@ class Course extends Component {
   };
   itemTypes = ['announcement', 'material', 'assignment', 'forum'];
   renderFixedActionButton = () => {
+    const { id, courseCollection } = this.props;
+    const course = courseCollection.courseById[id] || {};
+    const emailList = course.emailList || [];
     if (this.state.fabScale === 0) {
-      return null;
+      return <EmailList emailList={emailList} />;
     }
     return (
-      <FixedActionButton
-        style={{ backgroundColor: '#f44336' }}
-        onPress={this.handleFabPress}
-      >
-        <Icon name="edit" size={24} color="#fff" />
-      </FixedActionButton>
+      <ActionButton
+        buttonColor="#f44336"
+        icon={<Icon name="edit" size={24} color="#fff" />}
+        onPress={this.handleEditPress}
+      />
     );
   };
   render() {
     const { id, courseCollection } = this.props;
     const course = courseCollection.courseById[id] || {};
-    const name = course.name;
     return (
       <Base
-        title={name}
+        title={course.name}
         statusBarBackgroundColor="#ffa000"
         toolbarBackgroundColor="#ffc107"
       >
