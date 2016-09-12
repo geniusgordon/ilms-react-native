@@ -10,6 +10,7 @@ import {
   LOGOUT,
 } from '../containers/Auth/actionTypes';
 import {
+  checkLoginSuccess,
   loginSuccess,
   loginFail,
   loginError,
@@ -18,13 +19,15 @@ import {
 import { fetchCourseList } from '../containers/Course/actions/courseList';
 
 function* checkLogin() {
-  const home = yield call(api.get, '/home/profile.php');
-  if (home.indexOf('權限不足') !== -1) {
+  const { isLogin, html } = yield call(api.checkLogin);
+  if (!isLogin) {
     ToastAndroid.show('尚未登入', ToastAndroid.SHORT);
     Actions.login({ type: ActionConst.REPLACE });
     return;
   }
-  const user = parseProfile(home);
+  yield put(checkLoginSuccess());
+
+  const user = parseProfile(html);
   yield put(fetchProfileSuccess(user));
   yield put(fetchCourseList());
 }
@@ -41,11 +44,14 @@ function* login({ account, password }) {
       secCode: 'na',
       stay: 1,
     };
-    const result = yield call(api.post, '/sys/lib/ajax/login_submit.php', data);
-    const { ret } = JSON.parse(result);
+    const res = yield call(api.post, '/sys/lib/ajax/login_submit.php', data);
+    const { ret } = yield res.json();
     if (ret.status === 'true') {
-      yield put(loginSuccess(ret.email));
+      yield put(loginSuccess({
+        email: ret.email,
+      }));
       Actions.home({ type: ActionConst.REPLACE });
+
       yield take(LOGOUT);
     } else {
       ToastAndroid.show(ret.msg, ToastAndroid.SHORT);
@@ -53,7 +59,7 @@ function* login({ account, password }) {
     }
   } catch (error) {
     ToastAndroid.show('登入失敗', ToastAndroid.SHORT);
-    yield put(loginError(error));
+    yield put(loginError(error.message));
   }
 }
 

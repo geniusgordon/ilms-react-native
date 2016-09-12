@@ -2,6 +2,7 @@ import { handleActions } from 'redux-actions';
 import {
   FETCH_COURSE_LIST_SUCCESS,
   FETCH_ITEM_LIST_SUCCESS,
+  FETCH_EMAIL_LIST_SUCCESS,
 } from '../actions/actionTypes';
 
 const initalState = {};
@@ -23,6 +24,13 @@ const reducer = handleActions({
       ...state[courseId],
       name: courseName,
       [itemType]: itemList.map((item) => item.id),
+    },
+  }),
+  [FETCH_EMAIL_LIST_SUCCESS]: (state, { courseId, emailList }) => ({
+    ...state,
+    [courseId]: {
+      ...state[courseId],
+      emailList,
     },
   }),
 }, initalState);

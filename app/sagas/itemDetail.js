@@ -1,11 +1,15 @@
 import { takeEvery } from 'redux-saga';
 import { call, fork, put } from 'redux-saga/effects';
 import { ToastAndroid } from 'react-native';
+import RNFetchBlob from 'react-native-fetch-blob';
 import api from '../utils/api';
 import {
   parseItemDetail,
 } from '../utils/parser';
-import { FETCH_ITEM_DETAIL } from '../containers/Course/actions/actionTypes';
+import {
+  FETCH_ITEM_DETAIL,
+  DOWNLOAD_ATTACHMENT,
+} from '../containers/Course/actions/actionTypes';
 import {
   fetchItemDetailSuccess,
   fetchItemDetailFail,
@@ -36,12 +40,13 @@ const fetchItemFunc = {
 
 function* fetchItemDetail({ courseId, itemType, itemId }) {
   try {
-    const html = yield call(fetchItemFunc[itemType], courseId, itemId);
+    const res = yield call(fetchItemFunc[itemType], courseId, itemId);
+    const html = yield res.text();
     const item = parseItemDetail(itemType, html);
     yield put(fetchItemDetailSuccess(itemType, itemId, item));
   } catch (error) {
     ToastAndroid.show('無法載入', ToastAndroid.SHORT);
-    yield put(fetchItemDetailFail(itemType, itemId, error));
+    yield put(fetchItemDetailFail(itemType, itemId, error.message));
   }
 }
 
@@ -49,7 +54,26 @@ function* watchFetchItemDetail() {
   yield* takeEvery(FETCH_ITEM_DETAIL, fetchItemDetail);
 }
 
+function* downloadAttachment({ attachment }) {
+  const baseUrl = 'http://lms.nthu.edu.tw';
+  const path = `/sys/read_attach.php?id=${attachment.id}`;
+  const url = `${baseUrl}${path}`;
+  const cookie = yield call(api.getCookie);
+  RNFetchBlob.config({
+    addAndroidDownloads: {
+      useDownloadManager: true,
+      title: attachment.name,
+      mime: 'text/plain',
+    },
+  }).fetch('GET', url, { cookie });
+}
+
+function* watchDownloadAttachment() {
+  yield* takeEvery(DOWNLOAD_ATTACHMENT, downloadAttachment);
+}
+
 export default function* itemDetailSaga() {
   yield fork(watchFetchItemDetail);
+  yield fork(watchDownloadAttachment);
 }
 

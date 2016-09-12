@@ -12,6 +12,24 @@ function parseDate(dateStr) {
   };
 }
 
+export function parseLatestNews(html) {
+  const root = HTMLParser.parse(html);
+  const block = root.querySelectorAll('#right div.BlockR')[1];
+  const blockItems = block.querySelectorAll('.BlockItem');
+  return blockItems.map((item, i) => {
+    const link = item.querySelectorAll('a');
+    const dateStr = `${item.querySelector('.hint').attributes.title} 00:00:00`;
+    return {
+      id: i,
+      title: link[1].text,
+      subtitle: link[0].text,
+      date: parseDate(dateStr),
+      dateStr,
+      courseId: link[1].attributes.href.match(/.*ID=(\d+).*/)[1],
+    };
+  });
+}
+
 export function parseProfile(html) {
   const root = HTMLParser.parse(html);
   const name = root.querySelector('#fmName').attributes.value;
@@ -106,8 +124,8 @@ function parseForumList(html) {
     return {
       id: td[0].text,
       title: td[1].text,
+      subtitle: lastEdit,
       count,
-      lastEdit,
     };
   });
 }
@@ -201,13 +219,12 @@ export function parseItemDetail(itemType, html) {
   return {};
 }
 
-export function parseForum(html) {
-  const res = JSON.parse(html).posts;
+export function parseForum(posts) {
   return {
-    id: res.id,
-    title: res.title,
-    count: res.items.length - 1,
-    posts: res.items.map((item) => ({
+    id: posts.id,
+    title: posts.title,
+    count: posts.items.length - 1,
+    posts: posts.items.map((item) => ({
       id: item.id,
       name: item.name,
       account: item.account,
@@ -216,5 +233,31 @@ export function parseForum(html) {
       content: item.note,
     })),
   };
+}
+
+function parseEmailLine(line) {
+  const type = line.text.split(':')[0].trim();
+  const names = line.text.split(':')[1].split(',')
+    .map((name) => name.trim())
+    .filter((name) => name !== '無');
+  const emails = line.querySelectorAll('img')
+    .filter((img) => img.attributes.src.endsWith('mail.png'))
+    .map((img) => img.attributes.title);
+  return names.map((name, i) => ({
+    name: `${type}: ${name}`,
+    email: emails[i],
+  }));
+}
+
+export function parseEmailList(html) {
+  const root = HTMLParser.parse(html);
+  const boxBody = root.querySelectorAll('#menu div.boxBody');
+  const infoBox = boxBody[boxBody.length - 1];
+  const teacherEmailLine = infoBox.querySelectorAll('div')[4];
+  const taEmailLine = infoBox.querySelectorAll('div')[5];
+  return [
+    ...parseEmailLine(teacherEmailLine),
+    ...parseEmailLine(taEmailLine),
+  ];
 }
 
