@@ -14,6 +14,11 @@ const styles = StyleSheet.create({
     elevation: 2,
     borderRadius: 1,
   },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   listItemInfo: {
     width: 96,
     padding: 16,

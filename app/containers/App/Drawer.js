@@ -23,7 +23,6 @@ class Drawer extends Component {
     this.props.dispatch(route('about'));
     this.props.onItemClick();
   };
-  };
   handleLogout = () => {
     this.props.dispatch(logout());
   };

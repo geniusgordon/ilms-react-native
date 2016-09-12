@@ -1,26 +1,25 @@
 import { handleActions } from 'redux-actions';
 import {
-  FETCH_LATEST_NEWS,
-  FETCH_LATEST_NEWS_SUCCESS,
-  FETCH_LATEST_NEWS_FAIL,
+  FETCH_FORUM,
+  FETCH_FORUM_SUCCESS,
+  FETCH_FORUM_FAIL,
 } from './actionTypes';
 
 const initalState = {
-  latestNews: [],
   loading: false,
 };
 
 const reducer = handleActions({
-  [FETCH_LATEST_NEWS]: (state) => ({
+  [FETCH_FORUM]: (state) => ({
     ...state,
     loading: true,
   }),
-  [FETCH_LATEST_NEWS_SUCCESS]: (state, { latestNews }) => ({
+  [FETCH_FORUM_SUCCESS]: (state) => ({
     ...state,
-    latestNews,
     loading: false,
   }),
-  [FETCH_LATEST_NEWS_FAIL]: (state) => ({
+  [FETCH_FORUM_FAIL]: (state) => ({
+    ...state,
     loading: false,
   }),
 }, initalState);

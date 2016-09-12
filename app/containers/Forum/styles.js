@@ -15,6 +15,14 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
   },
+  loadingContainer: {
+    height: 100,
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 8,
+    backgroundColor: 'white',
+    elevation: 2,
+  },
   list: {
     flex: 1,
   },

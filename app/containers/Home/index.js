@@ -19,7 +19,7 @@ class Home extends Component {
     dispatch(route('course', { id: courseId }));
   };
   render() {
-    const { latestNews } = this.props;
+    const { latestNews, loading } = this.props;
     return (
       <Base
         title="最新公吉"
@@ -30,6 +30,7 @@ class Home extends Component {
           itemType="latestNews"
           paddingColor="#f44336"
           items={latestNews}
+          loading={loading}
           onItemPress={this.handleItemPress}
         />
       </Base>
@@ -39,6 +40,7 @@ class Home extends Component {
 
 const mapStateToProps = (state) => ({
   latestNews: state.home.latestNews,
+  loading: state.home.loading,
 });
 
 export default connect(mapStateToProps)(Home);

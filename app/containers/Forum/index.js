@@ -1,6 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { View, Text, ScrollView, StatusBar } from 'react-native';
+import {
+  ActivityIndicator,
+  View,
+  Text,
+  ScrollView,
+  StatusBar,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import ActionButton from 'react-native-action-button';
 import Post from './Post';
@@ -33,11 +39,18 @@ class Forum extends Component {
     }));
   };
   renderList = () => {
-    const { id, forumCollection } = this.props;
+    const { id, forumCollection, loading } = this.props;
     const forum = forumCollection[id] || {};
     const posts = forum.posts || [];
     if (posts.length === 0) {
       return <NoData />;
+    }
+    if (loading) {
+      return (
+        <View style={styles.loadingContainer}>
+          <ActivityIndicator color="#388e3c" size="large" />
+        </View>
+      );
     }
     return forum.posts.map((post) => (
       <Post key={post.id} post={post} />
@@ -73,6 +86,7 @@ class Forum extends Component {
 
 const mapStateToProps = (state) => ({
   forumCollection: state.course.itemsById.forum,
+  loading: state.forum.loading,
 });
 
 export default connect(mapStateToProps)(Forum);

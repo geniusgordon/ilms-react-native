@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import {
+  ActivityIndicator,
   Linking,
   ScrollView,
   StatusBar,
@@ -32,12 +33,22 @@ class Detail extends Component {
     material: '教材',
     assignment: '作業',
   };
+  handleListPress = (url) => {
+    Linking.openURL(url);
+  };
   renderAttachments = () => {
-    const { itemId, itemType, itemsById } = this.props;
+    const { itemId, itemType, itemsById, loading } = this.props;
     const item = itemsById[itemType][itemId] || {};
     const attachments = item.attachments || [];
     if (attachments.length === 0) {
       return null;
+    }
+    if (loading) {
+      return (
+        <View style={styles.attachmentList}>
+          <ActivityIndicator color="#388e3c" size="large" />
+        </View>
+      );
     }
     const attachmentList = attachments.map((attachment, i) => (
       <Attachment key={i} attachment={attachment} />
@@ -51,27 +62,54 @@ class Detail extends Component {
       </View>
     );
   };
-  render() {
-    const { itemId, itemType, itemsById } = this.props;
+  renderInfo = () => {
+    const { itemId, itemType, itemsById, loading } = this.props;
     const item = itemsById[itemType][itemId] || {};
+    if (loading) {
+      return (
+        <View style={styles.detailInfo}>
+          <ActivityIndicator color="#388e3c" size="large" />
+        </View>
+      );
+    }
+    return (
+      <View style={styles.detailInfo}>
+        <Text style={styles.detailTitle}>{item.title}</Text>
+        <Divider />
+        <Text style={styles.detailDate}>{item.dateStr}</Text>
+      </View>
+    );
+  };
+  renderDetail = () => {
+    const { itemId, itemType, itemsById, loading } = this.props;
+    const item = itemsById[itemType][itemId] || {};
+    if (loading) {
+      return (
+        <View style={styles.detailContent}>
+          <ActivityIndicator color="#388e3c" size="large" />
+        </View>
+      );
+    }
+    return (
+      <View style={styles.detailContent}>
+        <HTMLView
+          value={item.content}
+          onLinkPress={this.handleListPress}
+        />
+      </View>
+    );
+  };
+  render() {
+    const { itemType } = this.props;
     return (
       <View style={styles.base}>
         <StatusBar backgroundColor="#388e3c" />
         <Title title={this.itemTitles[itemType]} backgroundColor="#4caf50" />
         <Padding backgroundColor="#4caf50" />
-        <View style={styles.detailInfo}>
-          <Text style={styles.detailTitle}>{item.title}</Text>
-          <Divider />
-          <Text style={styles.detailDate}>{item.dateStr}</Text>
-        </View>
+        {this.renderInfo()}
         <ScrollView>
           <View style={styles.detailContainer}>
-            <View style={styles.detailContent}>
-              <HTMLView
-                value={item.content}
-                onLinkPress={(url) => Linking.openURL(url)}
-              />
-            </View>
+            {this.renderDetail()}
             {this.renderAttachments()}
           </View>
         </ScrollView>
@@ -82,6 +120,7 @@ class Detail extends Component {
 
 const mapStateToProps = (state) => ({
   itemsById: state.course.itemsById,
+  loading: state.course.loading.detail,
 });
 
 export default connect(mapStateToProps)(Detail);
