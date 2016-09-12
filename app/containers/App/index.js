@@ -6,6 +6,7 @@ import Home from '../Home';
 import Login from '../Auth';
 import Course from '../Course';
 import Detail from '../Course/Detail';
+import EmailList from '../Course/EmailList';
 import Forum from '../Forum';
 import Compose from '../Forum/Compose';
 import { deepLink } from './actions';
@@ -44,6 +45,7 @@ class App extends Component {
           <Scene key="detail" component={Detail} {...detailScene} />
           <Scene key="forum" component={Forum} {...detailScene} />
           <Scene key="compose" component={Compose} {...detailScene} />
+          <Scene key="email" component={EmailList} {...detailScene} />
         </Scene>
       </Router>
     );

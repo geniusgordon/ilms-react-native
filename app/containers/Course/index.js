@@ -1,13 +1,14 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { Image } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import ActionButton from 'react-native-action-button';
 import Base from '../App/Base';
 import List from './List';
+import EmailList from './EmailList';
 import TabView from '../../components/TabView';
-import FixedActionButton from '../../components/FixedActionButton';
 import { fetchItemList } from './actions/itemList';
+import { fetchEmailList } from './actions/emailList';
 import { route } from '../App/actions';
-import editIcon from '../../assets/ic_edit_white.png';
 
 class Course extends Component {
   static propTypes = {
@@ -23,6 +24,7 @@ class Course extends Component {
   }
   componentDidMount() {
     const { id, dispatch } = this.props;
+    dispatch(fetchEmailList(id));
     this.itemTypes.forEach((itemType) => {
       dispatch(fetchItemList(id, itemType));
     });
@@ -51,7 +53,16 @@ class Course extends Component {
   handleTabChange = (tab) => {
     this.setState({ fabScale: tab.i === 3 ? 1 : 0 });
   };
-  handleFabPress = () => {
+  handleEmailPress = () => {
+    const { id, courseCollection, dispatch } = this.props;
+    const course = courseCollection.courseById[id] || {};
+    const emailList = course.emailList || [];
+    dispatch(route('email', {
+      courseId: id,
+      emailList,
+    }));
+  };
+  handleEditPress = () => {
     const { id, dispatch } = this.props;
     dispatch(route('compose', {
       action: 'post',
@@ -62,24 +73,28 @@ class Course extends Component {
   itemTypes = ['announcement', 'material', 'assignment', 'forum'];
   renderFixedActionButton = () => {
     if (this.state.fabScale === 0) {
-      return null;
+      return (
+        <ActionButton
+          buttonColor="#4caf50"
+          icon={<Icon name="email" size={24} color="#fff" />}
+          onPress={this.handleEmailPress}
+        />
+      );
     }
     return (
-      <FixedActionButton
-        style={{ backgroundColor: '#f44336' }}
-        onPress={this.handleFabPress}
-      >
-        <Image source={editIcon} style={{ width: 24, height: 24 }} />
-      </FixedActionButton>
+      <ActionButton
+        buttonColor="#f44336"
+        icon={<Icon name="edit" size={24} color="#fff" />}
+        onPress={this.handleEditPress}
+      />
     );
   };
   render() {
     const { id, courseCollection } = this.props;
     const course = courseCollection.courseById[id] || {};
-    const name = course.name;
     return (
       <Base
-        title={name}
+        title={course.name}
         statusBarBackgroundColor="#ffa000"
         toolbarBackgroundColor="#ffc107"
       >

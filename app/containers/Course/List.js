@@ -31,7 +31,7 @@ class List extends Component {
     ));
   };
   render() {
-    const { paddingColor } = this.props
+    const { paddingColor } = this.props;
     return (
       <View style={styles.base}>
         <ScrollView>
