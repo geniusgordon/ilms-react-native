@@ -237,7 +237,9 @@ export function parseForum(posts) {
 
 function parseEmailLine(line) {
   const type = line.text.split(':')[0].trim();
-  const names = line.text.split(':')[1].split(',').map((n) => n.trim());
+  const names = line.text.split(':')[1].split(',')
+    .map((name) => name.trim())
+    .filter((name) => name !== '無');
   const emails = line.querySelectorAll('img')
     .filter((img) => img.attributes.src.endsWith('mail.png'))
     .map((img) => img.attributes.title);
