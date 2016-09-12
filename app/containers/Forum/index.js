@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { Image, View, Text, ScrollView, StatusBar } from 'react-native';
+import { View, Text, ScrollView, StatusBar } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import Post from './Post';
 import NoData from '../Course/NoData';
 import Title from '../../components/Title';
@@ -8,7 +9,6 @@ import Padding from '../../components/Padding';
 import FixedActionButton from '../../components/FixedActionButton';
 import { fetchForum } from './actions';
 import { route } from '../App/actions';
-import editIcon from '../../assets/ic_edit_white.png';
 import styles from './styles';
 
 class Forum extends Component {
@@ -65,7 +65,7 @@ class Forum extends Component {
           style={{ backgroundColor: '#f44336' }}
           onPress={this.handleFabPress}
         >
-          <Image source={editIcon} style={{ width: 24, height: 24 }} />
+          <Icon name="edit" size={24} color="#fff" />
         </FixedActionButton>
       </View>
     );

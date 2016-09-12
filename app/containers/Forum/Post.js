@@ -1,14 +1,14 @@
 import React, { PropTypes } from 'react';
-import { Linking, Image, Text, View } from 'react-native';
+import { Linking, Text, View } from 'react-native';
 import HTMLView from 'react-native-htmlview';
-import accountIcon from '../../assets/ic_account_circle_black.png';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import styles from './styles';
 
 const Post = ({ post }) => (
   <View style={styles.post}>
     <View style={styles.postInfo}>
       <View style={styles.postIconContainer}>
-        <Image style={styles.postIcon} source={accountIcon} />
+        <Icon name="account-circle" size={64} color="#000" />
       </View>
       <View style={styles.postInfoContent}>
         <View style={styles.postInfoFirstLine}>

@@ -9,6 +9,7 @@ import itemListSaga from './itemList';
 import itemDetailSaga from './itemDetail';
 import forumSaga from './forum';
 import deepLinkSaga from './deepLink';
+import emailListSaga from './emailList';
 
 function route({ key, params }) {
   if (Actions[key]) {
@@ -29,5 +30,6 @@ export default function* rootSaga(store) {
   yield fork(itemDetailSaga);
   yield fork(forumSaga, store);
   yield fork(deepLinkSaga);
+  yield fork(emailListSaga);
 }
 

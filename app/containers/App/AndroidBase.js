@@ -1,11 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import {
   DrawerLayoutAndroid,
-  ToolbarAndroid,
   StatusBar,
 } from 'react-native';
+import { ToolbarAndroid } from 'react-native-vector-icons/MaterialIcons';
 import Drawer from './Drawer';
-import menuIcon from '../../assets/ic_menu_black.png';
 
 class AndroidBase extends Component {
   static propTypes = {
@@ -44,7 +43,7 @@ class AndroidBase extends Component {
         <StatusBar backgroundColor={statusBarBackgroundColor} />
         <ToolbarAndroid
           title={title}
-          navIcon={menuIcon}
+          navIconName="menu"
           style={{ height: 56, backgroundColor: toolbarBackgroundColor }}
           onIconClicked={this.handleIconClick}
         />

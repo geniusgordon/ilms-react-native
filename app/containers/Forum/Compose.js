@@ -2,15 +2,13 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import {
-  ToolbarAndroid,
   Text,
   TextInput,
   View,
   StatusBar,
 } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import { sendPost } from './actions';
-import closeIcon from '../../assets/ic_close_black.png';
-import sendIcon from '../../assets/ic_send_black.png';
 import styles from './styles';
 
 class Compose extends Component {
@@ -35,7 +33,7 @@ class Compose extends Component {
   }
   actions = [{
     title: 'send',
-    icon: sendIcon,
+    iconName: 'send',
     show: 'always',
   }];
   handleTitleChange = (title) => {
@@ -79,9 +77,9 @@ class Compose extends Component {
     return (
       <View style={styles.base}>
         <StatusBar backgroundColor="#9e9e9e" />
-        <ToolbarAndroid
+        <Icon.ToolbarAndroid
           title={title}
-          navIcon={closeIcon}
+          navIconName="close"
           style={{ height: 56, backgroundColor: 'white' }}
           elevation={5}
           actions={this.actions}

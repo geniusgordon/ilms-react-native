@@ -1,13 +1,14 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { Image } from 'react-native';
+// import ActionButton from 'react-native-action-button';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import Base from '../App/Base';
 import List from './List';
 import TabView from '../../components/TabView';
 import FixedActionButton from '../../components/FixedActionButton';
 import { fetchItemList } from './actions/itemList';
+import { fetchEmailList } from './actions/emailList';
 import { route } from '../App/actions';
-import editIcon from '../../assets/ic_edit_white.png';
 
 class Course extends Component {
   static propTypes = {
@@ -23,6 +24,7 @@ class Course extends Component {
   }
   componentDidMount() {
     const { id, dispatch } = this.props;
+    dispatch(fetchEmailList(id));
     this.itemTypes.forEach((itemType) => {
       dispatch(fetchItemList(id, itemType));
     });
@@ -69,7 +71,7 @@ class Course extends Component {
         style={{ backgroundColor: '#f44336' }}
         onPress={this.handleFabPress}
       >
-        <Image source={editIcon} style={{ width: 24, height: 24 }} />
+        <Icon name="edit" size={24} color="#fff" />
       </FixedActionButton>
     );
   };

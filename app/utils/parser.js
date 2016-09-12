@@ -235,3 +235,27 @@ export function parseForum(posts) {
   };
 }
 
+function parseEmailLine(line) {
+  const type = line.text.split(':')[0].trim();
+  const names = line.text.split(':')[1].split(',').map((n) => n.trim());
+  const emails = line.querySelectorAll('img')
+    .filter((img) => img.attributes.src.endsWith('mail.png'))
+    .map((img) => img.attributes.title);
+  return names.map((name, i) => ({
+    name: `${type}: ${name}`,
+    email: emails[i],
+  }));
+}
+
+export function parseEmailList(html) {
+  const root = HTMLParser.parse(html);
+  const boxBody = root.querySelectorAll('#menu div.boxBody');
+  const infoBox = boxBody[boxBody.length - 1];
+  const teacherEmailLine = infoBox.querySelectorAll('div')[4];
+  const taEmailLine = infoBox.querySelectorAll('div')[5];
+  return [
+    ...parseEmailLine(teacherEmailLine),
+    ...parseEmailLine(taEmailLine),
+  ];
+}
+
