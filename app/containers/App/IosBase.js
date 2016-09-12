@@ -36,21 +36,22 @@ class IosBase extends Component {
     const renderDrawer = () => <Drawer onItemClick={this.handleDrawerItemClick} />;
     return (
       <DrawerLayout
+        drawerBackgroundColor="#FFFFFF"
         drawerWidth={300}
         drawerPosition={DrawerLayout.positions.left}
         renderNavigationView={renderDrawer}
         ref={this.drawerRef}
       >
-        <StatusBar backgroundColor={statusBarBackgroundColor} />
+        <StatusBar barStyle="light-content"/>
         <NavBar
           title={{ title }}
           leftButton={
             <CustomNavButton
-              style={{ marginLeft: 8 }}
+              style={{ marginLeft: 16 }}
               onPress={this.handleIconClick}
             />
           }
-          style={{ height: 56, backgroundColor: toolbarBackgroundColor }}
+          style={{ alignItems: 'center', height: 56, backgroundColor: "#FFFFFF" }}
         />
         {children}
       </DrawerLayout>

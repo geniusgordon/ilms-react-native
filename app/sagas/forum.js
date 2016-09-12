@@ -1,6 +1,6 @@
 import { takeEvery } from 'redux-saga';
 import { call, fork, put } from 'redux-saga/effects';
-import { ToastAndroid } from 'react-native';
+import { ToastAndroid, Alert, Platform } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import api from '../utils/api';
 import { parseForum } from '../utils/parser';
@@ -21,7 +21,10 @@ function* fetchForum({ forumId }) {
     const forum = parseForum(json.posts);
     yield put(fetchForumSuccess(forum));
   } catch (error) {
-    ToastAndroid.show('無法載入', ToastAndroid.SHORT);
+    if(Platform.OS === 'android')
+      ToastAndroid.show('無法載入', ToastAndroid.SHORT);
+    else
+      Alert.alert('無法載入');
     yield put(fetchForumFail(error.message));
   }
 }

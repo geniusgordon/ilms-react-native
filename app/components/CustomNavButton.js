@@ -11,7 +11,7 @@ export default class CustomNavButton extends Component {
       <TouchableOpacity onPress={this.props.onPress}>
         <Image
           source={menuIcon}
-          style={[{ width: 20, height: 20, }, this.props.style]}/>
+          style={[this.props.style]}/>
       </TouchableOpacity>
     );
   }
