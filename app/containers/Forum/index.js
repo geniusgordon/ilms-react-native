@@ -26,15 +26,6 @@ class Forum extends Component {
     loading: PropTypes.bool,
     dispatch: PropTypes.func,
   };
-  constructor(props) {
-    super(props);
-    this.state = {
-      closeIcon: null,
-    };
-  }
-  componentWillMount() {
-    Icon.getImageSource('close', 20, 'red').then((source) => this.setState({ closeIcon: source }));
-  }
   componentDidMount() {
     const { id, dispatch } = this.props;
     dispatch(fetchForum(id));
@@ -75,9 +66,8 @@ class Forum extends Component {
         <StatusBar barStyle="light-content" backgroundColor="#1565c0" />
         <ToolBar
           title="討論區"
-          iosIcon={this.state.closeIcon}
           statusbarColor="#1565c0"
-          androidIcon="close"
+          icon="close"
           style={{ backgroundColor: '#1e88e5' }}
           onClicked={Actions.pop}
         />

@@ -2,10 +2,11 @@ import React, { PropTypes } from 'react';
 import { Platform } from 'react-native';
 import NavBar from 'react-native-navbar';
 import { ToolbarAndroid } from 'react-native-vector-icons/MaterialIcons';
+import CustomNavButton from './CustomNavButton';
 
 const ToolBar = ({
   title,
-  androidIcon,
+  icon,
   statusbarColor,
   style,
   onClicked,
@@ -19,18 +20,20 @@ const ToolBar = ({
           style: 'light-content',
           tintColor: statusbarColor,
         }}
-        leftButton={{
-          title: 'Back',
-          tintColor: 'black',
-          handler: onClicked,
-        }}
+        leftButton={
+          <CustomNavButton
+            icon={icon}
+            style={{ marginLeft: 16 }}
+            onPress={onClicked}
+          />
+        }
       />
     );
   }
   return (
     <ToolbarAndroid
       title={title}
-      navIconName={androidIcon}
+      navIconName={icon}
       style={{ height: 56, ...style }}
       onIconClicked={onClicked}
     />
@@ -39,9 +42,8 @@ const ToolBar = ({
 
 ToolBar.propTypes = {
   title: PropTypes.string,
-  androidIcon: PropTypes.string,
+  icon: PropTypes.string,
   statusbarColor: PropTypes.string,
-  iosIcon: PropTypes.object,
   style: PropTypes.object,
   onClicked: PropTypes.func,
 };
