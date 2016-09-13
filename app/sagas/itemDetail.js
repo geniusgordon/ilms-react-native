@@ -1,6 +1,6 @@
 import { takeEvery } from 'redux-saga';
 import { call, fork, put } from 'redux-saga/effects';
-import { ToastAndroid } from 'react-native';
+import { ToastAndroid, Alert, Platform } from 'react-native';
 import RNFetchBlob from 'react-native-fetch-blob';
 import api from '../utils/api';
 import {
@@ -45,7 +45,10 @@ function* fetchItemDetail({ courseId, itemType, itemId }) {
     const item = parseItemDetail(itemType, html);
     yield put(fetchItemDetailSuccess(itemType, itemId, item));
   } catch (error) {
-    ToastAndroid.show('無法載入', ToastAndroid.SHORT);
+    if(Platform.OS === 'android')
+      ToastAndroid.show('無法載入', ToastAndroid.SHORT);
+    else
+      Alert.alert('無法載入');
     yield put(fetchItemDetailFail(itemType, itemId, error.message));
   }
 }

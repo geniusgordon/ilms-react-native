@@ -1,6 +1,6 @@
 import { takeEvery } from 'redux-saga';
 import { call, fork, put } from 'redux-saga/effects';
-import { ToastAndroid } from 'react-native';
+import { ToastAndroid, Alert, Platform } from 'react-native';
 import api from '../utils/api';
 import { parseEmailList } from '../utils/parser';
 import {
@@ -18,7 +18,10 @@ function* fetchEmailList({ courseId }) {
     const emailList = parseEmailList(html);
     yield put(fetchEmailListSuccess(courseId, emailList));
   } catch (error) {
-    ToastAndroid.show('無法載入課程信箱', ToastAndroid.SHORT);
+    if(Platform.OS === 'android')
+      ToastAndroid.show('無法載入課程信箱', ToastAndroid.SHORT);
+    else
+      Alert.alert('無法載入課程信箱'); 
     yield put(fetchEmailListFail(error.message));
   }
 }

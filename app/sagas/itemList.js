@@ -1,6 +1,6 @@
 import { takeEvery } from 'redux-saga';
 import { call, fork, put } from 'redux-saga/effects';
-import { ToastAndroid } from 'react-native';
+import { ToastAndroid, Alert, Platform } from 'react-native';
 import api from '../utils/api';
 import {
   parseCourseName,
@@ -30,7 +30,10 @@ function* fetchItemList({ courseId, itemType }) {
     const itemList = parseItemList(itemType, html);
     yield put(fetchItemListSuccess(courseId, courseName, itemType, itemList));
   } catch (error) {
-    ToastAndroid.show('無法載入課程', ToastAndroid.SHORT);
+    if(Platform.OS === 'android')
+      ToastAndroid.show('無法載入課程', ToastAndroid.SHORT);
+    else
+      Alert.alert('無法載入課程');
     yield put(fetchItemListFail(courseId, itemType, error.message));
   }
 }
