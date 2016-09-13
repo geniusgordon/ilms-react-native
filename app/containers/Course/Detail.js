@@ -47,11 +47,7 @@ class Detail extends Component {
       return null;
     }
     if (loading) {
-      return (
-        <View style={styles.attachmentList}>
-          <ActivityIndicator color="#388e3c" size="large" />
-        </View>
-      );
+      return null;
     }
     const attachmentList = attachments.map((attachment, i) => (
       <Attachment key={i} attachment={attachment} />
