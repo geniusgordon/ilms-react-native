@@ -10,7 +10,6 @@ import {
   View,
 } from 'react-native';
 import HTMLView from 'react-native-htmlview';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 import Attachment from './Attachment';
 import Title from '../../components/Title';
 import Padding from '../../components/Padding';
@@ -28,17 +27,6 @@ class Detail extends Component {
     loading: PropTypes.bool,
     dispatch: PropTypes.func,
   };
-  constructor(props) {
-    super(props);
-    this.state = {
-      closeIcon: null,
-    };
-  }
-  componentWillMount() {
-    Icon.getImageSource('close', 20, 'red').then((source) => {
-      this.setState({ closeIcon: source });
-    });
-  }
   componentDidMount() {
     const { courseId, itemId, itemType, dispatch } = this.props;
     dispatch(fetchItemDetail(courseId, itemType, itemId));
@@ -114,11 +102,10 @@ class Detail extends Component {
         <StatusBar barStyle="light-content" backgroundColor="#388e3c" />
         <ToolBar
           title={this.itemTitles[itemType]}
-          androidIcon="close"
+          leftIcon="close"
           statusbarColor="#388e3c"
-          iosIcon={this.state.closeIcon}
           style={{ backgroundColor: '#4caf50' }}
-          onClicked={Actions.pop}
+          onLeftClicked={Actions.pop}
         />
         <Padding backgroundColor="#4caf50" />
         {this.renderInfo()}

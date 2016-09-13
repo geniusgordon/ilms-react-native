@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import {
   Platform,
-  TouchableHighlight,
+  TouchableOpacity,
   TouchableNativeFeedback,
   View,
 } from 'react-native';
@@ -10,15 +10,14 @@ const RippleView = ({ darkRipple, style, children, borderless, onPress }) => {
   const rippleColor = darkRipple ? 'rgba(0, 0, 0, 0.2)' : '#ffffff';
   if (Platform.OS === 'ios') {
     return (
-      <TouchableHighlight
+      <TouchableOpacity
         delayPressIn={0}
-        style={{ }}
-        underlayColor="transparent"
-        activeOpacity={1}
+        style={style}
+        activeOpacity={0.8}
         onPress={onPress}
       >
         {children}
-      </TouchableHighlight>
+      </TouchableOpacity>
     );
   }
 
