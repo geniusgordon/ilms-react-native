@@ -103,10 +103,10 @@ class Detail extends Component {
         <StatusBar barStyle="light-content" backgroundColor="#388e3c" />
         <ToolBar
           title={this.itemTitles[itemType]}
-          icon="close"
+          leftIcon="close"
           statusbarColor="#388e3c"
           style={{ backgroundColor: '#4caf50' }}
-          onClicked={Actions.pop}
+          onLeftClicked={Actions.pop}
         />
         <Padding backgroundColor="#4caf50" />
         {this.renderInfo()}

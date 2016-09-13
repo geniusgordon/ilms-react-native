@@ -1,30 +1,40 @@
 import React, { PropTypes } from 'react';
-import { Platform } from 'react-native';
+import { View, Platform } from 'react-native';
 import NavBar from 'react-native-navbar';
 import { ToolbarAndroid } from 'react-native-vector-icons/MaterialIcons';
 import CustomNavButton from './CustomNavButton';
 
 const ToolBar = ({
   title,
-  icon,
+  leftIcon,
+  rightIcon,
+  statusbarStyle,
   statusbarColor,
   style,
-  onClicked,
+  onLeftClicked,
+  onRightClicked,
 }) => {
   if (Platform.OS === 'ios') {
     return (
       <NavBar
         title={{ title }}
-        style={{ alignItems: 'center', height: 44, ...style }}
+        style={[{ alignItems: 'center', height: 44 }, style]}
         statusBar={{
-          style: 'light-content',
+          style: statusbarStyle || 'light-content',
           tintColor: statusbarColor,
         }}
         leftButton={
           <CustomNavButton
-            icon={icon}
+            icon={leftIcon}
             style={{ marginLeft: 16 }}
-            onPress={onClicked}
+            onPress={onLeftClicked}
+          />
+        }
+        rightButton={
+          <CustomNavButton
+            icon={rightIcon}
+            style={{ marginRight: 16 }}
+            onPress={onRightClicked}
           />
         }
       />
@@ -33,19 +43,22 @@ const ToolBar = ({
   return (
     <ToolbarAndroid
       title={title}
-      navIconName={icon}
+      navIconName={leftIcon}
       style={{ height: 56, ...style }}
-      onIconClicked={onClicked}
+      onIconClicked={onLeftClicked}
     />
   );
 };
 
 ToolBar.propTypes = {
   title: PropTypes.string,
-  icon: PropTypes.string,
+  leftIcon: PropTypes.string,
+  rightIcon: PropTypes.string,
+  statusbarStyle: PropTypes.string,
   statusbarColor: PropTypes.string,
-  style: PropTypes.object,
-  onClicked: PropTypes.func,
+  style: View.propTypes.style,
+  onLeftClicked: PropTypes.func,
+  onRightClicked: PropTypes.func,
 };
 
 export default ToolBar;

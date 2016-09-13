@@ -67,9 +67,9 @@ class Forum extends Component {
         <ToolBar
           title="討論區"
           statusbarColor="#1565c0"
-          icon="close"
+          leftIcon="close"
           style={{ backgroundColor: '#1e88e5' }}
-          onClicked={Actions.pop}
+          onLeftClicked={Actions.pop}
         />
         <Padding backgroundColor="#1e88e5" />
         <View style={styles.list}>

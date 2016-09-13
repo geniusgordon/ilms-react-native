@@ -6,12 +6,14 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const CustomNavButton = ({ icon, style, onPress }) => (
   <TouchableOpacity onPress={onPress}>
-    <Icon
-      name={icon}
-      size={24}
-      color="black"
-      style={style}
-    />
+    { icon ?
+      <Icon
+        name={icon}
+        size={24}
+        color="black"
+        style={style}
+      /> : null
+    }
   </TouchableOpacity>
 );
 

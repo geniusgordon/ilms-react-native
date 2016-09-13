@@ -5,6 +5,16 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#f9f9f9',
   },
+  toolbar: {
+    backgroundColor: 'white',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowRadius: 1,
+    shadowColor: 'black',
+    shadowOpacity: 0.6,
+  },
   loadingContainer: {
     height: 100,
     justifyContent: 'center',
@@ -77,6 +87,7 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   titleInput: {
+    flex: 1,
     fontSize: 20,
   },
   titleInputText: {
@@ -85,7 +96,11 @@ const styles = StyleSheet.create({
     paddingTop: 16,
     paddingBottom: 16,
   },
+  nameInput: {
+    flex: 1,
+  },
   inputContainer: {
+    height: 100,
     paddingLeft: 16,
     paddingRight: 16,
   },
