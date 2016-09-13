@@ -14,10 +14,14 @@ class Home extends Component {
   componentDidMount() {
     this.props.dispatch(fetchLatestNews());
   }
-  handleItemPress = (itemType, itemId) => {
+  handleItemPress = (itemType, i) => {
     const { latestNews, dispatch } = this.props;
-    const { courseId } = latestNews[itemId];
-    dispatch(route('course', { id: courseId }));
+    const { courseId, itemId } = latestNews[i];
+    dispatch(route('detail', {
+      itemType: 'announcement',
+      courseId,
+      itemId,
+    }));
   };
   render() {
     const { latestNews, loading } = this.props;

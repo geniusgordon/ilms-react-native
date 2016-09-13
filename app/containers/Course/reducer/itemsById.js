@@ -4,6 +4,7 @@ import {
   FETCH_ITEM_DETAIL_SUCCESS,
 } from '../actions/actionTypes';
 import { FETCH_FORUM_SUCCESS } from '../../Forum/actionTypes';
+import {FETCH_LATEST_NEWS_SUCCESS } from '../../Home/actionTypes';
 
 const initalState = {
   announcement: {},
@@ -46,6 +47,19 @@ const reducer = handleActions({
       },
     },
   }),
+  [FETCH_LATEST_NEWS_SUCCESS]: (state, { latestNews }) => {
+    const byId = latestNews.reduce((reduction, item) => ({
+      ...reduction,
+      [item.itemId]: {
+        ...state.announcement[item.itemId],
+        ...item,
+      },
+    }), state.announcement);
+    return {
+      ...state,
+      announcement: byId,
+    };
+  },
 }, initalState);
 
 export default reducer;

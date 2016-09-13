@@ -18,9 +18,11 @@ export function parseLatestNews(html) {
   const blockItems = block.querySelectorAll('.BlockItem');
   return blockItems.map((item, i) => {
     const link = item.querySelectorAll('a');
+    const id = link[0].attributes.href.match(/.*\((\d+).\)*/)[1];
     const dateStr = `${item.querySelector('.hint').attributes.title} 00:00:00`;
     return {
       id: i,
+      itemId: id,
       title: link[1].text,
       subtitle: link[0].text,
       date: parseDate(dateStr),
