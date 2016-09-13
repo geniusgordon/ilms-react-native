@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { Text, View, Linking, Platform } from 'react-native';
+import { Text, View, Platform } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import RippleView from '../../components/RippleView';
 import { downloadAttachment } from './actions/itemDetail';
@@ -18,12 +18,12 @@ class Attachment extends Component {
   };
   handleLink = () => {
     const { attachment, dispatch } = this.props;
-    const BASE_URL = 'http://lms.nthu.edu.tw'
-    const PATH = `/sys/read_attach.php?id=${attachment.id}`
+    const BASE_URL = 'http://lms.nthu.edu.tw';
+    const PATH = `/sys/read_attach.php?id=${attachment.id}`;
     dispatch(route('web', {
       title: attachment.name,
       uri: BASE_URL + PATH,
-    }))
+    }));
   };
   handlePress = () => {
     if (Platform.OS === 'ios') {
