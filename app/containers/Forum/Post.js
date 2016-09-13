@@ -4,8 +4,9 @@ import HTMLView from 'react-native-htmlview';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import styles from './styles';
 
-const Post = ({ post }) => (
+const Post = ({ post, floor }) => (
   <View style={styles.post}>
+    <Text style={styles.floor}>{floor === 0 ? '原' : `${floor}F`}</Text>
     <View style={styles.postInfo}>
       <View style={styles.postIconContainer}>
         <Icon name="account-circle" size={64} color="#000" />
@@ -30,6 +31,7 @@ const Post = ({ post }) => (
 
 Post.propTypes = {
   post: PropTypes.object,
+  floor: PropTypes.number,
 };
 
 export default Post;

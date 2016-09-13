@@ -1,28 +1,36 @@
 import React, { PropTypes } from 'react';
 import { Text, View, StyleSheet } from 'react-native';
+import Divider from './Divider';
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    height: 56,
-    paddingLeft: 16,
-    paddingRight: 16,
-    justifyContent: 'center',
+  container: {
+    margin: 8,
+    padding: 16,
+    backgroundColor: 'white',
+    elevation: 2,
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  subtitle: {
+    fontWeight: '100',
+    textAlign: 'center',
   },
 });
 
-const Title = ({ title, backgroundColor }) => (
-  <View style={[styles.titleContainer, { backgroundColor }]}>
+const Title = ({ title, subtitle }) => (
+  <View style={styles.container}>
     <Text style={styles.title}>{title}</Text>
+    <Divider />
+    <Text style={styles.subtitle}>{subtitle}</Text>
   </View>
 );
 
 Title.propTypes = {
   title: PropTypes.string,
-  backgroundColor: PropTypes.string,
+  subtitle: PropTypes.string,
 };
 
 export default Title;

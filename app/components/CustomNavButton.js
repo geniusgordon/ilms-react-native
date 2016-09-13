@@ -3,15 +3,15 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
-import menuIcon from '../assets/ic_menu_black.png';
 
 export default class CustomNavButton extends Component {
   render() {
+    const { icon, style, onPress } = this.props;
     return (
-      <TouchableOpacity onPress={this.props.onPress}>
+      <TouchableOpacity onPress={onPress}>
         <Image
-          source={menuIcon}
-          style={[this.props.style]}/>
+          source={icon}
+          style={[style]}/>
       </TouchableOpacity>
     );
   }

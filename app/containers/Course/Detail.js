@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { Actions } from 'react-native-router-flux';
 import {
+  ActivityIndicator,
   Linking,
   ScrollView,
   StatusBar,
@@ -8,12 +10,14 @@ import {
   View,
 } from 'react-native';
 import HTMLView from 'react-native-htmlview';
+import Icon, { ToolbarAndroid } from 'react-native-vector-icons/MaterialIcons';
 import Attachment from './Attachment';
 import Title from '../../components/Title';
 import Padding from '../../components/Padding';
-import Divider from '../../components/Divider';
+import ToolBar from '../../components/ToolBar';
 import { fetchItemDetail } from './actions/itemDetail';
 import styles from './styles';
+
 
 class Detail extends Component {
   static propTypes = {
@@ -23,6 +27,18 @@ class Detail extends Component {
     itemsById: PropTypes.object,
     dispatch: PropTypes.func,
   };
+  constructor(props) {
+    super(props);
+    this.state = {
+      closeIcon: null,
+    }
+  }
+  componentWillMount() {
+    Icon.getImageSource('close', 20, 'red').then((source) => {
+      console.log(source);
+      this.setState({ closeIcon: source })
+    });
+  }
   componentDidMount() {
     const { courseId, itemId, itemType, dispatch } = this.props;
     dispatch(fetchItemDetail(courseId, itemType, itemId));
@@ -32,12 +48,22 @@ class Detail extends Component {
     material: '教材',
     assignment: '作業',
   };
+  handleListPress = (url) => {
+    Linking.openURL(url);
+  };
   renderAttachments = () => {
-    const { itemId, itemType, itemsById } = this.props;
+    const { itemId, itemType, itemsById, loading } = this.props;
     const item = itemsById[itemType][itemId] || {};
     const attachments = item.attachments || [];
     if (attachments.length === 0) {
       return null;
+    }
+    if (loading) {
+      return (
+        <View style={styles.attachmentList}>
+          <ActivityIndicator color="#388e3c" size="large" />
+        </View>
+      );
     }
     const attachmentList = attachments.map((attachment, i) => (
       <Attachment key={i} attachment={attachment} />
@@ -51,27 +77,55 @@ class Detail extends Component {
       </View>
     );
   };
-  render() {
-    const { itemId, itemType, itemsById } = this.props;
+  renderInfo = () => {
+    const { itemId, itemType, itemsById, loading } = this.props;
     const item = itemsById[itemType][itemId] || {};
+    if (loading) {
+      return (
+        <View style={styles.detailInfo}>
+          <ActivityIndicator color="#388e3c" size="large" />
+        </View>
+      );
+    }
+    return <Title title={item.title} subtitle={item.dateStr} />;
+  };
+  renderDetail = () => {
+    const { itemId, itemType, itemsById, loading } = this.props;
+    const item = itemsById[itemType][itemId] || {};
+    if (loading) {
+      return (
+        <View style={styles.detailContent}>
+          <ActivityIndicator color="#388e3c" size="large" />
+        </View>
+      );
+    }
+    return (
+      <View style={styles.detailContent}>
+        <HTMLView
+          value={item.content}
+          onLinkPress={this.handleListPress}
+        />
+      </View>
+    );
+  };
+  render() {
+    const { itemType } = this.props;
     return (
       <View style={styles.base}>
         <StatusBar barStyle='light-content' backgroundColor="#388e3c" />
-        <Title title={this.itemTitles[itemType]} backgroundColor="#4caf50" />
+        <ToolBar
+          title={this.itemTitles[itemType]}
+          androidIcon="close"
+          statusbarColor="#388e3c"
+          iosIcon={this.state.closeIcon}
+          style={{ backgroundColor: '#4caf50' }}
+          onClicked={Actions.pop}
+        />
         <Padding backgroundColor="#4caf50" />
-        <View style={styles.detailInfo}>
-          <Text style={styles.detailTitle}>{item.title}</Text>
-          <Divider />
-          <Text style={styles.detailDate}>{item.dateStr}</Text>
-        </View>
+        {this.renderInfo()}
         <ScrollView>
           <View style={styles.detailContainer}>
-            <View style={styles.detailContent}>
-              <HTMLView
-                value={item.content}
-                onLinkPress={(url) => Linking.openURL(url)}
-              />
-            </View>
+            {this.renderDetail()}
             {this.renderAttachments()}
           </View>
         </ScrollView>
@@ -82,6 +136,7 @@ class Detail extends Component {
 
 const mapStateToProps = (state) => ({
   itemsById: state.course.itemsById,
+  loading: state.course.loading.detail,
 });
 
 export default connect(mapStateToProps)(Detail);

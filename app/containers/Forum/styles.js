@@ -5,9 +5,11 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#f9f9f9',
   },
-  forumTitleContainer: {
+  loadingContainer: {
+    height: 100,
+    justifyContent: 'center',
+    alignItems: 'center',
     margin: 8,
-    padding: 16,
     backgroundColor: 'white',
     elevation: 2,
     shadowOffset: {
@@ -17,10 +19,6 @@ const styles = StyleSheet.create({
     shadowRadius: 1,
     shadowColor: 'black',
     shadowOpacity: 0.6,
-  },
-  forumTitle: {
-    fontSize: 24,
-    fontWeight: 'bold',
   },
   list: {
     flex: 1,
@@ -37,10 +35,17 @@ const styles = StyleSheet.create({
     shadowRadius: 1,
     shadowColor: 'black',
     shadowOpacity: 0.6,
+    position: 'relative',
+
   },
   postBorderTop: {
     height: 16,
     backgroundColor: 'steelblue',
+  },
+  floor: {
+    position: 'absolute',
+    top: 16,
+    right: 16,
   },
   postInfo: {
     padding: 16,

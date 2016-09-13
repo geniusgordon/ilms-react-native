@@ -90,7 +90,7 @@ class Course extends Component {
     );
   };
   render() {
-    const { id, courseCollection } = this.props;
+    const { id, courseCollection, loading } = this.props;
     const course = courseCollection.courseById[id] || {};
     return (
       <Base
@@ -107,6 +107,7 @@ class Course extends Component {
             paddingColor="#ffc107"
             itemType="announcement"
             items={this.getItems('announcement')}
+            loading={loading}
             onItemPress={this.handleItemPress}
           />
           <List
@@ -114,6 +115,7 @@ class Course extends Component {
             paddingColor="#ffc107"
             itemType="material"
             items={this.getItems('material')}
+            loading={loading}
             onItemPress={this.handleItemPress}
           />
           <List
@@ -121,6 +123,7 @@ class Course extends Component {
             paddingColor="#ffc107"
             itemType="assignment"
             items={this.getItems('assignment')}
+            loading={loading}
             onItemPress={this.handleItemPress}
           />
           <List
@@ -128,6 +131,7 @@ class Course extends Component {
             paddingColor="#ffc107"
             itemType="forum"
             items={this.getItems('forum')}
+            loading={loading}
             onItemPress={this.handleForumPress}
           />
         </TabView>
@@ -139,6 +143,7 @@ class Course extends Component {
 
 const mapStateToProps = (state) => ({
   courseCollection: state.course,
+  loading: state.course.loading.list,
 });
 
 export default connect(mapStateToProps)(Course);

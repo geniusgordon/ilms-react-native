@@ -20,7 +20,6 @@ import { fetchCourseList } from '../containers/Course/actions/courseList';
 
 function* checkLogin() {
   const { isLogin, html } = yield call(api.checkLogin);
-  console.log(isLogin, html);
   if (!isLogin) {
     if (Platform.OS === 'android')
       ToastAndroid.show('尚未登入', ToastAndroid.SHORT);

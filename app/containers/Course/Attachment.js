@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Text, View } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import RippleView from '../../components/RippleView';
 import { downloadAttachment } from './actions/itemDetail';
 import styles from './styles';
@@ -19,7 +20,8 @@ class Attachment extends Component {
     return (
       <RippleView onPress={this.handleDownload} darkRipple>
         <View style={styles.attachment}>
-          <Text>{attachment.name}</Text>
+          <Icon name="attachment" size={16} color="#000" />
+          <Text style={styles.attachmentName}>{attachment.name}</Text>
         </View>
       </RippleView>
     );

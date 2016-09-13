@@ -10,6 +10,7 @@ class List extends Component {
     paddingColor: PropTypes.string,
     itemType: PropTypes.string,
     items: PropTypes.array,
+    loading: PropTypes.bool,
     onItemPress: PropTypes.func,
   };
   handleItemPress = (id) => {
@@ -17,13 +18,13 @@ class List extends Component {
     onItemPress(itemType, id);
   };
   renderList = () => {
-    const { itemType, items } = this.props;
+    const { itemType, items, loading } = this.props;
     if (items.length === 0) {
-      return <NoData />;
+      return <NoData loading={loading} />;
     }
-    return items.map((item) => (
+    return items.map((item, i) => (
       <ListItem
-        key={item.id}
+        key={i}
         itemType={itemType}
         item={item}
         onPress={this.handleItemPress}

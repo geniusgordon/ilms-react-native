@@ -1,12 +1,20 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { View, Text, ScrollView, StatusBar } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import { Actions } from 'react-native-router-flux';
+import {
+  ActivityIndicator,
+  View,
+  Text,
+  ScrollView,
+  StatusBar,
+} from 'react-native';
+import Icon, { ToolbarAndroid } from 'react-native-vector-icons/MaterialIcons';
 import ActionButton from 'react-native-action-button';
 import Post from './Post';
 import NoData from '../Course/NoData';
 import Title from '../../components/Title';
 import Padding from '../../components/Padding';
+import ToolBar from '../../components/ToolBar';
 import { fetchForum } from './actions';
 import { route } from '../App/actions';
 import styles from './styles';
@@ -18,6 +26,15 @@ class Forum extends Component {
     forumCollection: PropTypes.object,
     dispatch: PropTypes.func,
   };
+  constructor(props) {
+    super(props);
+    this.state = {
+      closeIcon: null,
+    }
+  }
+  componentWillMount() {
+    Icon.getImageSource('close', 20, 'red').then((source) => this.setState({ closeIcon: source }));
+  }
   componentDidMount() {
     const { id, dispatch } = this.props;
     dispatch(fetchForum(id));
@@ -33,14 +50,21 @@ class Forum extends Component {
     }));
   };
   renderList = () => {
-    const { id, forumCollection } = this.props;
+    const { id, forumCollection, loading } = this.props;
     const forum = forumCollection[id] || {};
     const posts = forum.posts || [];
     if (posts.length === 0) {
       return <NoData />;
     }
-    return forum.posts.map((post) => (
-      <Post key={post.id} post={post} />
+    if (loading) {
+      return (
+        <View style={styles.loadingContainer}>
+          <ActivityIndicator color="#388e3c" size="large" />
+        </View>
+      );
+    }
+    return forum.posts.map((post, i) => (
+      <Post key={post.id} post={post} floor={i} />
     ));
   };
   render() {
@@ -49,12 +73,17 @@ class Forum extends Component {
     return (
       <View style={styles.base}>
         <StatusBar barStyle='light-content' backgroundColor="#1565c0" />
-        <Title title="討論區" backgroundColor="#1e88e5" />
+        <ToolBar
+          title="討論區"
+          iosIcon={this.state.closeIcon}
+          statusbarColor="#1565c0"
+          androidIcon="close"
+          style={{ backgroundColor: '#1e88e5' }}
+          onClicked={Actions.pop}
+        />
         <Padding backgroundColor="#1e88e5" />
         <View style={styles.list}>
-          <View style={styles.forumTitleContainer}>
-            <Text style={styles.forumTitle}>{forum.title}</Text>
-          </View>
+          <Title title={forum.title} subtitle={forum.subtitle} />
           <ScrollView>
             <View>
               {this.renderList()}
@@ -73,6 +102,7 @@ class Forum extends Component {
 
 const mapStateToProps = (state) => ({
   forumCollection: state.course.itemsById.forum,
+  loading: state.forum.loading,
 });
 
 export default connect(mapStateToProps)(Forum);

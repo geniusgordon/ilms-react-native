@@ -1,4 +1,4 @@
-package com.ilms;
+package com.geniusgordon.ilms;
 
 import com.facebook.react.ReactActivity;
 
