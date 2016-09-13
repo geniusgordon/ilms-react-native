@@ -53,12 +53,6 @@ class Course extends Component {
   handleTabChange = (tab) => {
     this.setState({ fabScale: tab.i === 3 ? 1 : 0 });
   };
-  handleEmailPress = () => {
-    const { id, dispatch } = this.props;
-    dispatch(route('email', {
-      courseId: id,
-    }));
-  };
   handleEditPress = () => {
     const { id, dispatch } = this.props;
     dispatch(route('compose', {
@@ -68,8 +62,15 @@ class Course extends Component {
     }));
   };
   handleActionSelect = (action) => {
+    const { id, dispatch } = this.props;
     if (action === 0) {
-      this.handleEmailPress();
+      dispatch(route('email', {
+        courseId: id,
+      }));
+    } else if (action === 1) {
+      dispatch(route('score', {
+        courseId: id,
+      }));
     }
   };
   renderFixedActionButton = () => {

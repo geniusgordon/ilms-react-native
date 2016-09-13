@@ -91,6 +91,34 @@ const styles = StyleSheet.create({
   attachmentName: {
     paddingLeft: 16,
   },
+  scoreListHeader: {
+    padding: 16,
+    backgroundColor: '#ffc107',
+    flexDirection: 'row',
+    elevation: 3,
+  },
+  scoreList: {
+    flex: 1,
+    margin: 8,
+    elevation: 2,
+  },
+  scoreName: {
+    flex: 1,
+    color: 'black',
+    fontWeight: 'bold',
+  },
+  scorePercent: {
+    width: 48,
+    color: 'black',
+    fontWeight: 'bold',
+    textAlign: 'right',
+  },
+  score: {
+    width: 48,
+    color: 'black',
+    fontWeight: 'bold',
+    textAlign: 'right',
+  },
 });
 
 export default styles;
