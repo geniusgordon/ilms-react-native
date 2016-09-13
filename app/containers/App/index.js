@@ -16,14 +16,12 @@ import { deepLink } from './actions';
 
 const mainScene = {
   duration: 100,
-  direction: 'vertical',
   panHandlers: null,
   hideNavBar: true,
 };
 
 const detailScene = {
   duration: 300,
-  direction: 'vertical',
   hideNavBar: true,
 };
 
