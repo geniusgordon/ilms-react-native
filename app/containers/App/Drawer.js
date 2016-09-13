@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Image, View, Text, ScrollView } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 import CourseList from './CourseList';
+import DrawerItem from './DrawerItem';
 import RippleView from '../../components/RippleView';
 import { route } from './actions';
 import { logout } from '../Auth/actions';
@@ -17,6 +17,10 @@ class Drawer extends Component {
   };
   handleCoursePress = (id) => {
     this.props.dispatch(route('course', { id }));
+    this.props.onItemClick();
+  };
+  handleHomePress = () => {
+    this.props.dispatch(route('home'));
     this.props.onItemClick();
   };
   handleAboutPress = () => {
@@ -36,22 +40,20 @@ class Drawer extends Component {
           </View>
         </RippleView>
         <ScrollView style={styles.drawerItemList}>
+          <DrawerItem
+            onPress={this.handleHomePress}
+            icon="stars"
+            name="最新公吉"
+          />
           <CourseList
             courseList={courseList}
             onCoursePress={this.handleCoursePress}
           />
-          <RippleView onPress={this.handleAboutPress} darkRipple>
-            <View style={styles.drawerItem}>
-              <Icon name="info-outline" size={24} color="#000" />
-              <Text
-                style={styles.drawerItemName}
-                ellipsizeMode="tail"
-                numberOfLines={1}
-              >
-                About
-              </Text>
-            </View>
-          </RippleView>
+          <DrawerItem
+            onPress={this.handleAboutPress}
+            icon="info-outline"
+            name="About"
+          />
         </ScrollView>
         <RippleView onPress={this.handleLogout}>
           <View style={styles.logout}>
