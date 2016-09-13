@@ -6,7 +6,6 @@ import Base from '../App/Base';
 import List from './List';
 import TabView from '../../components/TabView';
 import { fetchItemList } from './actions/itemList';
-import { fetchEmailList } from './actions/emailList';
 import { route } from '../App/actions';
 
 class Course extends Component {
@@ -24,7 +23,6 @@ class Course extends Component {
   }
   componentDidMount() {
     const { id, dispatch } = this.props;
-    dispatch(fetchEmailList(id));
     this.itemTypes.forEach((itemType) => {
       dispatch(fetchItemList(id, itemType));
     });
@@ -35,6 +33,8 @@ class Course extends Component {
     const items = course[itemType] || [];
     return items.map((itemId) => courseCollection.itemsById[itemType][itemId]);
   };
+  itemTypes = ['announcement', 'material', 'assignment', 'forum'];
+  toolbarActions = [{ title: '寄信給老師或助教' }, { title: '成績查詢' }];
   handleItemPress = (itemType, itemId) => {
     const courseId = this.props.id;
     this.props.dispatch(route('detail', {
@@ -53,15 +53,6 @@ class Course extends Component {
   handleTabChange = (tab) => {
     this.setState({ fabScale: tab.i === 3 ? 1 : 0 });
   };
-  handleEmailPress = () => {
-    const { id, courseCollection, dispatch } = this.props;
-    const course = courseCollection.courseById[id] || {};
-    const emailList = course.emailList || [];
-    dispatch(route('email', {
-      courseId: id,
-      emailList,
-    }));
-  };
   handleEditPress = () => {
     const { id, dispatch } = this.props;
     dispatch(route('compose', {
@@ -70,16 +61,21 @@ class Course extends Component {
       postId: 0,
     }));
   };
-  itemTypes = ['announcement', 'material', 'assignment', 'forum'];
+  handleActionSelect = (action) => {
+    const { id, dispatch } = this.props;
+    if (action === 0) {
+      dispatch(route('email', {
+        courseId: id,
+      }));
+    } else if (action === 1) {
+      dispatch(route('score', {
+        courseId: id,
+      }));
+    }
+  };
   renderFixedActionButton = () => {
     if (this.state.fabScale === 0) {
-      return (
-        <ActionButton
-          buttonColor="#4caf50"
-          icon={<Icon name="email" size={24} color="#fff" />}
-          onPress={this.handleEmailPress}
-        />
-      );
+      return null;
     }
     return (
       <ActionButton
@@ -97,6 +93,8 @@ class Course extends Component {
         title={course.name}
         statusBarBackgroundColor="#ffa000"
         toolbarBackgroundColor="#ffc107"
+        toolbarActions={this.toolbarActions}
+        onActionSelected={this.handleActionSelect}
       >
         <TabView
           backgroundColor="#ffc107"

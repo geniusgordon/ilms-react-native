@@ -261,3 +261,23 @@ export function parseEmailList(html) {
   ];
 }
 
+export function parseScore(html) {
+  const root = HTMLParser.parse(html);
+  if (root.querySelector('#main').text.indexOf('不開放') !== -1) {
+    return null;
+  }
+  const tr = root.querySelectorAll('#main tr');
+  const scoreHeader = tr[0].querySelectorAll('td').slice(4);
+  const scoreRow = tr[1].querySelectorAll('td').slice(4);
+
+  return scoreRow.map((row, i) => {
+    const text = scoreHeader[i].text;
+    const percent = text.match(/\((.*)\)/);
+    return {
+      name: text.replace(/\(.*\)/, ''),
+      percent: percent ? percent[1] : '',
+      score: row.text,
+    };
+  });
+}
+

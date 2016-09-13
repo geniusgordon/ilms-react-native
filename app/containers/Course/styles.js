@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    padding: 16,
   },
   listItemInfo: {
     width: 96,
@@ -50,6 +51,14 @@ const styles = StyleSheet.create({
   },
   listItemSubtitle: {
     color: 'rgba(0, 0, 0, 0.5)',
+  },
+  detailLoading: {
+    height: 100,
+    margin: 8,
+    backgroundColor: 'white',
+    elevation: 2,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   detailContent: {
     margin: 8,
@@ -89,6 +98,34 @@ const styles = StyleSheet.create({
   },
   attachmentName: {
     paddingLeft: 16,
+  },
+  scoreListHeader: {
+    padding: 16,
+    backgroundColor: '#ffc107',
+    flexDirection: 'row',
+    elevation: 3,
+  },
+  scoreList: {
+    flex: 1,
+    margin: 8,
+    elevation: 2,
+  },
+  scoreName: {
+    flex: 1,
+    color: 'black',
+    fontWeight: 'bold',
+  },
+  scorePercent: {
+    width: 48,
+    color: 'black',
+    fontWeight: 'bold',
+    textAlign: 'right',
+  },
+  score: {
+    width: 48,
+    color: 'black',
+    fontWeight: 'bold',
+    textAlign: 'right',
   },
 });
 

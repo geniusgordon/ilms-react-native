@@ -10,8 +10,10 @@ class Base extends Component {
     title: PropTypes.string,
     statusBarBackgroundColor: PropTypes.string,
     toolbarBackgroundColor: PropTypes.string,
+    toolbarActions: PropTypes.array,
     children: PropTypes.node,
     dispatch: PropTypes.func,
+    onActionSelected: PropTypes.func,
   };
   componentDidMount() {
     this.props.dispatch(checkLogin());
@@ -21,6 +23,8 @@ class Base extends Component {
       title,
       statusBarBackgroundColor,
       toolbarBackgroundColor,
+      toolbarActions,
+      onActionSelected,
       children,
     } = this.props;
     if (Platform.OS === 'ios') {
@@ -39,6 +43,8 @@ class Base extends Component {
         title={title}
         statusBarBackgroundColor={statusBarBackgroundColor}
         toolbarBackgroundColor={toolbarBackgroundColor}
+        toolbarActions={toolbarActions}
+        onActionSelected={onActionSelected}
       >
         {children}
       </AndroidBase>

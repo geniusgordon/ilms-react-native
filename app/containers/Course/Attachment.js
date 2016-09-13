@@ -29,7 +29,7 @@ class Attachment extends Component {
     if (Platform.OS === 'ios') {
       this.handleLink();
     } else {
-      this.handleLink();
+      this.handleDownload();
     }
   };
   render() {

@@ -8,6 +8,7 @@ import Login from '../Auth';
 import Course from '../Course';
 import Detail from '../Course/Detail';
 import EmailList from '../Course/EmailList';
+import ScoreList from '../Course/ScoreList';
 import Forum from '../Forum';
 import Compose from '../Forum/Compose';
 import Web from '../../components/Web';
@@ -15,14 +16,12 @@ import { deepLink } from './actions';
 
 const mainScene = {
   duration: 100,
-  direction: 'vertical',
   panHandlers: null,
   hideNavBar: true,
 };
 
 const detailScene = {
   duration: 300,
-  direction: 'vertical',
   hideNavBar: true,
 };
 
@@ -48,6 +47,7 @@ class App extends Component {
           <Scene key="forum" component={Forum} {...detailScene} />
           <Scene key="compose" component={Compose} {...detailScene} />
           <Scene key="email" component={EmailList} {...detailScene} />
+          <Scene key="score" component={ScoreList} {...detailScene} />
           <Scene key="about" component={About} {...detailScene} />
           <Scene key="web" component={Web} {...detailScene} />
         </Scene>
