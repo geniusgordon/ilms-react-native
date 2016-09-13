@@ -82,7 +82,7 @@ class Detail extends Component {
     const item = itemsById[itemType][itemId] || {};
     if (loading) {
       return (
-        <View style={styles.detailInfo}>
+        <View style={styles.detailLoading}>
           <ActivityIndicator color="#388e3c" size="large" />
         </View>
       );
@@ -93,11 +93,10 @@ class Detail extends Component {
     const { itemId, itemType, itemsById, loading } = this.props;
     const item = itemsById[itemType][itemId] || {};
     if (loading) {
-      return (
-        <View style={styles.detailContent}>
-          <ActivityIndicator color="#388e3c" size="large" />
-        </View>
-      );
+      return null;
+    }
+    if (!item.content || item.content.trim() === '') {
+      return null;
     }
     return (
       <View style={styles.detailContent}>

@@ -52,6 +52,14 @@ const styles = StyleSheet.create({
   listItemSubtitle: {
     color: 'rgba(0, 0, 0, 0.5)',
   },
+  detailLoading: {
+    height: 100,
+    margin: 8,
+    backgroundColor: 'white',
+    elevation: 2,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   detailContent: {
     margin: 8,
     minHeight: 150,
