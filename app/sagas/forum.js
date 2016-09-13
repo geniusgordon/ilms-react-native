@@ -1,8 +1,8 @@
 import { takeEvery } from 'redux-saga';
 import { call, fork, put } from 'redux-saga/effects';
-import { ToastAndroid, Alert, Platform } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import api from '../utils/api';
+import alert from '../utils/alert';
 import { parseForum } from '../utils/parser';
 import {
   FETCH_FORUM,
@@ -21,10 +21,7 @@ function* fetchForum({ forumId }) {
     const forum = parseForum(json.posts);
     yield put(fetchForumSuccess(forum));
   } catch (error) {
-    if(Platform.OS === 'android')
-      ToastAndroid.show('無法載入', ToastAndroid.SHORT);
-    else
-      Alert.alert('無法載入');
+    alert('無法載入');
     yield put(fetchForumFail(error.message));
   }
 }
@@ -58,7 +55,7 @@ function* sendPost(store, { action, courseId, postId, post }) {
     }
     Actions.pop();
   } catch (error) {
-    //
+    alert('發文失敗');
   }
 }
 

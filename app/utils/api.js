@@ -52,9 +52,6 @@ function checkLogin() {
       isLogin: true,
       html,
     };
-  })
-  .catch(err => {
-    console.log(err);
   });
 }
 
