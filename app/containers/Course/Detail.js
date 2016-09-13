@@ -10,12 +10,14 @@ import {
   View,
 } from 'react-native';
 import HTMLView from 'react-native-htmlview';
-import { ToolbarAndroid } from 'react-native-vector-icons/MaterialIcons';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import Attachment from './Attachment';
 import Title from '../../components/Title';
 import Padding from '../../components/Padding';
+import ToolBar from '../../components/ToolBar';
 import { fetchItemDetail } from './actions/itemDetail';
 import styles from './styles';
+
 
 class Detail extends Component {
   static propTypes = {
@@ -26,6 +28,17 @@ class Detail extends Component {
     loading: PropTypes.bool,
     dispatch: PropTypes.func,
   };
+  constructor(props) {
+    super(props);
+    this.state = {
+      closeIcon: null,
+    };
+  }
+  componentWillMount() {
+    Icon.getImageSource('close', 20, 'red').then((source) => {
+      this.setState({ closeIcon: source });
+    });
+  }
   componentDidMount() {
     const { courseId, itemId, itemType, dispatch } = this.props;
     dispatch(fetchItemDetail(courseId, itemType, itemId));
@@ -99,12 +112,14 @@ class Detail extends Component {
     const { itemType } = this.props;
     return (
       <View style={styles.base}>
-        <StatusBar backgroundColor="#388e3c" />
-        <ToolbarAndroid
+        <StatusBar barStyle="light-content" backgroundColor="#388e3c" />
+        <ToolBar
           title={this.itemTitles[itemType]}
-          navIconName="close"
-          style={{ height: 56, backgroundColor: '#4caf50' }}
-          onIconClicked={Actions.pop}
+          androidIcon="close"
+          statusbarColor="#388e3c"
+          iosIcon={this.state.closeIcon}
+          style={{ backgroundColor: '#4caf50' }}
+          onClicked={Actions.pop}
         />
         <Padding backgroundColor="#4caf50" />
         {this.renderInfo()}

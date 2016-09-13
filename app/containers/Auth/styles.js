@@ -24,6 +24,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     elevation: 2,
   },
+  input: {
+    height: 40,
+  },
   button: {
     height: 48,
     backgroundColor: '#ef5350',

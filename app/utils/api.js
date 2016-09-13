@@ -45,7 +45,7 @@ function checkLogin() {
   const url = `${BASE_URL}/home/profile.php`;
   return fetch(url).then((res) => res.text())
   .then((html) => {
-    if (html.indexOf('權限不足') !== -1) {
+    if (html.indexOf('權限不足') !== -1 || html.indexOf('No Permission!') !== -1) {
       return { isLogin: false };
     }
     return {

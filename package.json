@@ -9,6 +9,9 @@
   "dependencies": {
     "fast-html-parser": "^1.0.1",
     "react": "15.3.1",
+    "react-native-drawer": "^2.3.0",
+    "react-native-drawer-layout": "^1.1.0",
+    "react-native-navbar": "^1.5.0",
     "react-native": "^0.33.0",
     "react-native-action-button": "^2.0.2",
     "react-native-cookies": "^2.0.0",

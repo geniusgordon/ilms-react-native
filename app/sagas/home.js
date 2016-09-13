@@ -1,7 +1,7 @@
 import { takeEvery } from 'redux-saga';
 import { call, fork, put } from 'redux-saga/effects';
-import { ToastAndroid } from 'react-native';
 import api from '../utils/api';
+import alert from '../utils/alert';
 import { parseLatestNews } from '../utils/parser';
 import {
   FETCH_LATEST_NEWS,
@@ -18,7 +18,7 @@ function* fetchLatestNews() {
     const latestNews = parseLatestNews(html);
     yield put(fetchLatestNewsSuccess(latestNews));
   } catch (error) {
-    ToastAndroid.show('無法載入最新公吉', ToastAndroid.SHORT);
+    alert('無法載入最新公吉');
     yield put(fetchLatestNewsFail(error.message));
   }
 }

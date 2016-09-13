@@ -21,7 +21,7 @@ class EmailList extends Component {
   render() {
     return (
       <View style={styles.base}>
-        <StatusBar backgroundColor="#9e9e9e" />
+        <StatusBar barStyle="light-content" backgroundColor="#9e9e9e" />
         <Icon.ToolbarAndroid
           title="寄信給教授或助教"
           navIconName="close"

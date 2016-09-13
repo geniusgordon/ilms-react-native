@@ -12,6 +12,13 @@ const styles = StyleSheet.create({
     margin: 8,
     backgroundColor: 'white',
     elevation: 2,
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowRadius: 1,
+    shadowColor: 'black',
+    shadowOpacity: 0.6,
   },
   list: {
     flex: 1,
@@ -21,7 +28,15 @@ const styles = StyleSheet.create({
     height: 200,
     backgroundColor: 'white',
     elevation: 2,
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowRadius: 1,
+    shadowColor: 'black',
+    shadowOpacity: 0.6,
     position: 'relative',
+
   },
   postBorderTop: {
     height: 16,

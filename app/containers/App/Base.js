@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react';
+import { Platform } from 'react-native';
 import { connect } from 'react-redux';
 import AndroidBase from './AndroidBase';
+import IosBase from './IosBase';
 import { checkLogin } from '../Auth/actions';
 
 class Base extends Component {
@@ -25,6 +27,17 @@ class Base extends Component {
       onActionSelected,
       children,
     } = this.props;
+    if (Platform.OS === 'ios') {
+      return (
+        <IosBase
+          title={title}
+          statusBarBackgroundColor={statusBarBackgroundColor}
+          toolbarBackgroundColor={toolbarBackgroundColor}
+        >
+          {children}
+        </IosBase>
+      );
+    }
     return (
       <AndroidBase
         title={title}
