@@ -19,7 +19,7 @@ class List extends Component {
   };
   renderList = () => {
     const { itemType, items, loading } = this.props;
-    if (items.length === 0) {
+    if (!items || items.length === 0) {
       return <NoData loading={loading} />;
     }
     return items.map((item, i) => (

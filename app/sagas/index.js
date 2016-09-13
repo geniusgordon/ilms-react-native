@@ -1,6 +1,7 @@
 import { takeEvery } from 'redux-saga';
 import { fork } from 'redux-saga/effects';
 import { Actions } from 'react-native-router-flux';
+import GoogleAnalytics from 'react-native-google-analytics-bridge';
 import { ROUTE } from '../containers/App/actionTypes';
 import homeSaga from './home';
 import authSaga from './auth';
@@ -16,7 +17,7 @@ function route({ key, params }) {
   if (Actions[key]) {
     Actions[key](params);
     GoogleAnalytics.trackEvent('route', key, {
-      value: JSON.stringify(params),
+      label: JSON.stringify(params),
     });
   }
 }
