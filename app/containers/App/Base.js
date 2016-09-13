@@ -25,7 +25,7 @@ class Base extends Component {
     } = this.props;
     if (Platform.OS === 'ios') {
       return (
-          <IosBase
+        <IosBase
           title={title}
           statusBarBackgroundColor={statusBarBackgroundColor}
           toolbarBackgroundColor={toolbarBackgroundColor}

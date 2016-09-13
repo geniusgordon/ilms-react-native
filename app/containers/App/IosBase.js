@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import {
+  View,
   StatusBar,
 } from 'react-native';
 import DrawerLayout from 'react-native-drawer-layout';
@@ -42,7 +43,9 @@ class IosBase extends Component {
         renderNavigationView={renderDrawer}
         ref={this.drawerRef}
       >
-        <StatusBar barStyle="light-content"/>
+        <View style={{ height: 20, backgroundColor: statusBarBackgroundColor }}>
+          <StatusBar barStyle='light-content' backgroundColor='blue' />
+        </View>
         <NavBar
           title={{ title }}
           leftButton={
@@ -51,7 +54,7 @@ class IosBase extends Component {
               onPress={this.handleIconClick}
             />
           }
-          style={{ alignItems: 'center', height: 56, backgroundColor: "#FFFFFF" }}
+          style={{ marginTop: -20, alignItems: 'center', height: 44, backgroundColor: toolbarBackgroundColor }}
         />
         {children}
       </DrawerLayout>

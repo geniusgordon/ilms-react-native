@@ -10,6 +10,13 @@ const styles = StyleSheet.create({
     padding: 16,
     backgroundColor: 'white',
     elevation: 2,
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowRadius: 1,
+    shadowColor: 'black',
+    shadowOpacity: 0.6,
   },
   forumTitle: {
     fontSize: 24,
@@ -23,6 +30,13 @@ const styles = StyleSheet.create({
     height: 200,
     backgroundColor: 'white',
     elevation: 2,
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowRadius: 1,
+    shadowColor: 'black',
+    shadowOpacity: 0.6,
   },
   postBorderTop: {
     height: 16,

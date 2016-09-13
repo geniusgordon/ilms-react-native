@@ -18,7 +18,7 @@ function* fetchLatestNews() {
     const latestNews = parseLatestNews(html);
     yield put(fetchLatestNewsSuccess(latestNews));
   } catch (error) {
-    if(Platform.OS === 'android')
+    if (Platform.OS === 'android')
       ToastAndroid.show('無法載入最新公吉', ToastAndroid.SHORT);
     else
       Alert.alert('無法載入最新公吉');

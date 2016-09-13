@@ -12,7 +12,9 @@ const RippleView = ({ darkRipple, style, children, borderless, onPress }) => {
     return (
       <TouchableHighlight
         delayPressIn={0}
-        style={style}
+        style={{ }}
+        underlayColor="transparent"
+        activeOpacity={1}
         onPress={onPress}
       >
         {children}

@@ -48,7 +48,7 @@ class Forum extends Component {
     const forum = forumCollection[id] || {};
     return (
       <View style={styles.base}>
-        <StatusBar backgroundColor="#1565c0" />
+        <StatusBar barStyle='light-content' backgroundColor="#1565c0" />
         <Title title="討論區" backgroundColor="#1e88e5" />
         <Padding backgroundColor="#1e88e5" />
         <View style={styles.list}>

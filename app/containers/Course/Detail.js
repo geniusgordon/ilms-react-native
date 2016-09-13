@@ -56,7 +56,7 @@ class Detail extends Component {
     const item = itemsById[itemType][itemId] || {};
     return (
       <View style={styles.base}>
-        <StatusBar backgroundColor="#388e3c" />
+        <StatusBar barStyle='light-content' backgroundColor="#388e3c" />
         <Title title={this.itemTitles[itemType]} backgroundColor="#4caf50" />
         <Padding backgroundColor="#4caf50" />
         <View style={styles.detailInfo}>
