@@ -10,6 +10,7 @@ import Detail from '../Course/Detail';
 import EmailList from '../Course/EmailList';
 import Forum from '../Forum';
 import Compose from '../Forum/Compose';
+import Web from '../../components/Web';
 import { deepLink } from './actions';
 
 const mainScene = {
@@ -48,6 +49,7 @@ class App extends Component {
           <Scene key="compose" component={Compose} {...detailScene} />
           <Scene key="email" component={EmailList} {...detailScene} />
           <Scene key="about" component={About} {...detailScene} />
+          <Scene key="web" component={Web} {...detailScene} />
         </Scene>
       </Router>
     );
