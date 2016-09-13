@@ -12,6 +12,7 @@ class AndroidBase extends Component {
     statusBarBackgroundColor: PropTypes.string,
     toolbarBackgroundColor: PropTypes.string,
     toolbarActions: PropTypes.array,
+    onActionSelected: PropTypes.func,
     children: PropTypes.node,
   };
   handleIconClick = () => {
@@ -32,6 +33,7 @@ class AndroidBase extends Component {
       statusBarBackgroundColor,
       toolbarBackgroundColor,
       toolbarActions,
+      onActionSelected,
       children,
     } = this.props;
     const renderDrawer = () => <Drawer onItemClick={this.handleDrawerItemClick} />;
@@ -48,6 +50,7 @@ class AndroidBase extends Component {
           navIconName="menu"
           style={{ height: 56, backgroundColor: toolbarBackgroundColor }}
           actions={toolbarActions}
+          onActionSelected={onActionSelected}
           onIconClicked={this.handleIconClick}
         />
         {children}

@@ -72,15 +72,14 @@ class Course extends Component {
       postId: 0,
     }));
   };
+  handleActionSelect = (action) => {
+    if (action === 0) {
+      this.handleEmailPress();
+    }
+  };
   renderFixedActionButton = () => {
     if (this.state.fabScale === 0) {
-      return (
-        <ActionButton
-          buttonColor="#4caf50"
-          icon={<Icon name="email" size={24} color="#fff" />}
-          onPress={this.handleEmailPress}
-        />
-      );
+      return null;
     }
     return (
       <ActionButton
@@ -99,6 +98,7 @@ class Course extends Component {
         statusBarBackgroundColor="#ffa000"
         toolbarBackgroundColor="#ffc107"
         toolbarActions={this.toolbarActions}
+        onActionSelected={this.handleActionSelect}
       >
         <TabView
           backgroundColor="#ffc107"

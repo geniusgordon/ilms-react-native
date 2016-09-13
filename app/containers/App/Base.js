@@ -11,6 +11,7 @@ class Base extends Component {
     toolbarActions: PropTypes.array,
     children: PropTypes.node,
     dispatch: PropTypes.func,
+    onActionSelected: PropTypes.func,
   };
   componentDidMount() {
     this.props.dispatch(checkLogin());
@@ -21,6 +22,7 @@ class Base extends Component {
       statusBarBackgroundColor,
       toolbarBackgroundColor,
       toolbarActions,
+      onActionSelected,
       children,
     } = this.props;
     return (
@@ -29,6 +31,7 @@ class Base extends Component {
         statusBarBackgroundColor={statusBarBackgroundColor}
         toolbarBackgroundColor={toolbarBackgroundColor}
         toolbarActions={toolbarActions}
+        onActionSelected={onActionSelected}
       >
         {children}
       </AndroidBase>
