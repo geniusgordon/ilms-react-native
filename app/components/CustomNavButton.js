@@ -1,21 +1,25 @@
 import React, { PropTypes } from 'react';
 import {
-  Image,
   TouchableOpacity,
 } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const CustomNavButton = ({ icon, style, onPress }) => (
   <TouchableOpacity onPress={onPress}>
-    <Image
-      source={icon}
-      style={style}
-    />
+    { icon ?
+      <Icon
+        name={icon}
+        size={24}
+        color="black"
+        style={style}
+      /> : null
+    }
   </TouchableOpacity>
 );
 
 CustomNavButton.propTypes = {
-  icon: Image.propTypes.source,
-  style: Image.propTypes.style,
+  icon: PropTypes.string,
+  style: PropTypes.object,
   onPress: PropTypes.func,
 };
 

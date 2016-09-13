@@ -3,7 +3,6 @@ import DrawerLayout from 'react-native-drawer-layout';
 import NavBar from 'react-native-navbar';
 import Drawer from './Drawer';
 import CustomNavButton from '../../components/CustomNavButton';
-import menuIcon from '../../assets/ic_menu_black.png';
 
 class IosBase extends Component {
   static propTypes = {
@@ -49,7 +48,7 @@ class IosBase extends Component {
           }}
           leftButton={
             <CustomNavButton
-              icon={menuIcon}
+              icon="menu"
               style={{ marginLeft: 16 }}
               onPress={this.handleIconClick}
             />

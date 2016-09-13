@@ -6,8 +6,10 @@ import {
   TextInput,
   View,
   StatusBar,
+  Platform,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import ToolBar from '../../components/ToolBar';
 import { sendPost } from './actions';
 import styles from './styles';
 
@@ -77,18 +79,31 @@ class Compose extends Component {
     return (
       <View style={styles.base}>
         <StatusBar barStyle="light-content" backgroundColor="#9e9e9e" />
-        <Icon.ToolbarAndroid
-          title={title}
-          navIconName="close"
-          style={{ height: 56, backgroundColor: 'white' }}
-          elevation={5}
-          actions={this.actions}
-          onIconClicked={this.handleClose}
-          onActionSelected={this.handleSubmit}
-        />
+        { Platform.OS === 'android' ?
+          <Icon.ToolbarAndroid
+            title={title}
+            navIconName="close"
+            style={{ height: 56, backgroundColor: 'white' }}
+            elevation={5}
+            actions={this.actions}
+            onIconClicked={this.handleClose}
+            onActionSelected={this.handleSubmit}
+          />
+        :
+          <ToolBar
+            title={title}
+            leftIcon="close"
+            rightIcon="send"
+            statusbarColor="#9e9e9e"
+            onLeftClicked={this.handleClose}
+            onRightClicked={this.handleSubmit}
+            style={styles.toolbar}
+          />
+        }
         <View style={styles.inputContainer}>
           {this.renderTitle()}
           <TextInput
+            style={styles.nameInput}
             placeholder="暱稱"
             defaultValue={name}
             underlineColorAndroid="rgba(0, 0, 0, 0)"
