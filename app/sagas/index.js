@@ -15,6 +15,9 @@ import scoreSaga from './score';
 function route({ key, params }) {
   if (Actions[key]) {
     Actions[key](params);
+    GoogleAnalytics.trackEvent('route', key, {
+      value: JSON.stringify(params),
+    });
   }
 }
 

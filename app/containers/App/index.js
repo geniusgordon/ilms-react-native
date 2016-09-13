@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Linking } from 'react-native';
 import { Router, Scene } from 'react-native-router-flux';
+import GoogleAnalytics from 'react-native-google-analytics-bridge';
 import Home from '../Home';
 import About from '../Home/About';
 import Login from '../Auth';
@@ -13,6 +14,8 @@ import Forum from '../Forum';
 import Compose from '../Forum/Compose';
 import Web from '../../components/Web';
 import { deepLink } from './actions';
+
+GoogleAnalytics.setTrackerId('UA-68526607-1');
 
 const mainScene = {
   duration: 100,

@@ -41,3 +41,5 @@ android/app/libs
 android/keystores/debug.keystore
 
 *.jks
+google-services.json
+
