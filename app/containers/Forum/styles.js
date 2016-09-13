@@ -93,6 +93,7 @@ const styles = StyleSheet.create({
   titleInputText: {
     fontSize: 20,
     color: 'black',
+    marginTop: 5,
     paddingTop: 16,
     paddingBottom: 16,
   },
