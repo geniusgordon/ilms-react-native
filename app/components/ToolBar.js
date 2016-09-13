@@ -48,7 +48,7 @@ class ToolBar extends Component {
           title={title}
           navIconName={androidIcon}
           style={{ height: 56, ...style }}
-          onIconClicked={this.onClicked}
+          onIconClicked={onClicked}
         />
       );
     }
