@@ -8,6 +8,7 @@ import { route } from '../App/actions';
 class Home extends Component {
   static propTypes = {
     latestNews: PropTypes.array,
+    loading: PropTypes.bool,
     dispatch: PropTypes.func,
   };
   componentDidMount() {

@@ -4,7 +4,6 @@ import { Actions } from 'react-native-router-flux';
 import {
   ActivityIndicator,
   View,
-  Text,
   ScrollView,
   StatusBar,
 } from 'react-native';
@@ -23,6 +22,7 @@ class Forum extends Component {
     id: PropTypes.string,
     courseId: PropTypes.string,
     forumCollection: PropTypes.object,
+    loading: PropTypes.bool,
     dispatch: PropTypes.func,
   };
   componentDidMount() {

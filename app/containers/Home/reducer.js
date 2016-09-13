@@ -20,7 +20,7 @@ const reducer = handleActions({
     latestNews,
     loading: false,
   }),
-  [FETCH_LATEST_NEWS_FAIL]: (state) => ({
+  [FETCH_LATEST_NEWS_FAIL]: () => ({
     loading: false,
   }),
 }, initalState);

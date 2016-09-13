@@ -14,22 +14,22 @@ const initalState = {
 };
 
 const reducer = handleActions({
-  [FETCH_ITEM_LIST]: (state) => ({
+  [FETCH_ITEM_LIST]: () => ({
     list: true,
   }),
-  [FETCH_ITEM_LIST_SUCCESS]: (state) => ({
+  [FETCH_ITEM_LIST_SUCCESS]: () => ({
     list: false,
   }),
-  [FETCH_ITEM_LIST_FAIL]: (state) => ({
+  [FETCH_ITEM_LIST_FAIL]: () => ({
     list: false,
   }),
-  [FETCH_ITEM_DETAIL]: (state) => ({
+  [FETCH_ITEM_DETAIL]: () => ({
     detail: true,
   }),
-  [FETCH_ITEM_DETAIL_SUCCESS]: (state) => ({
+  [FETCH_ITEM_DETAIL_SUCCESS]: () => ({
     detail: false,
   }),
-  [FETCH_ITEM_DETAIL_FAIL]: (state) => ({
+  [FETCH_ITEM_DETAIL_FAIL]: () => ({
     detail: false,
   }),
 }, initalState);

@@ -23,6 +23,7 @@ class Detail extends Component {
     itemId: PropTypes.string,
     itemType: PropTypes.string,
     itemsById: PropTypes.object,
+    loading: PropTypes.bool,
     dispatch: PropTypes.func,
   };
   componentDidMount() {

@@ -4,7 +4,6 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import ActionButton from 'react-native-action-button';
 import Base from '../App/Base';
 import List from './List';
-import EmailList from './EmailList';
 import TabView from '../../components/TabView';
 import { fetchItemList } from './actions/itemList';
 import { fetchEmailList } from './actions/emailList';
@@ -14,6 +13,7 @@ class Course extends Component {
   static propTypes = {
     id: PropTypes.string,
     courseCollection: PropTypes.object,
+    loading: PropTypes.bool,
     dispatch: PropTypes.func,
   };
   constructor(props) {
@@ -35,6 +35,8 @@ class Course extends Component {
     const items = course[itemType] || [];
     return items.map((itemId) => courseCollection.itemsById[itemType][itemId]);
   };
+  itemTypes = ['announcement', 'material', 'assignment', 'forum'];
+  toolbarActions = [{ title: '寄信給老師或助教' }, { title: '成績查詢' }];
   handleItemPress = (itemType, itemId) => {
     const courseId = this.props.id;
     this.props.dispatch(route('detail', {
@@ -70,7 +72,6 @@ class Course extends Component {
       postId: 0,
     }));
   };
-  itemTypes = ['announcement', 'material', 'assignment', 'forum'];
   renderFixedActionButton = () => {
     if (this.state.fabScale === 0) {
       return (
@@ -97,6 +98,7 @@ class Course extends Component {
         title={course.name}
         statusBarBackgroundColor="#ffa000"
         toolbarBackgroundColor="#ffc107"
+        toolbarActions={this.toolbarActions}
       >
         <TabView
           backgroundColor="#ffc107"

@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { ScrollView, View, StatusBar } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import ActionButton from 'react-native-action-button';
 import EmailItem from './EmailItem';
 import styles from './styles';
 

@@ -8,6 +8,7 @@ class Base extends Component {
     title: PropTypes.string,
     statusBarBackgroundColor: PropTypes.string,
     toolbarBackgroundColor: PropTypes.string,
+    toolbarActions: PropTypes.array,
     children: PropTypes.node,
     dispatch: PropTypes.func,
   };
@@ -19,6 +20,7 @@ class Base extends Component {
       title,
       statusBarBackgroundColor,
       toolbarBackgroundColor,
+      toolbarActions,
       children,
     } = this.props;
     return (
@@ -26,6 +28,7 @@ class Base extends Component {
         title={title}
         statusBarBackgroundColor={statusBarBackgroundColor}
         toolbarBackgroundColor={toolbarBackgroundColor}
+        toolbarActions={toolbarActions}
       >
         {children}
       </AndroidBase>
