@@ -1,19 +1,40 @@
 import React, { Component, PropTypes } from 'react';
-import { ScrollView, View, StatusBar } from 'react-native';
+import { connect } from 'react-redux';
+import {
+  ActivityIndicator,
+  ScrollView,
+  View,
+  StatusBar,
+} from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import EmailItem from './EmailItem';
+import { fetchEmailList } from './actions/emailList';
 import styles from './styles';
 
 class EmailList extends Component {
   static propTypes = {
-    emailList: PropTypes.array,
+    courseId: PropTypes.string,
+    courseCollection: PropTypes.object,
   };
+  componentDidMount() {
+    const { courseId, dispatch } = this.props;
+    dispatch(fetchEmailList(courseId));
+  }
   handleClose = () => {
     Actions.pop();
   };
   renderList = () => {
-    const { emailList } = this.props;
+    const { courseId, courseCollection, loading } = this.props;
+    const course = courseCollection.courseById[courseId] || {};
+    const emailList = course.emailList || [];
+    if (loading) {
+      return (
+        <View style={styles.loadingContainer}>
+          <ActivityIndicator color="#388e3c" size="large" />
+        </View>
+      );
+    }
     return emailList.map(({ name, email }) => (
       <EmailItem key={name} name={name} email={email} />
     ));
@@ -37,5 +58,10 @@ class EmailList extends Component {
   }
 }
 
-export default EmailList;
+const mapStateToProps = (state) => ({
+  courseCollection: state.course,
+  loading: state.course.loading.email,
+});
+
+export default connect(mapStateToProps)(EmailList);
 

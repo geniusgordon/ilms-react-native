@@ -6,7 +6,6 @@ import Base from '../App/Base';
 import List from './List';
 import TabView from '../../components/TabView';
 import { fetchItemList } from './actions/itemList';
-import { fetchEmailList } from './actions/emailList';
 import { route } from '../App/actions';
 
 class Course extends Component {
@@ -24,7 +23,6 @@ class Course extends Component {
   }
   componentDidMount() {
     const { id, dispatch } = this.props;
-    dispatch(fetchEmailList(id));
     this.itemTypes.forEach((itemType) => {
       dispatch(fetchItemList(id, itemType));
     });
@@ -56,12 +54,9 @@ class Course extends Component {
     this.setState({ fabScale: tab.i === 3 ? 1 : 0 });
   };
   handleEmailPress = () => {
-    const { id, courseCollection, dispatch } = this.props;
-    const course = courseCollection.courseById[id] || {};
-    const emailList = course.emailList || [];
+    const { id, dispatch } = this.props;
     dispatch(route('email', {
       courseId: id,
-      emailList,
     }));
   };
   handleEditPress = () => {

@@ -3,6 +3,7 @@ import {
   FETCH_COURSE_LIST_SUCCESS,
   FETCH_ITEM_LIST_SUCCESS,
   FETCH_EMAIL_LIST_SUCCESS,
+  FETCH_SCORE_SUCCESS,
 } from '../actions/actionTypes';
 
 const initalState = {};
@@ -31,6 +32,13 @@ const reducer = handleActions({
     [courseId]: {
       ...state[courseId],
       emailList,
+    },
+  }),
+  [FETCH_SCORE_SUCCESS]: (state, { courseId, scoreList }) => ({
+    ...state,
+    [courseId]: {
+      ...state[courseId],
+      scoreList,
     },
   }),
 }, initalState);

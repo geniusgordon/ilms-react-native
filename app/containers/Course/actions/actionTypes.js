@@ -17,3 +17,7 @@ export const FETCH_EMAIL_LIST = 'course/FETCH_EMAIL_LIST';
 export const FETCH_EMAIL_LIST_SUCCESS = 'course/FETCH_EMAIL_LIST_SUCCESS';
 export const FETCH_EMAIL_LIST_FAIL = 'course/FETCH_EMAIL_LIST_FAIL';
 
+export const FETCH_SCORE = 'course/FETCH_SCORE';
+export const FETCH_SCORE_SUCCESS = 'course/FETCH_SCORE_SUCCESS';
+export const FETCH_SCORE_FAIL = 'course/FETCH_SCORE_FAIL';
+
