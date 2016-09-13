@@ -1,8 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import {
-  View,
-  StatusBar,
-} from 'react-native';
 import DrawerLayout from 'react-native-drawer-layout';
 import NavBar from 'react-native-navbar';
 import Drawer from './Drawer';
@@ -57,7 +53,7 @@ class IosBase extends Component {
               style={{ marginLeft: 16 }}
               onPress={this.handleIconClick}
             />
-          }       
+          }
         />
         {children}
       </DrawerLayout>

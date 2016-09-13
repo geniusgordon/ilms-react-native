@@ -18,7 +18,7 @@ function* fetchEmailList({ courseId }) {
     const emailList = parseEmailList(html);
     yield put(fetchEmailListSuccess(courseId, emailList));
   } catch (error) {
-    alert('無法載入課程信箱'); 
+    alert('無法載入課程信箱');
     yield put(fetchEmailListFail(error.message));
   }
 }

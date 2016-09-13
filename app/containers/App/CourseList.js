@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { View } from 'react-native';
 import CourseListItem from './CourseListItem';
-import styles from './styles';
 
 class CourseList extends Component {
   static propTypes = {

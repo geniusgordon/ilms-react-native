@@ -4,11 +4,10 @@ import { Actions } from 'react-native-router-flux';
 import {
   ActivityIndicator,
   View,
-  Text,
   ScrollView,
   StatusBar,
 } from 'react-native';
-import Icon, { ToolbarAndroid } from 'react-native-vector-icons/MaterialIcons';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import ActionButton from 'react-native-action-button';
 import Post from './Post';
 import NoData from '../Course/NoData';
@@ -24,13 +23,14 @@ class Forum extends Component {
     id: PropTypes.string,
     courseId: PropTypes.string,
     forumCollection: PropTypes.object,
+    loading: PropTypes.bool,
     dispatch: PropTypes.func,
   };
   constructor(props) {
     super(props);
     this.state = {
       closeIcon: null,
-    }
+    };
   }
   componentWillMount() {
     Icon.getImageSource('close', 20, 'red').then((source) => this.setState({ closeIcon: source }));
@@ -72,7 +72,7 @@ class Forum extends Component {
     const forum = forumCollection[id] || {};
     return (
       <View style={styles.base}>
-        <StatusBar barStyle='light-content' backgroundColor="#1565c0" />
+        <StatusBar barStyle="light-content" backgroundColor="#1565c0" />
         <ToolBar
           title="討論區"
           iosIcon={this.state.closeIcon}

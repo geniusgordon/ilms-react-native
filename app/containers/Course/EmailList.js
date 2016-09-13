@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { ScrollView, View, StatusBar } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import ActionButton from 'react-native-action-button';
+import { Actions } from 'react-native-router-flux';
 import EmailItem from './EmailItem';
 import styles from './styles';
 
@@ -21,7 +21,7 @@ class EmailList extends Component {
   render() {
     return (
       <View style={styles.base}>
-        <StatusBar barStyle='light-content' backgroundColor="#9e9e9e" />
+        <StatusBar barStyle="light-content" backgroundColor="#9e9e9e" />
         <Icon.ToolbarAndroid
           title="寄信給教授或助教"
           navIconName="close"

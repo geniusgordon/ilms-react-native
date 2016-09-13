@@ -4,7 +4,6 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import ActionButton from 'react-native-action-button';
 import Base from '../App/Base';
 import List from './List';
-import EmailList from './EmailList';
 import TabView from '../../components/TabView';
 import { fetchItemList } from './actions/itemList';
 import { fetchEmailList } from './actions/emailList';
@@ -14,6 +13,7 @@ class Course extends Component {
   static propTypes = {
     id: PropTypes.string,
     courseCollection: PropTypes.object,
+    loading: PropTypes.bool,
     dispatch: PropTypes.func,
   };
   constructor(props) {

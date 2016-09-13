@@ -33,17 +33,16 @@ class Base extends Component {
           {children}
         </IosBase>
       );
-    } else {
-      return (
-        <AndroidBase
-          title={title}
-          statusBarBackgroundColor={statusBarBackgroundColor}
-          toolbarBackgroundColor={toolbarBackgroundColor}
-        >
-          {children}
-        </AndroidBase>
-      );
     }
+    return (
+      <AndroidBase
+        title={title}
+        statusBarBackgroundColor={statusBarBackgroundColor}
+        toolbarBackgroundColor={toolbarBackgroundColor}
+      >
+        {children}
+      </AndroidBase>
+    );
   }
 }
 

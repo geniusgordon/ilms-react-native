@@ -76,7 +76,7 @@ class Compose extends Component {
     const title = action === 'reply' ? '回覆' : '發表討論';
     return (
       <View style={styles.base}>
-        <StatusBar barStyle='light-content' backgroundColor="#9e9e9e" />
+        <StatusBar barStyle="light-content" backgroundColor="#9e9e9e" />
         <Icon.ToolbarAndroid
           title={title}
           navIconName="close"

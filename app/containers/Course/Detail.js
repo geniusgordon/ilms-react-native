@@ -10,7 +10,7 @@ import {
   View,
 } from 'react-native';
 import HTMLView from 'react-native-htmlview';
-import Icon, { ToolbarAndroid } from 'react-native-vector-icons/MaterialIcons';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import Attachment from './Attachment';
 import Title from '../../components/Title';
 import Padding from '../../components/Padding';
@@ -25,18 +25,18 @@ class Detail extends Component {
     itemId: PropTypes.string,
     itemType: PropTypes.string,
     itemsById: PropTypes.object,
+    loading: PropTypes.bool,
     dispatch: PropTypes.func,
   };
   constructor(props) {
     super(props);
     this.state = {
       closeIcon: null,
-    }
+    };
   }
   componentWillMount() {
     Icon.getImageSource('close', 20, 'red').then((source) => {
-      console.log(source);
-      this.setState({ closeIcon: source })
+      this.setState({ closeIcon: source });
     });
   }
   componentDidMount() {
@@ -112,7 +112,7 @@ class Detail extends Component {
     const { itemType } = this.props;
     return (
       <View style={styles.base}>
-        <StatusBar barStyle='light-content' backgroundColor="#388e3c" />
+        <StatusBar barStyle="light-content" backgroundColor="#388e3c" />
         <ToolBar
           title={this.itemTitles[itemType]}
           androidIcon="close"

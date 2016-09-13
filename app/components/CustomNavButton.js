@@ -1,18 +1,23 @@
-import React, { Component } from 'react';
+import React, { PropTypes } from 'react';
 import {
   Image,
   TouchableOpacity,
 } from 'react-native';
 
-export default class CustomNavButton extends Component {
-  render() {
-    const { icon, style, onPress } = this.props;
-    return (
-      <TouchableOpacity onPress={onPress}>
-        <Image
-          source={icon}
-          style={[style]}/>
-      </TouchableOpacity>
-    );
-  }
-}
+const CustomNavButton = ({ icon, style, onPress }) => (
+  <TouchableOpacity onPress={onPress}>
+    <Image
+      source={icon}
+      style={style}
+    />
+  </TouchableOpacity>
+);
+
+CustomNavButton.propTypes = {
+  icon: Image.propTypes.source,
+  style: Image.propTypes.style,
+  onPress: PropTypes.func,
+};
+
+export default CustomNavButton;
+
