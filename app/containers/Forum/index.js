@@ -4,12 +4,11 @@ import { Actions } from 'react-native-router-flux';
 import {
   ActivityIndicator,
   View,
-  ScrollView,
   StatusBar,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import ActionButton from 'react-native-action-button';
-import Post from './Post';
+import PostList from './PostList';
 import NoData from '../Course/NoData';
 import Title from '../../components/Title';
 import Padding from '../../components/Padding';
@@ -54,9 +53,7 @@ class Forum extends Component {
         </View>
       );
     }
-    return forum.posts.map((post, i) => (
-      <Post key={post.id} post={post} floor={i} />
-    ));
+    return <PostList posts={posts} />;
   };
   render() {
     const { id, forumCollection } = this.props;
@@ -74,11 +71,7 @@ class Forum extends Component {
         <Padding backgroundColor="#1e88e5" />
         <View style={styles.list}>
           <Title title={forum.title} subtitle={forum.subtitle} />
-          <ScrollView>
-            <View>
-              {this.renderList()}
-            </View>
-          </ScrollView>
+          {this.renderList()}
         </View>
         <ActionButton
           buttonColor="#f44336"
