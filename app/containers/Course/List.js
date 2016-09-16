@@ -49,22 +49,22 @@ class List extends Component {
     const { paddingColor } = this.props;
     return <Padding backgroundColor={paddingColor} />;
   };
+  renderFooter = () => {
+    const { loading } = this.props;
+    if (loading) {
+      return <NoData loading />;
+    }
+    return null;
+  };
   render() {
     const { items, loading, paddingColor } = this.props;
-    if (!items || items.length === 0 || loading) {
-      return (
-        <View style={styles.base}>
-          <Padding backgroundColor={paddingColor} />
-          <NoData loading={loading} />
-        </View>
-      );
-    }
     return (
       <View style={styles.base}>
         <ListView
           dataSource={this.state.dataSource}
           renderRow={this.renderRow}
           renderHeader={this.renderHeader}
+          renderFooter={this.renderFooter}
         />
       </View>
     );

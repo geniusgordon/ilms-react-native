@@ -19,14 +19,21 @@ const reducer = handleActions({
     }), state);
     return byId;
   },
-  [FETCH_ITEM_LIST_SUCCESS]: (state, { courseId, courseName, itemType, itemList }) => ({
-    ...state,
-    [courseId]: {
-      ...state[courseId],
-      name: courseName,
-      [itemType]: itemList.map((item) => item.id),
-    },
-  }),
+  [FETCH_ITEM_LIST_SUCCESS]: (state, { course, itemType, itemList, params }) => {
+    const oldList = state[course.id][itemType];
+    let newList = itemList.map((item) => item.id);
+    if (params && params.page > 1) {
+      newList = [...oldList, ...newList];
+    }
+    return {
+      ...state,
+      [course.id]: {
+        ...state[course.id],
+        name: course.name,
+        [itemType]: newList,
+      },
+    };
+  },
   [FETCH_EMAIL_LIST_SUCCESS]: (state, { courseId, emailList }) => ({
     ...state,
     [courseId]: {
