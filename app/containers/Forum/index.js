@@ -4,12 +4,11 @@ import { Actions } from 'react-native-router-flux';
 import {
   ActivityIndicator,
   View,
-  ScrollView,
   StatusBar,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import ActionButton from 'react-native-action-button';
-import Post from './Post';
+import PostList from './PostList';
 import NoData from '../Course/NoData';
 import Title from '../../components/Title';
 import Padding from '../../components/Padding';
@@ -24,12 +23,17 @@ class Forum extends Component {
     courseId: PropTypes.string,
     forumCollection: PropTypes.object,
     loading: PropTypes.bool,
+    refreshing: PropTypes.bool,
     dispatch: PropTypes.func,
   };
   componentDidMount() {
     const { id, dispatch } = this.props;
     dispatch(fetchForum(id));
   }
+  handleRefresh = () => {
+    const { id, dispatch } = this.props;
+    dispatch(fetchForum(id, { refresh: true }));
+  };
   handleFabPress = () => {
     const { id, courseId, forumCollection, dispatch } = this.props;
     const forum = forumCollection[id] || {};
@@ -41,7 +45,7 @@ class Forum extends Component {
     }));
   };
   renderList = () => {
-    const { id, forumCollection, loading } = this.props;
+    const { id, forumCollection, loading, refreshing } = this.props;
     const forum = forumCollection[id] || {};
     const posts = forum.posts || [];
     if (posts.length === 0) {
@@ -54,9 +58,13 @@ class Forum extends Component {
         </View>
       );
     }
-    return forum.posts.map((post, i) => (
-      <Post key={post.id} post={post} floor={i} />
-    ));
+    return (
+      <PostList
+        posts={posts}
+        refreshing={refreshing}
+        onRefresh={this.handleRefresh}
+      />
+    );
   };
   render() {
     const { id, forumCollection } = this.props;
@@ -74,11 +82,7 @@ class Forum extends Component {
         <Padding backgroundColor="#1e88e5" />
         <View style={styles.list}>
           <Title title={forum.title} subtitle={forum.subtitle} />
-          <ScrollView>
-            <View>
-              {this.renderList()}
-            </View>
-          </ScrollView>
+          {this.renderList()}
         </View>
         <ActionButton
           buttonColor="#f44336"
@@ -93,6 +97,7 @@ class Forum extends Component {
 const mapStateToProps = (state) => ({
   forumCollection: state.course.itemsById.forum,
   loading: state.forum.loading,
+  refreshing: state.forum.refreshing,
 });
 
 export default connect(mapStateToProps)(Forum);

@@ -25,6 +25,7 @@ const mainScene = {
 
 const detailScene = {
   duration: 300,
+  direction: 'vertical',
   hideNavBar: true,
 };
 

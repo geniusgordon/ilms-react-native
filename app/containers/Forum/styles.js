@@ -99,7 +99,6 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     paddingTop: 16,
-    paddingBottom: 16,
   },
   nameInput: {
     flex: 1,
