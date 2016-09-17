@@ -12,7 +12,10 @@ class AndroidBase extends Component {
     title: PropTypes.string,
     statusBarBackgroundColor: PropTypes.string,
     toolbarBackgroundColor: PropTypes.string,
-    toolbarActions: ToolbarAndroid.propTypes.actions,
+    toolbarActions: PropTypes.arrayOf(PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      show: PropTypes.oneOf(['always', 'ifRoom', 'never']),
+    })),
     onActionSelected: PropTypes.func,
     children: PropTypes.node,
   };

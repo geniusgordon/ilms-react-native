@@ -19,7 +19,9 @@ const styles = StyleSheet.create({
   listItem: {
     flexDirection: 'row',
     height: 96,
-    margin: 8,
+    marginLeft: 8,
+    marginRight: 8,
+    marginBottom: 8,
     backgroundColor: 'white',
     elevation: 2,
     borderRadius: 1,
