@@ -23,12 +23,17 @@ class Forum extends Component {
     courseId: PropTypes.string,
     forumCollection: PropTypes.object,
     loading: PropTypes.bool,
+    refreshing: PropTypes.bool,
     dispatch: PropTypes.func,
   };
   componentDidMount() {
     const { id, dispatch } = this.props;
     dispatch(fetchForum(id));
   }
+  handleRefresh = () => {
+    const { id, dispatch } = this.props;
+    dispatch(fetchForum(id, { refresh: true }));
+  };
   handleFabPress = () => {
     const { id, courseId, forumCollection, dispatch } = this.props;
     const forum = forumCollection[id] || {};
@@ -40,7 +45,7 @@ class Forum extends Component {
     }));
   };
   renderList = () => {
-    const { id, forumCollection, loading } = this.props;
+    const { id, forumCollection, loading, refreshing } = this.props;
     const forum = forumCollection[id] || {};
     const posts = forum.posts || [];
     if (posts.length === 0) {
@@ -53,7 +58,13 @@ class Forum extends Component {
         </View>
       );
     }
-    return <PostList posts={posts} />;
+    return (
+      <PostList
+        posts={posts}
+        refreshing={refreshing}
+        onRefresh={this.handleRefresh}
+      />
+    );
   };
   render() {
     const { id, forumCollection } = this.props;
@@ -86,6 +97,7 @@ class Forum extends Component {
 const mapStateToProps = (state) => ({
   forumCollection: state.course.itemsById.forum,
   loading: state.forum.loading,
+  refreshing: state.forum.refreshing,
 });
 
 export default connect(mapStateToProps)(Forum);

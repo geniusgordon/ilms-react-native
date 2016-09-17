@@ -5,9 +5,10 @@ import {
   SEND_POST,
 } from './actionTypes';
 
-export const fetchForum = (forumId) => ({
+export const fetchForum = (forumId, params) => ({
   type: FETCH_FORUM,
   forumId,
+  params,
 });
 
 export const fetchForumSuccess = (forum) => ({

@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import {
   ListView,
   View,
+  RefreshControl,
 } from 'react-native';
 import Post from './Post';
 import styles from './styles';
@@ -9,6 +10,8 @@ import styles from './styles';
 class PostList extends Component {
   static propTypes = {
     posts: PropTypes.array,
+    refreshing: PropTypes.bool,
+    onRefresh: PropTypes.func,
   };
   constructor(props) {
     super(props);
@@ -27,16 +30,26 @@ class PostList extends Component {
       });
     }
   }
+  handleRefresh = () => {
+    this.props.onRefresh();
+  };
   renderRow(post, s, i) {
     const floor = parseInt(i, 10);
     return <Post post={post} floor={floor} />;
   }
   render() {
+    const { refreshing } = this.props;
     return (
       <View style={styles.base}>
         <ListView
           dataSource={this.state.dataSource}
           renderRow={this.renderRow}
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={this.handleRefresh}
+            />
+          }
         />
       </View>
     );
