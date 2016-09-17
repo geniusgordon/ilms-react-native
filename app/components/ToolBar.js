@@ -44,7 +44,7 @@ const ToolBar = ({
     <ToolbarAndroid
       title={title}
       navIconName={leftIcon}
-      style={{ height: 56, ...style }}
+      style={[{ height: 56 }, style]}
       onIconClicked={onLeftClicked}
     />
   );

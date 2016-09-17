@@ -15,7 +15,7 @@ class List extends Component {
     itemType: PropTypes.string,
     page: PropTypes.number,
     more: PropTypes.bool,
-    items: PropTypes.array,
+    items: PropTypes.arrayOf(ListItem.propTypes.item),
     loading: PropTypes.bool,
     refreshing: PropTypes.bool,
     onItemPress: PropTypes.func,
@@ -68,9 +68,9 @@ class List extends Component {
     return <Padding backgroundColor={paddingColor} />;
   };
   renderFooter = () => {
-    const { loading } = this.props;
-    if (loading) {
-      return <NoData loading />;
+    const { items, loading } = this.props;
+    if (!items || items.length === 0 || loading) {
+      return <NoData loading={loading} />;
     }
     return null;
   };

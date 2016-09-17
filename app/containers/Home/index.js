@@ -7,7 +7,7 @@ import { route } from '../App/actions';
 
 class Home extends Component {
   static propTypes = {
-    latestNews: PropTypes.array,
+    latestNews: List.propTypes.items,
     loading: PropTypes.bool,
     refreshing: PropTypes.bool,
     dispatch: PropTypes.func,
@@ -49,7 +49,7 @@ class Home extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   latestNews: state.home.latestNews,
   loading: state.home.loading,
   refreshing: state.home.refreshing,

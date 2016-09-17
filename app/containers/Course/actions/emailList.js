@@ -4,7 +4,7 @@ import {
   FETCH_EMAIL_LIST_FAIL,
 } from './actionTypes';
 
-export const fetchEmailList = (courseId) => ({
+export const fetchEmailList = courseId => ({
   type: FETCH_EMAIL_LIST,
   courseId,
 });
@@ -15,7 +15,7 @@ export const fetchEmailListSuccess = (courseId, emailList) => ({
   emailList,
 });
 
-export const fetchEmailListFail = (error) => ({
+export const fetchEmailListFail = error => ({
   type: FETCH_EMAIL_LIST_FAIL,
   error,
 });

@@ -4,7 +4,7 @@ import CourseListItem from './CourseListItem';
 
 class CourseList extends Component {
   static propTypes = {
-    courseList: PropTypes.array,
+    courseList: PropTypes.arrayOf(CourseListItem.propTypes.course),
     onCoursePress: PropTypes.func,
   };
   renderCourseList = () => {

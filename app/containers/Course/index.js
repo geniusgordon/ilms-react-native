@@ -9,10 +9,24 @@ import TabView from '../../components/TabView';
 import { fetchItemList } from './actions/itemList';
 import { route } from '../App/actions';
 
+const itemTypes = ['announcement', 'material', 'assignment', 'forum'];
+const itemListPropType = PropTypes.shape({
+  page: PropTypes.number,
+  more: PropTypes.bool,
+  data: List.propTypes.items,
+});
+
 class Course extends Component {
   static propTypes = {
     id: PropTypes.string,
-    courseCollection: PropTypes.object,
+    course: PropTypes.shape({
+      id: PropTypes.string,
+      name: PropTypes.string,
+    }),
+    announcement: itemListPropType,
+    material: itemListPropType,
+    assignment: itemListPropType,
+    forum: itemListPropType,
     loading: PropTypes.bool,
     refreshing: PropTypes.bool,
     dispatch: PropTypes.func,
@@ -25,27 +39,10 @@ class Course extends Component {
   }
   componentDidMount() {
     const { id, dispatch } = this.props;
-    this.itemTypes.forEach((itemType) => {
+    itemTypes.forEach((itemType) => {
       dispatch(fetchItemList(id, itemType));
     });
   }
-  getItems = (itemType) => {
-    const { id, courseCollection } = this.props;
-    const course = courseCollection.courseById[id] || {};
-    const items = course[itemType];
-    if (!items) {
-      return {
-        page: 1,
-        more: false,
-        data: [],
-      };
-    }
-    return {
-      ...items,
-      data: items.data.map((itemId) => courseCollection.itemsById[itemType][itemId]),
-    };
-  };
-  itemTypes = ['announcement', 'material', 'assignment', 'forum'];
   actionButton = [
     '寄信給老師或助教',
     '成績查詢',
@@ -120,12 +117,15 @@ class Course extends Component {
     );
   };
   render() {
-    const { id, courseCollection, loading, refreshing } = this.props;
-    const course = courseCollection.courseById[id] || {};
-    const announcement = this.getItems('announcement');
-    const material = this.getItems('material');
-    const assignment = this.getItems('assignment');
-    const forum = this.getItems('forum');
+    const {
+      course,
+      loading,
+      refreshing,
+      announcement,
+      material,
+      assignment,
+      forum,
+    } = this.props;
     return (
       <Base
         title={course.name}
@@ -196,11 +196,34 @@ class Course extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  courseCollection: state.course,
-  loading: state.course.loading.list,
-  refreshing: state.course.loading.refresh,
-});
+const getItems = (items, itemType, itemsById) => {
+  if (!items) {
+    return {
+      page: 1,
+      more: false,
+      data: [],
+    };
+  }
+  return {
+    ...items,
+    data: items.data.map(itemId => itemsById[itemType][itemId]),
+  };
+};
+
+const mapStateToProps = (state, ownProps) => {
+  const { id } = ownProps;
+  const course = state.course.courseById[id] || {};
+  const items = {};
+  itemTypes.forEach((itemType) => {
+    items[itemType] = getItems(course[itemType], itemType, state.course.itemsById);
+  });
+  return {
+    course,
+    ...items,
+    loading: state.course.loading.list,
+    refreshing: state.course.loading.refresh,
+  };
+};
 
 export default connect(mapStateToProps)(Course);
 

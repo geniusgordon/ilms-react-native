@@ -17,12 +17,12 @@ const reducer = handleActions({
     }
     return { ...state, loading: true };
   },
-  [FETCH_FORUM_SUCCESS]: (state) => ({
+  [FETCH_FORUM_SUCCESS]: state => ({
     ...state,
     loading: false,
     refreshing: false,
   }),
-  [FETCH_FORUM_FAIL]: (state) => ({
+  [FETCH_FORUM_FAIL]: state => ({
     ...state,
     loading: false,
     refreshing: false,

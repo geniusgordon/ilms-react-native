@@ -7,9 +7,14 @@ import {
 import Post from './Post';
 import styles from './styles';
 
+function renderRow(post, s, i) {
+  const floor = parseInt(i, 10);
+  return <Post post={post} floor={floor} />;
+}
+
 class PostList extends Component {
   static propTypes = {
-    posts: PropTypes.array,
+    posts: PropTypes.arrayOf(Post.propTypes.post),
     refreshing: PropTypes.bool,
     onRefresh: PropTypes.func,
   };
@@ -33,17 +38,13 @@ class PostList extends Component {
   handleRefresh = () => {
     this.props.onRefresh();
   };
-  renderRow(post, s, i) {
-    const floor = parseInt(i, 10);
-    return <Post post={post} floor={floor} />;
-  }
   render() {
     const { refreshing } = this.props;
     return (
       <View style={styles.base}>
         <ListView
           dataSource={this.state.dataSource}
-          renderRow={this.renderRow}
+          renderRow={renderRow}
           refreshControl={
             <RefreshControl
               refreshing={refreshing}

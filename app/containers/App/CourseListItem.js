@@ -3,7 +3,9 @@ import DrawerItem from './DrawerItem';
 
 class CourseListItem extends Component {
   static propTypes = {
-    course: PropTypes.object,
+    course: PropTypes.shape({
+      name: PropTypes.string,
+    }),
     onPress: PropTypes.func,
   };
   handlePress = () => {

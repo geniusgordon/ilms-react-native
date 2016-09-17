@@ -9,7 +9,10 @@ import styles from './styles';
 
 class Attachment extends Component {
   static propTypes = {
-    attachment: PropTypes.object,
+    attachment: PropTypes.shape({
+      id: PropTypes.string,
+      name: PropTypes.string,
+    }),
     dispatch: PropTypes.func,
   };
   handleDownload = () => {

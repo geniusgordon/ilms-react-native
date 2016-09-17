@@ -15,7 +15,10 @@ import styles from './styles';
 class EmailList extends Component {
   static propTypes = {
     courseId: PropTypes.string,
-    courseCollection: PropTypes.object,
+    emailList: PropTypes.arrayOf(PropTypes.shape({
+      name: PropTypes.string,
+      email: PropTypes.string,
+    })),
     loading: PropTypes.bool,
     dispatch: PropTypes.func,
   };
@@ -27,9 +30,7 @@ class EmailList extends Component {
     Actions.pop();
   };
   renderList = () => {
-    const { courseId, courseCollection, loading } = this.props;
-    const course = courseCollection.courseById[courseId] || {};
-    const emailList = course.emailList || [];
+    const { emailList, loading } = this.props;
     if (loading) {
       return (
         <View style={styles.loadingContainer}>
@@ -60,10 +61,15 @@ class EmailList extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  courseCollection: state.course,
-  loading: state.course.loading.email,
-});
+const mapStateToProps = (state, ownProps) => {
+  const { courseId } = ownProps;
+  const course = state.course.courseById[courseId] || {};
+  const emailList = course.emailList || [];
+  return {
+    emailList,
+    loading: state.course.loading.email,
+  };
+};
 
 export default connect(mapStateToProps)(EmailList);
 

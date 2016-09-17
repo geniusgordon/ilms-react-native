@@ -11,7 +11,7 @@ import styles from './styles';
 
 class Drawer extends Component {
   static propTypes = {
-    courseList: PropTypes.array,
+    courseList: CourseList.propTypes.courseList,
     onItemClick: PropTypes.func,
     dispatch: PropTypes.func,
   };
@@ -66,10 +66,10 @@ class Drawer extends Component {
 }
 
 const getCourseList = ({ courseById, courseList }) => (
-  courseList.current.map((id) => courseById[id])
+  courseList.current.map(id => courseById[id])
 );
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   courseList: getCourseList(state.course),
 });
 
