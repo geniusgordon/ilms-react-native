@@ -9,6 +9,8 @@ class IosBase extends Component {
     title: PropTypes.string,
     statusBarBackgroundColor: PropTypes.string,
     toolbarBackgroundColor: PropTypes.string,
+    actionIcon: PropTypes.string,
+    onActionIconClick: PropTypes.func,
     children: PropTypes.node,
   };
   handleIconClick = () => {
@@ -28,6 +30,8 @@ class IosBase extends Component {
       title,
       statusBarBackgroundColor,
       toolbarBackgroundColor,
+      actionIcon,
+      onActionIconClick,
       children,
     } = this.props;
     const renderDrawer = () => <Drawer onItemClick={this.handleDrawerItemClick} />;
@@ -51,6 +55,13 @@ class IosBase extends Component {
               icon="menu"
               style={{ marginLeft: 16 }}
               onPress={this.handleIconClick}
+            />
+          }
+          rightButton={
+            <CustomNavButton
+              icon={actionIcon}
+              style={{ marginRight: 16 }}
+              onPress={onActionIconClick}
             />
           }
         />

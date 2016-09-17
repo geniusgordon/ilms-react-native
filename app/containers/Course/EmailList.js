@@ -7,7 +7,7 @@ import {
   StatusBar,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import ToolBar from '../../components/ToolBar';
 import EmailItem from './EmailItem';
 import { fetchEmailList } from './actions/emailList';
 import styles from './styles';
@@ -45,12 +45,12 @@ class EmailList extends Component {
     return (
       <View style={styles.base}>
         <StatusBar barStyle="light-content" backgroundColor="#9e9e9e" />
-        <Icon.ToolbarAndroid
+        <ToolBar
           title="寄信給教授或助教"
-          navIconName="close"
-          style={{ height: 56, backgroundColor: 'white' }}
-          elevation={5}
-          onIconClicked={this.handleClose}
+          leftIcon="close"
+          statusbarColor="#9e9e9e"
+          style={styles.toolbar}
+          onLeftClicked={this.handleClose}
         />
         <ScrollView>
           {this.renderList()}
