@@ -10,7 +10,7 @@ class Base extends Component {
     title: PropTypes.string,
     statusBarBackgroundColor: PropTypes.string,
     toolbarBackgroundColor: PropTypes.string,
-    toolbarActions: PropTypes.array,
+    toolbarActions: AndroidBase.propTypes.toolbarActions,
     children: PropTypes.node,
     dispatch: PropTypes.func,
     onActionSelected: PropTypes.func,

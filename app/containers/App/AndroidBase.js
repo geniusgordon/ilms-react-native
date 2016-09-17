@@ -1,9 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import {
+  ToolbarAndroid,
   DrawerLayoutAndroid,
   StatusBar,
 } from 'react-native';
-import { ToolbarAndroid } from 'react-native-vector-icons/MaterialIcons';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import Drawer from './Drawer';
 
 class AndroidBase extends Component {
@@ -11,7 +12,7 @@ class AndroidBase extends Component {
     title: PropTypes.string,
     statusBarBackgroundColor: PropTypes.string,
     toolbarBackgroundColor: PropTypes.string,
-    toolbarActions: PropTypes.array,
+    toolbarActions: ToolbarAndroid.propTypes.actions,
     onActionSelected: PropTypes.func,
     children: PropTypes.node,
   };
@@ -45,7 +46,7 @@ class AndroidBase extends Component {
         ref={this.drawerRef}
       >
         <StatusBar backgroundColor={statusBarBackgroundColor} />
-        <ToolbarAndroid
+        <Icon.ToolbarAndroid
           title={title}
           navIconName="menu"
           style={{ height: 56, backgroundColor: toolbarBackgroundColor }}

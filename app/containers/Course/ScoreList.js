@@ -16,7 +16,11 @@ import styles from './styles';
 class ScoreList extends Component {
   static propTypes = {
     courseId: PropTypes.string,
-    courseCollection: PropTypes.object,
+    scoreList: PropTypes.arrayOf(PropTypes.shape({
+      name: PropTypes.string,
+      percent: PropTypes.string,
+      score: PropTypes.string,
+    })),
     loading: PropTypes.bool,
     dispatch: PropTypes.func,
   };
@@ -28,9 +32,7 @@ class ScoreList extends Component {
     Actions.pop();
   };
   renderList = () => {
-    const { courseId, courseCollection } = this.props;
-    const course = courseCollection.courseById[courseId] || {};
-    const scoreList = course.scoreList;
+    const { scoreList } = this.props;
     return scoreList.map(({ name, percent, score }) => (
       <ScoreItem
         key={name}
@@ -41,9 +43,7 @@ class ScoreList extends Component {
     ));
   };
   renderScore = () => {
-    const { courseId, courseCollection, loading } = this.props;
-    const course = courseCollection.courseById[courseId] || {};
-    const scoreList = course.scoreList;
+    const { scoreList, loading } = this.props;
 
     if (loading) {
       return (
@@ -89,10 +89,15 @@ class ScoreList extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  courseCollection: state.course,
-  loading: state.course.loading.score,
-});
+const mapStateToProps = (state, ownProps) => {
+  const { courseId } = ownProps;
+  const course = state.course.courseById[courseId] || {};
+  const scoreList = course.scoreList;
+  return {
+    scoreList,
+    loading: state.course.loading.score,
+  };
+};
 
 export default connect(mapStateToProps)(ScoreList);
 

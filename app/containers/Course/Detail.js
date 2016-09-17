@@ -23,7 +23,29 @@ class Detail extends Component {
     courseId: PropTypes.string,
     itemId: PropTypes.string,
     itemType: PropTypes.string,
-    itemsById: PropTypes.object,
+    item: PropTypes.shape({
+      id: PropTypes.oneOfType([
+        PropTypes.number,
+        PropTypes.string,
+      ]).isRequired,
+      courseId: PropTypes.string,
+      itemId: PropTypes.string,
+      title: PropTypes.string.isRequired,
+      subtitle: PropTypes.string,
+      count: PropTypes.oneOfType([
+        PropTypes.number,
+        PropTypes.string,
+      ]),
+      dateStr: PropTypes.string,
+      date: PropTypes.shape({
+        year: PropTypes.string,
+        month: PropTypes.string,
+        day: PropTypes.string,
+        hour: PropTypes.string,
+        minute: PropTypes.string,
+        second: PropTypes.string,
+      }),
+    }),
     loading: PropTypes.bool,
     dispatch: PropTypes.func,
   };
@@ -40,8 +62,7 @@ class Detail extends Component {
     Linking.openURL(url);
   };
   renderAttachments = () => {
-    const { itemId, itemType, itemsById, loading } = this.props;
-    const item = itemsById[itemType][itemId] || {};
+    const { item, loading } = this.props;
     const attachments = item.attachments || [];
     if (attachments.length === 0) {
       return null;
@@ -62,8 +83,7 @@ class Detail extends Component {
     );
   };
   renderInfo = () => {
-    const { itemId, itemType, itemsById, loading } = this.props;
-    const item = itemsById[itemType][itemId] || {};
+    const { item, loading } = this.props;
     if (loading) {
       return (
         <View style={styles.detailLoading}>
@@ -74,8 +94,7 @@ class Detail extends Component {
     return <Title title={item.title} subtitle={item.dateStr} />;
   };
   renderDetail = () => {
-    const { itemId, itemType, itemsById, loading } = this.props;
-    const item = itemsById[itemType][itemId] || {};
+    const { item, loading } = this.props;
     if (loading) {
       return null;
     }
@@ -116,10 +135,14 @@ class Detail extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  itemsById: state.course.itemsById,
-  loading: state.course.loading.detail,
-});
+const mapStateToProps = (state, ownProps) => {
+  const { itemId, itemType } = ownProps;
+  const item = state.course.itemsById[itemType][itemId] || {};
+  return {
+    item,
+    loading: state.course.loading.detail,
+  };
+};
 
 export default connect(mapStateToProps)(Detail);
 

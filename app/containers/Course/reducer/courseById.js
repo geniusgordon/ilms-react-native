@@ -24,7 +24,7 @@ const reducer = handleActions({
     const newList = {
       page: 1,
       more: itemList.length > 0,
-      data: itemList.map((item) => item.id),
+      data: itemList.map(item => item.id),
     };
     if (params && params.page > 1) {
       newList.page = params.page;

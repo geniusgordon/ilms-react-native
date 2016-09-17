@@ -28,12 +28,12 @@ export const loginSuccess = ({ email }) => ({
   email,
 });
 
-export const loginFail = (message) => ({
+export const loginFail = message => ({
   type: LOGIN_FAIL,
   message,
 });
 
-export const loginError = (error) => ({
+export const loginError = error => ({
   type: LOGIN_ERROR,
   error,
 });
@@ -48,7 +48,7 @@ export const fetchProfileSuccess = ({ name, email }) => ({
   email,
 });
 
-export const fetchProfileFail = (error) => ({
+export const fetchProfileFail = error => ({
   type: FETCH_PROFILE_FAIL,
   error,
 });

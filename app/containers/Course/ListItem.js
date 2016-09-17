@@ -11,7 +11,29 @@ const month = [
 class ListItem extends Component {
   static propTypes = {
     itemType: PropTypes.string,
-    item: PropTypes.object,
+    item: PropTypes.shape({
+      id: PropTypes.oneOfType([
+        PropTypes.number,
+        PropTypes.string,
+      ]).isRequired,
+      courseId: PropTypes.string,
+      itemId: PropTypes.string,
+      title: PropTypes.string.isRequired,
+      subtitle: PropTypes.string,
+      count: PropTypes.oneOfType([
+        PropTypes.number,
+        PropTypes.string,
+      ]),
+      dateStr: PropTypes.string,
+      date: PropTypes.shape({
+        year: PropTypes.string,
+        month: PropTypes.string,
+        day: PropTypes.string,
+        hour: PropTypes.string,
+        minute: PropTypes.string,
+        second: PropTypes.string,
+      }),
+    }),
     onPress: PropTypes.func,
   };
   handlePress = () => {

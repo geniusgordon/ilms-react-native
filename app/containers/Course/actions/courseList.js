@@ -6,12 +6,12 @@ import {
 
 export const fetchCourseList = () => ({ type: FETCH_COURSE_LIST });
 
-export const fetchCourseListSuccess = (courseList) => ({
+export const fetchCourseListSuccess = courseList => ({
   type: FETCH_COURSE_LIST_SUCCESS,
   courseList,
 });
 
-export const fetchCourseListFail = (error) => ({
+export const fetchCourseListFail = error => ({
   type: FETCH_COURSE_LIST_FAIL,
   error,
 });
