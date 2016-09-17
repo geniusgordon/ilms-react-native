@@ -27,7 +27,7 @@ class List extends Component {
     const dataSource = new ListView.DataSource({
       rowHasChanged: (a, b) => a !== b,
     });
-    this.state = { dataSource };
+    this.state = { dataSource: dataSource.cloneWithRows(props.items) };
   }
   componentWillReceiveProps(nextProps) {
     const { items } = nextProps;
