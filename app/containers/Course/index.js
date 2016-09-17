@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { ActionSheetIOS } from 'react-native';
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import ActionButton from 'react-native-action-button';
@@ -39,12 +40,18 @@ class Course extends Component {
         data: [],
       };
     }
+    console.log(items);
     return {
       ...items,
-      data: items.data.map((itemId) => courseCollection.itemsById[itemType][itemId]),
+      data: items.map((itemId) => courseCollection.itemsById[itemType][itemId]),
     };
   };
   itemTypes = ['announcement', 'material', 'assignment', 'forum'];
+  actionButton = [
+    '寄信給老師或助教',
+    '成績查詢',
+    '取消'
+  ];
   toolbarActions = [{ title: '寄信給老師或助教' }, { title: '成績查詢' }];
   fetchMoreItems = (itemType, page) => {
     const { id, dispatch } = this.props;
@@ -92,6 +99,15 @@ class Course extends Component {
       }));
     }
   };
+  handleActionIconClick = () => {
+    ActionSheetIOS.showActionSheetWithOptions({
+      options: this.actionButton,
+      cancelButtonIndex: this.actionButton.indexOf('取消'),
+    },
+    (buttonIndex) => {
+      this.handleActionSelect(buttonIndex);
+    });
+  };
   renderFixedActionButton = () => {
     if (this.state.fabScale === 0) {
       return null;
@@ -118,6 +134,8 @@ class Course extends Component {
         toolbarBackgroundColor="#ffc107"
         toolbarActions={this.toolbarActions}
         onActionSelected={this.handleActionSelect}
+        actionIcon="more-vert"
+        onActionIconClick={this.handleActionIconClick}
       >
         <TabView
           backgroundColor="#ffc107"
