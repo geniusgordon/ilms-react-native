@@ -24,7 +24,10 @@ class Forum extends Component {
     forum: PropTypes.shape({
       title: PropTypes.string,
       subtitle: PropTypes.string,
-      count: PropTypes.number,
+      count: PropTypes.oneOfType([
+        PropTypes.number,
+        PropTypes.string,
+      ]),
       posts: PostList.propTypes.posts,
     }),
     loading: PropTypes.bool,
