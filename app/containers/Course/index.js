@@ -40,17 +40,16 @@ class Course extends Component {
         data: [],
       };
     }
-    console.log(items);
     return {
       ...items,
-      data: items.map((itemId) => courseCollection.itemsById[itemType][itemId]),
+      data: items.data.map((itemId) => courseCollection.itemsById[itemType][itemId]),
     };
   };
   itemTypes = ['announcement', 'material', 'assignment', 'forum'];
   actionButton = [
     '寄信給老師或助教',
     '成績查詢',
-    '取消'
+    '取消',
   ];
   toolbarActions = [{ title: '寄信給老師或助教' }, { title: '成績查詢' }];
   fetchMoreItems = (itemType, page) => {

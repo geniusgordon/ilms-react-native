@@ -27,7 +27,7 @@ const Web = ({ title, uri }) => (
     />
     <WebView
       source={{ uri }}
-      style={{ backgroundColor: "#f9f9f9", marginTop: 5 }}
+      style={{ backgroundColor: '#f9f9f9', marginTop: 5 }}
     />
   </View>
 );

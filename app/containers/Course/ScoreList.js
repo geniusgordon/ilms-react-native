@@ -8,7 +8,7 @@ import {
   StatusBar,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import ToolBar from '../../components/ToolBar';
 import ScoreItem from './ScoreItem';
 import { fetchScore } from './actions/score';
 import styles from './styles';
@@ -76,12 +76,12 @@ class ScoreList extends Component {
     return (
       <View style={styles.base}>
         <StatusBar barStyle="light-content" backgroundColor="#9e9e9e" />
-        <Icon.ToolbarAndroid
+        <ToolBar
           title="成績"
-          navIconName="close"
-          style={{ height: 56, backgroundColor: 'white' }}
-          elevation={5}
-          onIconClicked={this.handleClose}
+          leftIcon="close"
+          statusbarColor="#9e9e9e"
+          style={styles.toolbar}
+          onLeftClicked={this.handleClose}
         />
         {this.renderScore()}
       </View>

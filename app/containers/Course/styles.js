@@ -5,6 +5,17 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#f9f9f9',
   },
+  toolbar: {
+    backgroundColor: 'white',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowRadius: 1,
+    shadowColor: 'black',
+    shadowOpacity: 0.6,
+    elevation: 5,
+  },
   listItem: {
     flexDirection: 'row',
     height: 96,
@@ -126,6 +137,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'right',
   },
+
 });
 
 export default styles;
