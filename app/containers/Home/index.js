@@ -9,6 +9,7 @@ class Home extends Component {
   static propTypes = {
     latestNews: PropTypes.array,
     loading: PropTypes.bool,
+    refreshing: PropTypes.bool,
     dispatch: PropTypes.func,
   };
   componentDidMount() {
@@ -23,8 +24,11 @@ class Home extends Component {
       itemId,
     }));
   };
+  handleRefresh = () => {
+    this.props.dispatch(fetchLatestNews({ refresh: true }));
+  };
   render() {
-    const { latestNews, loading } = this.props;
+    const { latestNews, loading, refreshing } = this.props;
     return (
       <Base
         title="最新公吉"
@@ -36,7 +40,9 @@ class Home extends Component {
           paddingColor="#f44336"
           items={latestNews}
           loading={loading}
+          refreshing={refreshing}
           onItemPress={this.handleItemPress}
+          onRefresh={this.handleRefresh}
         />
       </Base>
     );
@@ -46,6 +52,7 @@ class Home extends Component {
 const mapStateToProps = (state) => ({
   latestNews: state.home.latestNews,
   loading: state.home.loading,
+  refreshing: state.home.refreshing,
 });
 
 export default connect(mapStateToProps)(Home);

@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import {
   ListView,
   View,
+  RefreshControl,
 } from 'react-native';
 import ListItem from './ListItem';
 import NoData from './NoData';
@@ -16,7 +17,9 @@ class List extends Component {
     more: PropTypes.bool,
     items: PropTypes.array,
     loading: PropTypes.bool,
+    refreshing: PropTypes.bool,
     onItemPress: PropTypes.func,
+    onRefresh: PropTypes.func,
     fetchMoreItems: PropTypes.func,
   };
   constructor(props) {
@@ -34,6 +37,12 @@ class List extends Component {
       });
     }
   }
+  handleRefresh = () => {
+    const { itemType, onRefresh } = this.props;
+    if (onRefresh) {
+      onRefresh(itemType);
+    }
+  };
   handleEndReached = () => {
     const { itemType, loading, page, more, fetchMoreItems } = this.props;
     if (!loading && more && fetchMoreItems) {
@@ -66,7 +75,7 @@ class List extends Component {
     return null;
   };
   render() {
-    const { items, loading, paddingColor } = this.props;
+    const { refreshing } = this.props;
     return (
       <View style={styles.base}>
         <ListView
@@ -75,6 +84,12 @@ class List extends Component {
           renderHeader={this.renderHeader}
           renderFooter={this.renderFooter}
           onEndReached={this.handleEndReached}
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={this.handleRefresh}
+            />
+          }
           enableEmptySections
         />
       </View>
