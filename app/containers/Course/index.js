@@ -46,7 +46,7 @@ class Course extends Component {
     };
   };
   itemTypes = ['announcement', 'material', 'assignment', 'forum'];
-  actionButton = [
+  actionSheets = [
     '寄信給老師或助教',
     '成績查詢',
     '取消',
@@ -100,8 +100,8 @@ class Course extends Component {
   };
   handleActionIconClick = () => {
     ActionSheetIOS.showActionSheetWithOptions({
-      options: this.actionButton,
-      cancelButtonIndex: this.actionButton.indexOf('取消'),
+      options: this.actionSheets,
+      cancelButtonIndex: this.actionSheets.indexOf('取消'),
     },
     (buttonIndex) => {
       this.handleActionSelect(buttonIndex);
