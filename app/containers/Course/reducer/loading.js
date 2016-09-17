@@ -15,6 +15,7 @@ import {
 } from '../actions/actionTypes';
 
 const initalState = {
+  refresh: false,
   list: false,
   detail: false,
   email: false,
@@ -22,9 +23,14 @@ const initalState = {
 };
 
 const reducer = handleActions({
-  [FETCH_ITEM_LIST]: (state) => ({ ...state, list: true }),
-  [FETCH_ITEM_LIST_SUCCESS]: (state) => ({ ...state, list: false }),
-  [FETCH_ITEM_LIST_FAIL]: (state) => ({ ...state, list: false }),
+  [FETCH_ITEM_LIST]: (state, { params }) => {
+    if (params && params.refresh) {
+      return { ...state, refresh: true };
+    }
+    return { ...state, list: true };
+  },
+  [FETCH_ITEM_LIST_SUCCESS]: (state) => ({ ...state, list: false, refresh: false }),
+  [FETCH_ITEM_LIST_FAIL]: (state) => ({ ...state, list: false, refresh: false }),
   [FETCH_ITEM_DETAIL]: (state) => ({ ...state, detail: true }),
   [FETCH_ITEM_DETAIL_SUCCESS]: (state) => ({ ...state, detail: false }),
   [FETCH_ITEM_DETAIL_FAIL]: (state) => ({ ...state, detail: false }),

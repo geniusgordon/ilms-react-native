@@ -13,6 +13,7 @@ class Course extends Component {
     id: PropTypes.string,
     courseCollection: PropTypes.object,
     loading: PropTypes.bool,
+    refreshing: PropTypes.bool,
     dispatch: PropTypes.func,
   };
   constructor(props) {
@@ -30,11 +31,29 @@ class Course extends Component {
   getItems = (itemType) => {
     const { id, courseCollection } = this.props;
     const course = courseCollection.courseById[id] || {};
-    const items = course[itemType] || [];
-    return items.map((itemId) => courseCollection.itemsById[itemType][itemId]);
+    const items = course[itemType];
+    if (!items) {
+      return {
+        page: 1,
+        more: false,
+        data: [],
+      };
+    }
+    return {
+      ...items,
+      data: items.data.map((itemId) => courseCollection.itemsById[itemType][itemId]),
+    };
   };
   itemTypes = ['announcement', 'material', 'assignment', 'forum'];
   toolbarActions = [{ title: '寄信給老師或助教' }, { title: '成績查詢' }];
+  fetchMoreItems = (itemType, page) => {
+    const { id, dispatch } = this.props;
+    dispatch(fetchItemList(id, itemType, { page }));
+  };
+  handleRefresh = (itemType) => {
+    const { id, dispatch } = this.props;
+    dispatch(fetchItemList(id, itemType, { refresh: true }));
+  };
   handleItemPress = (itemType, itemId) => {
     const courseId = this.props.id;
     this.props.dispatch(route('detail', {
@@ -86,8 +105,12 @@ class Course extends Component {
     );
   };
   render() {
-    const { id, courseCollection, loading } = this.props;
+    const { id, courseCollection, loading, refreshing } = this.props;
     const course = courseCollection.courseById[id] || {};
+    const announcement = this.getItems('announcement');
+    const material = this.getItems('material');
+    const assignment = this.getItems('assignment');
+    const forum = this.getItems('forum');
     return (
       <Base
         title={course.name}
@@ -104,33 +127,50 @@ class Course extends Component {
             tabLabel="公告"
             paddingColor="#ffc107"
             itemType="announcement"
-            items={this.getItems('announcement')}
+            page={announcement.page}
+            more={announcement.more}
+            items={announcement.data}
             loading={loading}
+            refreshing={refreshing}
+            onRefresh={this.handleRefresh}
             onItemPress={this.handleItemPress}
           />
           <List
             tabLabel="教材"
             paddingColor="#ffc107"
             itemType="material"
-            items={this.getItems('material')}
+            page={material.page}
+            more={material.more}
+            items={material.data}
             loading={loading}
+            refreshing={refreshing}
+            onRefresh={this.handleRefresh}
             onItemPress={this.handleItemPress}
           />
           <List
             tabLabel="作業"
             paddingColor="#ffc107"
             itemType="assignment"
-            items={this.getItems('assignment')}
+            page={assignment.page}
+            more={assignment.more}
+            items={assignment.data}
             loading={loading}
+            refreshing={refreshing}
+            onRefresh={this.handleRefresh}
             onItemPress={this.handleItemPress}
           />
           <List
             tabLabel="討論區"
             paddingColor="#ffc107"
             itemType="forum"
-            items={this.getItems('forum')}
+            page={forum.page}
+            more={forum.more}
+            items={forum.data}
             loading={loading}
+            refreshing={refreshing}
             onItemPress={this.handleForumPress}
+            onRefresh={this.handleRefresh}
+            fetchMoreItems={this.fetchMoreItems}
           />
         </TabView>
         {this.renderFixedActionButton()}
@@ -142,6 +182,7 @@ class Course extends Component {
 const mapStateToProps = (state) => ({
   courseCollection: state.course,
   loading: state.course.loading.list,
+  refreshing: state.course.loading.refresh,
 });
 
 export default connect(mapStateToProps)(Course);

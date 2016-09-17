@@ -4,7 +4,10 @@ import {
   FETCH_LATEST_NEWS_FAIL,
 } from './actionTypes';
 
-export const fetchLatestNews = () => ({ type: FETCH_LATEST_NEWS });
+export const fetchLatestNews = (params) => ({
+  type: FETCH_LATEST_NEWS,
+  params,
+});
 
 export const fetchLatestNewsSuccess = (latestNews) => ({
   type: FETCH_LATEST_NEWS_SUCCESS,

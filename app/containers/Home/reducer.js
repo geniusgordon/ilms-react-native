@@ -8,20 +8,25 @@ import {
 const initalState = {
   latestNews: [],
   loading: false,
+  refreshing: false,
 };
 
 const reducer = handleActions({
-  [FETCH_LATEST_NEWS]: (state) => ({
-    ...state,
-    loading: true,
-  }),
+  [FETCH_LATEST_NEWS]: (state, { params }) => {
+    if (params && params.refresh) {
+      return { ...state, refreshing: true };
+    }
+    return { ...state, loading: true };
+  },
   [FETCH_LATEST_NEWS_SUCCESS]: (state, { latestNews }) => ({
     ...state,
     latestNews,
     loading: false,
+    refreshing: false,
   }),
   [FETCH_LATEST_NEWS_FAIL]: () => ({
     loading: false,
+    refreshing: false,
   }),
 }, initalState);
 

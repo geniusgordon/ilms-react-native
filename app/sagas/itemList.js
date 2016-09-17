@@ -19,16 +19,18 @@ const itemUrlParams = {
   forum: 'forumlist',
 };
 
-function* fetchItemList({ courseId, itemType }) {
+function* fetchItemList({ courseId, itemType, params }) {
   try {
     const res = yield call(api.get, '/course.php', {
+      ...params,
       courseID: courseId,
       f: itemUrlParams[itemType],
     });
     const html = yield res.text();
     const courseName = parseCourseName(html);
+    const course = { id: courseId, name: courseName };
     const itemList = parseItemList(itemType, html);
-    yield put(fetchItemListSuccess(courseId, courseName, itemType, itemList));
+    yield put(fetchItemListSuccess(course, itemType, itemList, params));
   } catch (error) {
     alert('無法載入課程');
     yield put(fetchItemListFail(courseId, itemType, error.message));

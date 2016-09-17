@@ -6,7 +6,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#f9f9f9',
   },
   listItem: {
-    flex: 1,
     flexDirection: 'row',
     height: 96,
     margin: 8,

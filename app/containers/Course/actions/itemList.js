@@ -4,18 +4,19 @@ import {
   FETCH_ITEM_LIST_FAIL,
 } from './actionTypes';
 
-export const fetchItemList = (courseId, itemType) => ({
+export const fetchItemList = (courseId, itemType, params) => ({
   type: FETCH_ITEM_LIST,
   courseId,
   itemType,
+  params,
 });
 
-export const fetchItemListSuccess = (courseId, courseName, itemType, itemList) => ({
+export const fetchItemListSuccess = (course, itemType, itemList, params) => ({
   type: FETCH_ITEM_LIST_SUCCESS,
-  courseId,
-  courseName,
+  course,
   itemType,
   itemList,
+  params,
 });
 
 export const fetchItemListFail = (courseId, itemType, error) => ({
