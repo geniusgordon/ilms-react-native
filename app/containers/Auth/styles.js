@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   input: {
-    height: 40,
+    height: 48,
   },
   button: {
     height: 48,

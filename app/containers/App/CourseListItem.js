@@ -1,8 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { View, Text } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import RippleView from '../../components/RippleView';
-import styles from './styles';
+import DrawerItem from './DrawerItem';
 
 class CourseListItem extends Component {
   static propTypes = {
@@ -16,18 +13,11 @@ class CourseListItem extends Component {
   render() {
     const { course } = this.props;
     return (
-      <RippleView onPress={this.handlePress} darkRipple>
-        <View style={styles.drawerItem}>
-          <Icon name="copyright" size={24} color="#000" />
-          <Text
-            style={styles.drawerItemName}
-            ellipsizeMode="tail"
-            numberOfLines={1}
-          >
-            {course.name}
-          </Text>
-        </View>
-      </RippleView>
+      <DrawerItem
+        onPress={this.handlePress}
+        icon="copyright"
+        name={course.name}
+      />
     );
   }
 }

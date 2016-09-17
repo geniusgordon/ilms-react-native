@@ -94,12 +94,10 @@ const styles = StyleSheet.create({
     marginTop: 8,
   },
   titleInputText: {
-    fontSize: 20,
     color: 'black',
     marginTop: 5,
     fontSize: 24,
     fontWeight: 'bold',
-    marginTop: 8,
     paddingTop: 16,
     paddingBottom: 16,
   },

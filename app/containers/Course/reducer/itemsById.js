@@ -4,7 +4,7 @@ import {
   FETCH_ITEM_DETAIL_SUCCESS,
 } from '../actions/actionTypes';
 import { FETCH_FORUM_SUCCESS } from '../../Forum/actionTypes';
-import {FETCH_LATEST_NEWS_SUCCESS } from '../../Home/actionTypes';
+import { FETCH_LATEST_NEWS_SUCCESS } from '../../Home/actionTypes';
 
 const initalState = {
   announcement: {},
