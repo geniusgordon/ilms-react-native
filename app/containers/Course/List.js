@@ -68,9 +68,9 @@ class List extends Component {
     return <Padding backgroundColor={paddingColor} />;
   };
   renderFooter = () => {
-    const { loading } = this.props;
-    if (loading) {
-      return <NoData loading />;
+    const { items, loading } = this.props;
+    if (!items || items.length === 0 || loading) {
+      return <NoData loading={loading} />;
     }
     return null;
   };
