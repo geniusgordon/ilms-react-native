@@ -14,6 +14,8 @@ class Base extends Component {
     children: PropTypes.node,
     dispatch: PropTypes.func,
     onActionSelected: PropTypes.func,
+    actionIcon: PropTypes.string,
+    onActionIconClick: PropTypes.func,
   };
   componentDidMount() {
     this.props.dispatch(checkLogin());
@@ -25,6 +27,8 @@ class Base extends Component {
       toolbarBackgroundColor,
       toolbarActions,
       onActionSelected,
+      actionIcon,
+      onActionIconClick,
       children,
     } = this.props;
     if (Platform.OS === 'ios') {
@@ -33,6 +37,8 @@ class Base extends Component {
           title={title}
           statusBarBackgroundColor={statusBarBackgroundColor}
           toolbarBackgroundColor={toolbarBackgroundColor}
+          actionIcon={actionIcon}
+          onActionIconClick={onActionIconClick}
         >
           {children}
         </IosBase>

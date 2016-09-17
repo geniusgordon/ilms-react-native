@@ -6,7 +6,7 @@ import {
   StatusBar,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import { ToolbarAndroid } from 'react-native-vector-icons/MaterialIcons';
+import ToolBar from '../../components/ToolBar';
 import IconLink from './IconLink';
 import logo from '../../assets/iLms.png';
 import styles from './styles';
@@ -19,12 +19,12 @@ class About extends Component {
     return (
       <View style={styles.base}>
         <StatusBar backgroundColor="#9e9e9e" />
-        <ToolbarAndroid
-          title="About"
-          navIconName="close"
-          style={{ height: 56, backgroundColor: 'white' }}
-          elevation={5}
-          onIconClicked={this.handleClose}
+        <ToolBar
+          title="about"
+          leftIcon="close"
+          statusbarColor="#9e9e9e"
+          style={styles.toolbar}
+          onLeftClicked={this.handleClose}
         />
         <View style={styles.logoContainer}>
           <Image source={logo} style={styles.logo} />
