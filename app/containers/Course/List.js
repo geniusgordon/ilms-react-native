@@ -12,9 +12,12 @@ class List extends Component {
   static propTypes = {
     paddingColor: PropTypes.string,
     itemType: PropTypes.string,
+    page: PropTypes.number,
+    more: PropTypes.bool,
     items: PropTypes.array,
     loading: PropTypes.bool,
     onItemPress: PropTypes.func,
+    fetchMoreItems: PropTypes.func,
   };
   constructor(props) {
     super(props);
@@ -31,6 +34,12 @@ class List extends Component {
       });
     }
   }
+  handleEndReached = () => {
+    const { itemType, loading, page, more, fetchMoreItems } = this.props;
+    if (!loading && more && fetchMoreItems) {
+      fetchMoreItems(itemType, page + 1);
+    }
+  };
   handleItemPress = (id) => {
     const { itemType, onItemPress } = this.props;
     onItemPress(itemType, id);
@@ -65,6 +74,8 @@ class List extends Component {
           renderRow={this.renderRow}
           renderHeader={this.renderHeader}
           renderFooter={this.renderFooter}
+          onEndReached={this.handleEndReached}
+          enableEmptySections
         />
       </View>
     );

@@ -27,11 +27,25 @@ class Course extends Component {
       dispatch(fetchItemList(id, itemType));
     });
   }
+  fetchMoreItems = (itemType, page) => {
+    const { id, dispatch } = this.props;
+    dispatch(fetchItemList(id, itemType, { page }));
+  };
   getItems = (itemType) => {
     const { id, courseCollection } = this.props;
     const course = courseCollection.courseById[id] || {};
-    const items = course[itemType] || [];
-    return items.map((itemId) => courseCollection.itemsById[itemType][itemId]);
+    const items = course[itemType];
+    if (!items) {
+      return {
+        page: 1,
+        more: false,
+        data: [],
+      };
+    }
+    return {
+      ...items,
+      data: items.data.map((itemId) => courseCollection.itemsById[itemType][itemId]),
+    };
   };
   itemTypes = ['announcement', 'material', 'assignment', 'forum'];
   toolbarActions = [{ title: '寄信給老師或助教' }, { title: '成績查詢' }];
@@ -88,6 +102,10 @@ class Course extends Component {
   render() {
     const { id, courseCollection, loading } = this.props;
     const course = courseCollection.courseById[id] || {};
+    const announcement = this.getItems('announcement');
+    const material = this.getItems('material');
+    const assignment = this.getItems('assignment');
+    const forum = this.getItems('forum');
     return (
       <Base
         title={course.name}
@@ -104,7 +122,9 @@ class Course extends Component {
             tabLabel="公告"
             paddingColor="#ffc107"
             itemType="announcement"
-            items={this.getItems('announcement')}
+            page={announcement.page}
+            more={announcement.more}
+            items={announcement.data}
             loading={loading}
             onItemPress={this.handleItemPress}
           />
@@ -112,7 +132,9 @@ class Course extends Component {
             tabLabel="教材"
             paddingColor="#ffc107"
             itemType="material"
-            items={this.getItems('material')}
+            page={material.page}
+            more={material.more}
+            items={material.data}
             loading={loading}
             onItemPress={this.handleItemPress}
           />
@@ -120,7 +142,9 @@ class Course extends Component {
             tabLabel="作業"
             paddingColor="#ffc107"
             itemType="assignment"
-            items={this.getItems('assignment')}
+            page={assignment.page}
+            more={assignment.more}
+            items={assignment.data}
             loading={loading}
             onItemPress={this.handleItemPress}
           />
@@ -128,9 +152,12 @@ class Course extends Component {
             tabLabel="討論區"
             paddingColor="#ffc107"
             itemType="forum"
-            items={this.getItems('forum')}
+            page={forum.page}
+            more={forum.more}
+            items={forum.data}
             loading={loading}
             onItemPress={this.handleForumPress}
+            fetchMoreItems={this.fetchMoreItems}
           />
         </TabView>
         {this.renderFixedActionButton()}

@@ -21,9 +21,14 @@ const reducer = handleActions({
   },
   [FETCH_ITEM_LIST_SUCCESS]: (state, { course, itemType, itemList, params }) => {
     const oldList = state[course.id][itemType];
-    let newList = itemList.map((item) => item.id);
+    const newList = {
+      page: 1,
+      more: itemList.length > 0,
+      data: itemList.map((item) => item.id),
+    };
     if (params && params.page > 1) {
-      newList = [...oldList, ...newList];
+      newList.page = params.page;
+      newList.data = [...oldList.data, ...newList.data];
     }
     return {
       ...state,
