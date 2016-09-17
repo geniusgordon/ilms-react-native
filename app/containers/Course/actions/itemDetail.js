@@ -27,12 +27,12 @@ export const fetchItemDetailFail = (itemType, itemId, error) => ({
   error,
 });
 
-export const downloadAttachment = (attachment) => ({
+export const downloadAttachment = attachment => ({
   type: DOWNLOAD_ATTACHMENT,
   attachment,
 });
 
-export const downloadAttachmentSuccess = (attachment) => ({
+export const downloadAttachmentSuccess = attachment => ({
   type: DOWNLOAD_ATTACHMENT_SUCCESS,
   attachment,
 });

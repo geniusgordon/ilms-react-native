@@ -15,7 +15,7 @@ class List extends Component {
     itemType: PropTypes.string,
     page: PropTypes.number,
     more: PropTypes.bool,
-    items: PropTypes.array,
+    items: PropTypes.arrayOf(ListItem.propTypes.item),
     loading: PropTypes.bool,
     refreshing: PropTypes.bool,
     onItemPress: PropTypes.func,

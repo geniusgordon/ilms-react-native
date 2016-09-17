@@ -19,7 +19,7 @@ const CustomNavButton = ({ icon, style, onPress }) => (
 
 CustomNavButton.propTypes = {
   icon: PropTypes.string,
-  style: PropTypes.object,
+  style: Icon.propTypes.style,
   onPress: PropTypes.func,
 };
 

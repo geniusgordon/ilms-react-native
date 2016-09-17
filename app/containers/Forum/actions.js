@@ -11,12 +11,12 @@ export const fetchForum = (forumId, params) => ({
   params,
 });
 
-export const fetchForumSuccess = (forum) => ({
+export const fetchForumSuccess = forum => ({
   type: FETCH_FORUM_SUCCESS,
   forum,
 });
 
-export const fetchForumFail = (error) => ({
+export const fetchForumFail = error => ({
   type: FETCH_FORUM_FAIL,
   error,
 });

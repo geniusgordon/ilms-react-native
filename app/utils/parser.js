@@ -43,10 +43,10 @@ export function parseCourseList(html) {
   const root = HTMLParser.parse(html);
   const mnuItems = root.querySelectorAll('.mnuItem a');
   const courseUrlRegex = /^\/course\/(\d+)$/;
-  return mnuItems.filter((item) => (
+  return mnuItems.filter(item => (
     courseUrlRegex.test(item.attributes.href)
   ))
-  .map((item) => ({
+  .map(item => ({
     id: item.attributes.href.match(courseUrlRegex)[1],
     name: item.text,
   }));
@@ -153,7 +153,7 @@ function parseAnnouncementDetail(html) {
   const item = JSON.parse(html).news;
   const attachRoot = HTMLParser.parse(item.attach);
   const attachments = attachRoot.querySelectorAll('a')
-  .map((attach) => ({
+  .map(attach => ({
     id: attach.attributes.href.match(/.*id=(\d+).*/)[1],
     name: attach.text,
   }));
@@ -195,7 +195,7 @@ function parseAssignmentDetail(html) {
   const dateStr = `${tr[5].querySelectorAll('td')[1].text}:00`;
   const content = tr[6].querySelectorAll('td')[1].text;
   const links = tr[7].querySelectorAll('a');
-  const attachments = links.map((link) => ({
+  const attachments = links.map(link => ({
     id: link.attributes.href.match(/.*id=(\d+).*/)[1],
     name: link.text,
   }));
@@ -226,7 +226,7 @@ export function parseForum(posts) {
     id: posts.id,
     title: posts.title,
     count: posts.items.length - 1,
-    posts: posts.items.map((item) => ({
+    posts: posts.items.map(item => ({
       id: item.id,
       name: item.name,
       account: item.account,
@@ -240,11 +240,11 @@ export function parseForum(posts) {
 function parseEmailLine(line) {
   const type = line.text.split(':')[0].trim();
   const names = line.text.split(':')[1].split(',')
-    .map((name) => name.trim())
-    .filter((name) => name !== '無');
+    .map(name => name.trim())
+    .filter(name => name !== '無');
   const emails = line.querySelectorAll('img')
-    .filter((img) => img.attributes.src.endsWith('mail.png'))
-    .map((img) => img.attributes.title);
+    .filter(img => img.attributes.src.endsWith('mail.png'))
+    .map(img => img.attributes.title);
   return names.map((name, i) => ({
     name: `${type}: ${name}`,
     email: emails[i],

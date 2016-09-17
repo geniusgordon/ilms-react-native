@@ -6,7 +6,7 @@ export const route = (key, params) => ({
   params,
 });
 
-export const deepLink = (url) => ({
+export const deepLink = url => ({
   type: DEEP_LINK,
   url,
 });

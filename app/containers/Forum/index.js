@@ -21,7 +21,12 @@ class Forum extends Component {
   static propTypes = {
     id: PropTypes.string,
     courseId: PropTypes.string,
-    forumCollection: PropTypes.object,
+    forum: PropTypes.shape({
+      title: PropTypes.string,
+      subtitle: PropTypes.string,
+      count: PropTypes.number,
+      posts: PostList.propTypes.posts,
+    }),
     loading: PropTypes.bool,
     refreshing: PropTypes.bool,
     dispatch: PropTypes.func,
@@ -35,8 +40,7 @@ class Forum extends Component {
     dispatch(fetchForum(id, { refresh: true }));
   };
   handleFabPress = () => {
-    const { id, courseId, forumCollection, dispatch } = this.props;
-    const forum = forumCollection[id] || {};
+    const { id, courseId, forum, dispatch } = this.props;
     dispatch(route('compose', {
       action: 'reply',
       title: forum.title,
@@ -45,8 +49,7 @@ class Forum extends Component {
     }));
   };
   renderList = () => {
-    const { id, forumCollection, loading, refreshing } = this.props;
-    const forum = forumCollection[id] || {};
+    const { forum, loading, refreshing } = this.props;
     const posts = forum.posts || [];
     if (posts.length === 0) {
       return <NoData />;
@@ -67,8 +70,7 @@ class Forum extends Component {
     );
   };
   render() {
-    const { id, forumCollection } = this.props;
-    const forum = forumCollection[id] || {};
+    const { forum } = this.props;
     return (
       <View style={styles.base}>
         <StatusBar barStyle="light-content" backgroundColor="#1565c0" />
@@ -94,11 +96,15 @@ class Forum extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  forumCollection: state.course.itemsById.forum,
-  loading: state.forum.loading,
-  refreshing: state.forum.refreshing,
-});
+const mapStateToProps = (state, ownProps) => {
+  const { id } = ownProps;
+  const forum = state.course.itemsById.forum[id] || {};
+  return {
+    forum,
+    loading: state.forum.loading,
+    refreshing: state.forum.refreshing,
+  };
+};
 
 export default connect(mapStateToProps)(Forum);
 

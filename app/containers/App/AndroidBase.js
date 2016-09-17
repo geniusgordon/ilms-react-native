@@ -11,7 +11,7 @@ class AndroidBase extends Component {
     title: PropTypes.string,
     statusBarBackgroundColor: PropTypes.string,
     toolbarBackgroundColor: PropTypes.string,
-    toolbarActions: PropTypes.array,
+    toolbarActions: ToolbarAndroid.propTypes.toolbarActions,
     onActionSelected: PropTypes.func,
     children: PropTypes.node,
   };

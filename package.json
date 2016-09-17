@@ -10,14 +10,14 @@
     "fast-html-parser": "^1.0.1",
     "react": "15.3.1",
     "react-native": "^0.33.0",
-    "react-native-action-button": "^2.0.2",
+    "react-native-action-button": "^2.0.3",
     "react-native-cookies": "^2.0.0",
     "react-native-drawer": "^2.3.0",
     "react-native-drawer-layout": "^1.1.0",
     "react-native-fetch-blob": "^0.9.4",
     "react-native-google-analytics-bridge": "^3.1.0",
     "react-native-htmlview": "^0.5.0",
-    "react-native-navbar": "^1.5.0",
+    "react-native-navbar": "^1.5.1",
     "react-native-router-flux": "^3.35.0",
     "react-native-scrollable-tab-view": "^0.6.0",
     "react-native-vector-icons": "^2.1.0",
@@ -31,26 +31,19 @@
     "babel-eslint": "^6.1.2",
     "babel-plugin-transform-class-properties": "^6.11.5",
     "babel-preset-react-native": "^1.9.0",
-    "eslint": "^3.4.0",
-    "eslint-config-airbnb": "^10.0.1",
-    "eslint-plugin-import": "^1.14.0",
-    "eslint-plugin-jsx-a11y": "^2.2.1",
-    "eslint-plugin-react": "^6.2.0"
+    "eslint": "^3.5.0",
+    "eslint-config-airbnb": "^11.1.0",
+    "eslint-plugin-import": "^1.15.0",
+    "eslint-plugin-jsx-a11y": "^2.2.2",
+    "eslint-plugin-react": "^6.2.2"
   },
   "eslintConfig": {
     "parser": "babel-eslint",
     "extends": "airbnb",
     "rules": {
-      "react/require-extension": "off",
-      "react/jsx-filename-extension": [
-        1,
-        {
-          "extensions": [
-            ".js",
-            ".jsx"
-          ]
-        }
-      ]
+      "react/require-extension": 0,
+      "react/jsx-filename-extension": [2, {"extensions": [ ".js", ".jsx" ]}],
+      "react/no-unused-prop-types": [2, {"skipShapeProps": true}]
     },
     "globals": {
       "fetch": false,

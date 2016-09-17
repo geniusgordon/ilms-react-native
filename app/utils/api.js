@@ -6,7 +6,7 @@ function toQueryString(data) {
   if (!data) {
     return '';
   }
-  return Object.keys(data).map((key) => (
+  return Object.keys(data).map(key => (
     `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`
   )).join('&');
 }
@@ -43,7 +43,7 @@ function postMultipart(path, data) {
 
 function checkLogin() {
   const url = `${BASE_URL}/home/profile.php`;
-  return fetch(url).then((res) => res.text())
+  return fetch(url).then(res => res.text())
   .then((html) => {
     if (html.indexOf('權限不足') !== -1 || html.indexOf('No Permission!') !== -1) {
       return { isLogin: false };
@@ -62,7 +62,7 @@ function getCookie() {
         reject(err);
         return;
       }
-      resolve(Object.keys(cookie).map((key) => (
+      resolve(Object.keys(cookie).map(key => (
         `${key}=${cookie[key]}`
       )).join('; '));
     });

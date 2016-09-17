@@ -23,14 +23,19 @@ const Post = ({ post, floor }) => (
     <View style={styles.postContentContainer}>
       <HTMLView
         value={post.content}
-        onLinkPress={(url) => Linking.openURL(url)}
+        onLinkPress={url => Linking.openURL(url)}
       />
     </View>
   </View>
 );
 
 Post.propTypes = {
-  post: PropTypes.object,
+  post: PropTypes.shape({
+    name: PropTypes.string,
+    account: PropTypes.string,
+    email: PropTypes.string,
+    date: PropTypes.string,
+  }),
   floor: PropTypes.number,
 };
 

@@ -4,7 +4,7 @@ import {
   FETCH_SCORE_FAIL,
 } from './actionTypes';
 
-export const fetchScore = (courseId) => ({
+export const fetchScore = courseId => ({
   type: FETCH_SCORE,
   courseId,
 });
@@ -15,7 +15,7 @@ export const fetchScoreSuccess = (courseId, scoreList) => ({
   scoreList,
 });
 
-export const fetchScoreFail = (error) => ({
+export const fetchScoreFail = error => ({
   type: FETCH_SCORE_FAIL,
   error,
 });
