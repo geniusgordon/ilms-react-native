@@ -24,7 +24,7 @@ class About extends Component {
           leftIcon="close"
           statusbarColor="#9e9e9e"
           style={styles.toolbar}
-          onLeftClicked={this.handleClose}
+          onIconClicked={this.handleClose}
         />
         <View style={styles.logoContainer}>
           <Image source={logo} style={styles.logo} />

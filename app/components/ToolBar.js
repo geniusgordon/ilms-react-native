@@ -10,8 +10,11 @@ const ToolBar = ({
   rightIcon,
   statusbarStyle,
   statusbarColor,
+  actions,
   style,
-  onLeftClicked,
+  elevation,
+  onIconClicked,
+  onActionSelected,
   onRightClicked,
 }) => {
   if (Platform.OS === 'ios') {
@@ -27,7 +30,7 @@ const ToolBar = ({
           <CustomNavButton
             icon={leftIcon}
             style={{ marginLeft: 16 }}
-            onPress={onLeftClicked}
+            onPress={onIconClicked}
           />
         }
         rightButton={
@@ -45,7 +48,10 @@ const ToolBar = ({
       title={title}
       navIconName={leftIcon}
       style={[{ height: 56 }, style]}
-      onIconClicked={onLeftClicked}
+      elevation={elevation}
+      actions={actions}
+      onIconClicked={onIconClicked}
+      onActionSelected={onActionSelected}
     />
   );
 };
@@ -56,8 +62,14 @@ ToolBar.propTypes = {
   rightIcon: PropTypes.string,
   statusbarStyle: PropTypes.string,
   statusbarColor: PropTypes.string,
+  actions: PropTypes.arrayOf(PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    show: PropTypes.oneOf(['always', 'ifRoom', 'never']),
+  })),
   style: View.propTypes.style,
-  onLeftClicked: PropTypes.func,
+  elevation: PropTypes.number,
+  onIconClicked: PropTypes.func,
+  onActionSelected: PropTypes.func,
   onRightClicked: PropTypes.func,
 };
 

@@ -81,7 +81,7 @@ class ScoreList extends Component {
           leftIcon="close"
           statusbarColor="#9e9e9e"
           style={styles.toolbar}
-          onLeftClicked={this.handleClose}
+          onIconClicked={this.handleClose}
         />
         {this.renderScore()}
       </View>

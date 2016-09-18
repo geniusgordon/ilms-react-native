@@ -120,7 +120,7 @@ class Detail extends Component {
           leftIcon="close"
           statusbarColor="#388e3c"
           style={{ backgroundColor: '#4caf50' }}
-          onLeftClicked={Actions.pop}
+          onIconClicked={Actions.pop}
         />
         <Padding backgroundColor="#4caf50" />
         {this.renderInfo()}
