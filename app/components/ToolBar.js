@@ -30,9 +30,21 @@ const ToolBar = ({
             onActionSelected(buttonIndex);
           });
         };
-        actionButton = <CustomNavButton icon="more-vert" style={{ marginRight: 16 }} onPress={handleActionIconPress} />;
+        actionButton = (
+          <CustomNavButton
+            icon="more-vert"
+            style={{ marginRight: 16 }}
+            onPress={handleActionIconPress}
+          />
+        );
       } else {
-        actionButton = <CustomNavButton icon={actions[0].iconName} style={{ marginRight: 16 }} onPress={onActionSelected} />;
+        actionButton = (
+          <CustomNavButton
+            icon={actions[0].iconName}
+            style={{ marginRight: 16 }}
+            onPress={onActionSelected}
+          />
+        );
       }
     }
     return (

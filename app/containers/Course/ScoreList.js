@@ -81,6 +81,7 @@ class ScoreList extends Component {
           leftIcon="close"
           statusbarColor="#9e9e9e"
           style={styles.toolbar}
+          elevation={5}
           onIconClicked={this.handleClose}
         />
         {this.renderScore()}

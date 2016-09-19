@@ -14,7 +14,6 @@ const styles = StyleSheet.create({
     shadowRadius: 1,
     shadowColor: 'black',
     shadowOpacity: 0.6,
-    elevation: 5,
   },
   listItem: {
     flexDirection: 'row',
