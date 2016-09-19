@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Text, View } from 'react-native';
+import I18n from 'react-native-i18n';
 import RippleView from '../../components/RippleView';
 import styles from './styles';
 
@@ -55,7 +56,7 @@ class ListItem extends Component {
     return (
       <View style={styles.listItemInfo}>
         <Text style={styles.listItemDay}>{count}</Text>
-        <Text style={styles.listItemMonth}>則回應</Text>
+        <Text style={styles.listItemMonth}>{I18n.t('commentCount')}</Text>
       </View>
     );
   };

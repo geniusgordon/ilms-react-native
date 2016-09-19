@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
+import I18n from 'react-native-i18n';
 import {
   ActivityIndicator,
   View,
@@ -78,7 +79,7 @@ class Forum extends Component {
       <View style={styles.base}>
         <StatusBar barStyle="light-content" backgroundColor="#1565c0" />
         <ToolBar
-          title="討論區"
+          title={I18n.t('forum')}
           statusbarColor="#1565c0"
           leftIcon="close"
           style={{ backgroundColor: '#1e88e5' }}

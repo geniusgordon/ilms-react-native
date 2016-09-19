@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { ActionSheetIOS } from 'react-native';
 import { connect } from 'react-redux';
+import I18n from 'react-native-i18n';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import ActionButton from 'react-native-action-button';
 import Base from '../App/Base';
@@ -48,7 +49,7 @@ class Course extends Component {
     '成績查詢',
     '取消',
   ];
-  toolbarActions = [{ title: '寄信給老師或助教' }, { title: '成績查詢' }];
+  toolbarActions = [{ title: I18n.t('sendEmail') }, { title: I18n.t('grading') }];
   fetchMoreItems = (itemType, page) => {
     const { id, dispatch } = this.props;
     dispatch(fetchItemList(id, itemType, { page }));
@@ -139,7 +140,7 @@ class Course extends Component {
           onChangeTab={this.handleTabChange}
         >
           <List
-            tabLabel="公告"
+            tabLabel={I18n.t('announcement')}
             paddingColor="#ffc107"
             itemType="announcement"
             page={announcement.page}
@@ -151,7 +152,7 @@ class Course extends Component {
             onItemPress={this.handleItemPress}
           />
           <List
-            tabLabel="教材"
+            tabLabel={I18n.t('material')}
             paddingColor="#ffc107"
             itemType="material"
             page={material.page}
@@ -163,7 +164,7 @@ class Course extends Component {
             onItemPress={this.handleItemPress}
           />
           <List
-            tabLabel="作業"
+            tabLabel={I18n.t('assignment')}
             paddingColor="#ffc107"
             itemType="assignment"
             page={assignment.page}
@@ -175,7 +176,7 @@ class Course extends Component {
             onItemPress={this.handleItemPress}
           />
           <List
-            tabLabel="討論區"
+            tabLabel={I18n.t('forum')}
             paddingColor="#ffc107"
             itemType="forum"
             page={forum.page}

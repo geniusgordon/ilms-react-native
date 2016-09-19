@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import I18n from 'react-native-i18n';
 import {
   ActivityIndicator,
   ScrollView,
@@ -55,16 +56,16 @@ class ScoreList extends Component {
     if (!scoreList) {
       return (
         <View style={styles.loadingContainer}>
-          <Text>尚未開放</Text>
+          <Text>{I18n.t('noGrading')}</Text>
         </View>
       );
     }
     return (
       <View style={styles.scoreList}>
         <View style={styles.scoreListHeader}>
-          <Text style={styles.scoreName}>項目</Text>
-          <Text style={styles.scorePercent}>比例</Text>
-          <Text style={styles.score}>分數</Text>
+          <Text style={styles.scoreName}>{I18n.t('scoreItem')}</Text>
+          <Text style={styles.scorePercent}>{I18n.t('scorePercentage')}</Text>
+          <Text style={styles.score}>{I18n.t('score')}</Text>
         </View>
         <ScrollView style={{ flex: 1 }}>
           {this.renderList()}
@@ -77,7 +78,7 @@ class ScoreList extends Component {
       <View style={styles.base}>
         <StatusBar barStyle="light-content" backgroundColor="#9e9e9e" />
         <ToolBar
-          title="成績"
+          title={I18n.t('grading')}
           leftIcon="close"
           statusbarColor="#9e9e9e"
           style={styles.toolbar}

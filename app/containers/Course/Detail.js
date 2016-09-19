@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
+import I18n from 'react-native-i18n';
 import {
   ActivityIndicator,
   Linking,
@@ -54,9 +55,9 @@ class Detail extends Component {
     dispatch(fetchItemDetail(courseId, itemType, itemId));
   }
   itemTitles = {
-    announcement: '公告',
-    material: '教材',
-    assignment: '作業',
+    announcement: I18n.t('announcement'),
+    material: I18n.t('material'),
+    assignment: I18n.t('assignment'),
   };
   handleListPress = (url) => {
     Linking.openURL(url);
@@ -75,7 +76,7 @@ class Detail extends Component {
     ));
     return (
       <View>
-        <Text style={styles.attachmentHeader}>附檔</Text>
+        <Text style={styles.attachmentHeader}>{I18n.t('attachment')}</Text>
         <View style={styles.attachmentList}>
           {attachmentList}
         </View>

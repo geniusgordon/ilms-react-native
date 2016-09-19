@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Linking } from 'react-native';
 import { Router, Scene } from 'react-native-router-flux';
 import GoogleAnalytics from 'react-native-google-analytics-bridge';
+import i18n from './i18n';
 import Home from '../Home';
 import About from '../Home/About';
 import Login from '../Auth';

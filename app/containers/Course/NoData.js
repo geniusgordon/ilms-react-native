@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import { ActivityIndicator, Text, View } from 'react-native';
+import I18n from 'react-native-i18n';
 import styles from './styles';
 
 const NoData = ({ loading }) => (
@@ -9,7 +10,7 @@ const NoData = ({ loading }) => (
         <ActivityIndicator color="#388e3c" size="large" />
       </View> :
       <View style={styles.listItemContent}>
-        <Text style={styles.listItemTitle}>目前尚無資料</Text>
+        <Text style={styles.listItemTitle}>{I18n.t('noData')}</Text>
       </View>}
   </View>
 );

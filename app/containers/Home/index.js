@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import I18n from 'react-native-i18n';
 import Base from '../App/Base';
 import List from '../Course/List';
 import { fetchLatestNews } from './actions';
@@ -31,7 +32,7 @@ class Home extends Component {
     const { latestNews, loading, refreshing } = this.props;
     return (
       <Base
-        title="最新公吉"
+        title={I18n.t('latestNews')}
         statusBarBackgroundColor="#d32f2f"
         toolbarBackgroundColor="#f44336"
       >

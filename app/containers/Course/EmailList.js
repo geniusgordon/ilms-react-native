@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import I18n from 'react-native-i18n';
 import {
   ActivityIndicator,
   ScrollView,
@@ -47,7 +48,7 @@ class EmailList extends Component {
       <View style={styles.base}>
         <StatusBar barStyle="light-content" backgroundColor="#9e9e9e" />
         <ToolBar
-          title="寄信給教授或助教"
+          title={I18n.t('sendEmail')}
           leftIcon="close"
           statusbarColor="#9e9e9e"
           style={styles.toolbar}

@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import I18n from 'react-native-i18n';
 import { Actions } from 'react-native-router-flux';
 import {
   Text,
@@ -64,7 +65,7 @@ class Compose extends Component {
     return (
       <TextInput
         style={styles.titleInput}
-        placeholder="標題"
+        placeholder={I18n.t('title')}
         underlineColorAndroid="rgba(0, 0, 0, 0)"
         onChangeText={this.handleTitleChange}
       />
@@ -73,7 +74,7 @@ class Compose extends Component {
   render() {
     const { action } = this.props;
     const { name } = this.state;
-    const title = action === 'reply' ? '回覆' : '發表討論';
+    const title = action === 'reply' ? I18n.t('reply') : I18n.t('compose');
     return (
       <View style={styles.base}>
         <StatusBar barStyle="light-content" backgroundColor="#9e9e9e" />
@@ -91,7 +92,7 @@ class Compose extends Component {
           {this.renderTitle()}
           <TextInput
             style={styles.nameInput}
-            placeholder="暱稱"
+            placeholder={I18n.t('nickname')}
             defaultValue={name}
             underlineColorAndroid="rgba(0, 0, 0, 0)"
             onChangeText={this.handleNameChange}
@@ -100,7 +101,7 @@ class Compose extends Component {
         <View style={[styles.inputContainer, styles.contentInputContainer]}>
           <TextInput
             style={styles.contentInput}
-            placeholder="內容"
+            placeholder={I18n.t('content')}
             underlineColorAndroid="rgba(0, 0, 0, 0)"
             onChangeText={this.handleContentChange}
             multiline

@@ -31,7 +31,7 @@ class List extends Component {
     this.state = { dataSource: dataSource.cloneWithRows(items) };
   }
   componentWillReceiveProps(nextProps) {
-    const { items } = nextProps;
+    const { items = [] } = nextProps;
     if (this.props.items !== items) {
       this.setState({
         dataSource: this.state.dataSource.cloneWithRows(items),

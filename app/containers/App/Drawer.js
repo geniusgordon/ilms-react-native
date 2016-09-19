@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Image, View, Text, ScrollView } from 'react-native';
+import I18n from 'react-native-i18n';
 import CourseList from './CourseList';
 import DrawerItem from './DrawerItem';
 import RippleView from '../../components/RippleView';
@@ -43,7 +44,7 @@ class Drawer extends Component {
           <DrawerItem
             onPress={this.handleHomePress}
             icon="stars"
-            name="最新公吉"
+            name={I18n.t('latestNews')}
           />
           <CourseList
             courseList={courseList}
@@ -57,7 +58,7 @@ class Drawer extends Component {
         </ScrollView>
         <RippleView onPress={this.handleLogout}>
           <View style={styles.logout}>
-            <Text>登出</Text>
+            <Text>{I18n.t('logout')}</Text>
           </View>
         </RippleView>
       </View>

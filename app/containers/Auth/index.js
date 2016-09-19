@@ -6,6 +6,7 @@ import {
   TextInput,
   View,
 } from 'react-native';
+import I18n from 'react-native-i18n';
 import RippleView from '../../components/RippleView';
 import { login } from './actions';
 import styles from './styles';
@@ -42,14 +43,14 @@ class Auth extends Component {
           <View style={styles.inputContainer}>
             <TextInput
               style={styles.input}
-              placeholder="Account"
+              placeholder={I18n.t('account')}
               value={this.account}
               underlineColorAndroid="rgba(0, 0, 0, 0)"
               onChangeText={this.handleAccountChange}
             />
             <TextInput
               style={styles.input}
-              placeholder="Password"
+              placeholder={I18n.t('password')}
               value={this.password}
               underlineColorAndroid="rgba(0, 0, 0, 0)"
               onChangeText={this.handlePasswordChange}
@@ -58,7 +59,7 @@ class Auth extends Component {
           </View>
           <RippleView onPress={this.handleSubmit}>
             <View style={styles.button} elevation={1}>
-              <Text>Log In</Text>
+              <Text>{I18n.t('login')}</Text>
             </View>
           </RippleView>
         </View>
