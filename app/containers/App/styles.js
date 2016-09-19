@@ -18,8 +18,8 @@ const styles = StyleSheet.create({
   },
   drawerItemList: {
     flex: 1,
-    paddingTop: 8,
-    paddingBottom: 8,
+    marginTop: 8,
+    marginBottom: 8,
   },
   drawerItem: {
     height: 48,
