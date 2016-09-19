@@ -3,7 +3,7 @@ import { call, fork, put } from 'redux-saga/effects';
 import api from '../utils/api';
 import alert from '../utils/alert';
 import {
-  parseCourseName,
+  parseCourseNameTitle,
   parseItemList,
 } from '../utils/parser';
 import { FETCH_ITEM_LIST } from '../containers/Course/actions/actionTypes';
@@ -27,7 +27,7 @@ function* fetchItemList({ courseId, itemType, params }) {
       f: itemUrlParams[itemType],
     });
     const html = yield res.text();
-    const courseName = parseCourseName(html);
+    const courseName = parseCourseNameTitle(html);
     const course = { id: courseId, name: courseName };
     const itemList = parseItemList(itemType, html);
     yield put(fetchItemListSuccess(course, itemType, itemList, params));

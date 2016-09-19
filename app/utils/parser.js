@@ -1,4 +1,29 @@
+import { Platform } from 'react-native';
 import HTMLParser from 'fast-html-parser';
+import I18n from 'react-native-i18n';
+
+function parseCourseName(name) {
+  const locale = I18n.locale;
+  const englishNameRegex = /[ a-zA-Z0-9().&\-]+/;
+  if (name.length < 10) {
+    return name;
+  }
+  let enlighName = name.match(englishNameRegex);
+  if (!enlighName) {
+    return name;
+  }
+  if (Array.isArray(enlighName)) {
+    enlighName = enlighName.join(' ');
+  }
+  const chineseName = name.replace(enlighName, '');
+  if (Platform.OS === 'ios') {
+    return chineseName;
+  }
+  if (locale.startsWith('zh')) {
+    return chineseName;
+  }
+  return enlighName;
+}
 
 function parseDate(dateStr) {
   const match = dateStr.match(/(\d+)-(\d+)-(\d+)\s+(\d+):(\d+):(\d+)/);
@@ -23,7 +48,7 @@ export function parseLatestNews(html) {
     return {
       id: i,
       itemId: id,
-      title: link[1].text,
+      title: parseCourseName(link[1].text),
       subtitle: link[0].text,
       date: parseDate(dateStr),
       dateStr,
@@ -48,11 +73,11 @@ export function parseCourseList(html) {
   ))
   .map(item => ({
     id: item.attributes.href.match(courseUrlRegex)[1],
-    name: item.text,
+    name: parseCourseName(item.text),
   }));
 }
 
-export function parseCourseName(html) {
+export function parseCourseNameTitle(html) {
   const root = HTMLParser.parse(html);
   const title = root.querySelector('title').text;
   return title.replace(' - 國立清華大學 iLMS數位學習平台', '');
@@ -241,7 +266,7 @@ function parseEmailLine(line) {
   const type = line.text.split(':')[0].trim();
   const names = line.text.split(':')[1].split(',')
     .map(name => name.trim())
-    .filter(name => name !== '無');
+    .filter(name => name !== '無' && name !== 'None');
   const emails = line.querySelectorAll('img')
     .filter(img => img.attributes.src.endsWith('mail.png'))
     .map(img => img.attributes.title);
