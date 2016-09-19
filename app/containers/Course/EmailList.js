@@ -51,7 +51,8 @@ class EmailList extends Component {
           leftIcon="close"
           statusbarColor="#9e9e9e"
           style={styles.toolbar}
-          onLeftClicked={this.handleClose}
+          onIconClicked={this.handleClose}
+          elevation={5}
         />
         <ScrollView>
           {this.renderList()}

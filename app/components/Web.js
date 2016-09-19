@@ -23,7 +23,7 @@ const Web = ({ title, uri }) => (
       leftIcon="close"
       statusbarColor="#9e9e9e"
       style={styles.toolbar}
-      onLeftClicked={Actions.pop}
+      onIconClicked={Actions.pop}
     />
     <WebView
       source={{ uri }}

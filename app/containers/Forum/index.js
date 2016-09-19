@@ -82,7 +82,7 @@ class Forum extends Component {
           statusbarColor="#1565c0"
           leftIcon="close"
           style={{ backgroundColor: '#1e88e5' }}
-          onLeftClicked={Actions.pop}
+          onIconClicked={Actions.pop}
         />
         <Padding backgroundColor="#1e88e5" />
         <View style={styles.list}>

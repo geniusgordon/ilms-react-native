@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { View, Platform } from 'react-native';
+import { View, ActionSheetIOS, Platform } from 'react-native';
 import NavBar from 'react-native-navbar';
 import { ToolbarAndroid } from 'react-native-vector-icons/MaterialIcons';
 import CustomNavButton from './CustomNavButton';
@@ -7,14 +7,46 @@ import CustomNavButton from './CustomNavButton';
 const ToolBar = ({
   title,
   leftIcon,
-  rightIcon,
   statusbarStyle,
   statusbarColor,
+  actions,
   style,
-  onLeftClicked,
-  onRightClicked,
+  elevation,
+  onIconClicked,
+  onActionSelected,
 }) => {
   if (Platform.OS === 'ios') {
+    let actionButton;
+    if (actions) {
+      if (actions.length > 1) {
+        const actionSheet = actions.map(action => action.title);
+        actionSheet.push('取消');
+        const handleActionIconPress = () => {
+          ActionSheetIOS.showActionSheetWithOptions({
+            options: actionSheet,
+            cancelButtonIndex: actionSheet.length - 1,
+          },
+          (buttonIndex) => {
+            onActionSelected(buttonIndex);
+          });
+        };
+        actionButton = (
+          <CustomNavButton
+            icon="more-vert"
+            style={{ marginRight: 16 }}
+            onPress={handleActionIconPress}
+          />
+        );
+      } else {
+        actionButton = (
+          <CustomNavButton
+            icon={actions[0].iconName}
+            style={{ marginRight: 16 }}
+            onPress={onActionSelected}
+          />
+        );
+      }
+    }
     return (
       <NavBar
         title={{ title }}
@@ -27,16 +59,10 @@ const ToolBar = ({
           <CustomNavButton
             icon={leftIcon}
             style={{ marginLeft: 16 }}
-            onPress={onLeftClicked}
+            onPress={onIconClicked}
           />
         }
-        rightButton={
-          <CustomNavButton
-            icon={rightIcon}
-            style={{ marginRight: 16 }}
-            onPress={onRightClicked}
-          />
-        }
+        rightButton={actionButton}
       />
     );
   }
@@ -45,7 +71,10 @@ const ToolBar = ({
       title={title}
       navIconName={leftIcon}
       style={[{ height: 56 }, style]}
-      onIconClicked={onLeftClicked}
+      elevation={elevation}
+      actions={actions}
+      onIconClicked={onIconClicked}
+      onActionSelected={onActionSelected}
     />
   );
 };
@@ -53,12 +82,16 @@ const ToolBar = ({
 ToolBar.propTypes = {
   title: PropTypes.string,
   leftIcon: PropTypes.string,
-  rightIcon: PropTypes.string,
   statusbarStyle: PropTypes.string,
   statusbarColor: PropTypes.string,
+  actions: PropTypes.arrayOf(PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    show: PropTypes.oneOf(['always', 'ifRoom', 'never']),
+  })),
   style: View.propTypes.style,
-  onLeftClicked: PropTypes.func,
-  onRightClicked: PropTypes.func,
+  elevation: PropTypes.number,
+  onIconClicked: PropTypes.func,
+  onActionSelected: PropTypes.func,
 };
 
 export default ToolBar;
