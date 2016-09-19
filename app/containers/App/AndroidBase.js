@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import {
-  ToolbarAndroid,
   DrawerLayoutAndroid,
   StatusBar,
 } from 'react-native';

@@ -133,8 +133,6 @@ class Course extends Component {
         toolbarBackgroundColor="#ffc107"
         toolbarActions={this.toolbarActions}
         onActionSelected={this.handleActionSelect}
-        actionIcon="more-vert"
-        onActionIconClick={this.handleActionIconClick}
       >
         <TabView
           backgroundColor="#ffc107"

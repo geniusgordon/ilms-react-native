@@ -77,18 +77,16 @@ class Compose extends Component {
     return (
       <View style={styles.base}>
         <StatusBar barStyle="light-content" backgroundColor="#9e9e9e" />
-          <ToolBar
-            title={title}
-            navIconName="close"
-            leftIcon="close"
-            rightIcon="send"
-            style={[styles.toolbar, { height: 56, backgroundColor: 'white' }]}
-            statusbarColor="#9e9e9e"
-            elevation={5}
-            actions={this.actions}
-            onIconClicked={this.handleClose}
-            onActionSelected={this.handleSubmit}
-          />
+        <ToolBar
+          title={title}
+          leftIcon="close"
+          style={[styles.toolbar]}
+          statusbarColor="#9e9e9e"
+          elevation={5}
+          actions={this.actions}
+          onIconClicked={this.handleClose}
+          onActionSelected={this.handleSubmit}
+        />
         <View style={styles.inputContainer}>
           {this.renderTitle()}
           <TextInput

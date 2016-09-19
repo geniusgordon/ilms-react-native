@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { View, Platform } from 'react-native';
+import { View, ActionSheetIOS, Platform } from 'react-native';
 import NavBar from 'react-native-navbar';
 import { ToolbarAndroid } from 'react-native-vector-icons/MaterialIcons';
 import CustomNavButton from './CustomNavButton';
@@ -7,7 +7,6 @@ import CustomNavButton from './CustomNavButton';
 const ToolBar = ({
   title,
   leftIcon,
-  rightIcon,
   statusbarStyle,
   statusbarColor,
   actions,
@@ -15,9 +14,27 @@ const ToolBar = ({
   elevation,
   onIconClicked,
   onActionSelected,
-  onRightClicked,
 }) => {
   if (Platform.OS === 'ios') {
+    let actionButton;
+    if (actions) {
+      if (actions.length > 1) {
+        const actionSheet = actions.map(action => action.title);
+        actionSheet.push('取消');
+        const handleActionIconPress = () => {
+          ActionSheetIOS.showActionSheetWithOptions({
+            options: actionSheet,
+            cancelButtonIndex: actionSheet.length - 1,
+          },
+          (buttonIndex) => {
+            onActionSelected(buttonIndex);
+          });
+        };
+        actionButton = <CustomNavButton icon="more-vert" style={{ marginRight: 16 }} onPress={handleActionIconPress} />;
+      } else {
+        actionButton = <CustomNavButton icon={actions[0].iconName} style={{ marginRight: 16 }} onPress={onActionSelected} />;
+      }
+    }
     return (
       <NavBar
         title={{ title }}
@@ -33,13 +50,7 @@ const ToolBar = ({
             onPress={onIconClicked}
           />
         }
-        rightButton={
-          <CustomNavButton
-            icon={rightIcon}
-            style={{ marginRight: 16 }}
-            onPress={onRightClicked}
-          />
-        }
+        rightButton={actionButton}
       />
     );
   }
@@ -59,7 +70,6 @@ const ToolBar = ({
 ToolBar.propTypes = {
   title: PropTypes.string,
   leftIcon: PropTypes.string,
-  rightIcon: PropTypes.string,
   statusbarStyle: PropTypes.string,
   statusbarColor: PropTypes.string,
   actions: PropTypes.arrayOf(PropTypes.shape({
@@ -70,7 +80,6 @@ ToolBar.propTypes = {
   elevation: PropTypes.number,
   onIconClicked: PropTypes.func,
   onActionSelected: PropTypes.func,
-  onRightClicked: PropTypes.func,
 };
 
 export default ToolBar;

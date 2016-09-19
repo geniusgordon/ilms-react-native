@@ -1,8 +1,9 @@
 import React, { Component, PropTypes } from 'react';
-import { Platform } from 'react-native';
+import { StatusBar } from 'react-native';
 import { connect } from 'react-redux';
-import AndroidBase from './AndroidBase';
-import IosBase from './IosBase';
+import DrawerLayout from 'react-native-drawer-layout';
+import Drawer from './Drawer';
+import ToolBar from '../../components/ToolBar';
 import { checkLogin } from '../Auth/actions';
 
 class Base extends Component {
@@ -10,16 +11,29 @@ class Base extends Component {
     title: PropTypes.string,
     statusBarBackgroundColor: PropTypes.string,
     toolbarBackgroundColor: PropTypes.string,
-    toolbarActions: AndroidBase.propTypes.toolbarActions,
+    toolbarActions: PropTypes.arrayOf(PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      show: PropTypes.oneOf(['always', 'ifRoom', 'never']),
+    })),
     children: PropTypes.node,
     dispatch: PropTypes.func,
     onActionSelected: PropTypes.func,
-    actionIcon: PropTypes.string,
-    onActionIconClick: PropTypes.func,
   };
   componentDidMount() {
     this.props.dispatch(checkLogin());
   }
+  handleIconClick = () => {
+    this.openDrawer();
+  };
+  handleDrawerItemClick = () => {
+    this.closeDrawer();
+  };
+  drawerRef = (ref) => {
+    if (ref) {
+      this.openDrawer = ref.openDrawer;
+      this.closeDrawer = ref.closeDrawer;
+    }
+  };
   render() {
     const {
       title,
@@ -27,33 +41,29 @@ class Base extends Component {
       toolbarBackgroundColor,
       toolbarActions,
       onActionSelected,
-      actionIcon,
-      onActionIconClick,
       children,
     } = this.props;
-    if (Platform.OS === 'ios') {
-      return (
-        <IosBase
-          title={title}
-          statusBarBackgroundColor={statusBarBackgroundColor}
-          toolbarBackgroundColor={toolbarBackgroundColor}
-          actionIcon={actionIcon}
-          onActionIconClick={onActionIconClick}
-        >
-          {children}
-        </IosBase>
-      );
-    }
+    const renderDrawer = () => <Drawer onItemClick={this.handleDrawerItemClick} />;
     return (
-      <AndroidBase
-        title={title}
-        statusBarBackgroundColor={statusBarBackgroundColor}
-        toolbarBackgroundColor={toolbarBackgroundColor}
-        toolbarActions={toolbarActions}
-        onActionSelected={onActionSelected}
+      <DrawerLayout
+        drawerBackgroundColor="#FFFFFF"
+        drawerWidth={300}
+        drawerPosition={DrawerLayout.positions.left}
+        renderNavigationView={renderDrawer}
+        ref={this.drawerRef}
       >
+        <StatusBar backgroundColor={statusBarBackgroundColor} />
+        <ToolBar
+          title={title}
+          leftIcon="menu"
+          style={{ backgroundColor: toolbarBackgroundColor }}
+          statusbarColor={statusBarBackgroundColor}
+          actions={toolbarActions}
+          onActionSelected={onActionSelected}
+          onIconClicked={this.handleIconClick}
+        />
         {children}
-      </AndroidBase>
+      </DrawerLayout>
     );
   }
 }
