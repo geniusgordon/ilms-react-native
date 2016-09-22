@@ -170,15 +170,13 @@ export function parseItemList(itemType, html) {
   return [];
 }
 
-
 function parseAnnouncementDetail(html) {
   const item = JSON.parse(html).news;
-  const attachRoot = HTMLParser.parse(item.attach);
-  const attachments = attachRoot.querySelectorAll('a')
-  .map(attach => ({
-    id: attach.attributes.href.match(/.*id=(\d+).*/)[1],
-    name: attach.text,
-  }));
+  const $ = cheerio.load(item.attach);
+  const attachments = $('a').map((i, attach) => ({
+    id: $(attach).attr('href').match(/.*id=(\d+).*/)[1],
+    name: $(attach).text(),
+  })).get();
   return {
     content: item.note,
     dateStr: item.createTime,
@@ -188,19 +186,18 @@ function parseAnnouncementDetail(html) {
 }
 
 function parseMaterialDetail(html) {
-  const root = HTMLParser.parse(html);
-  const title = root.querySelector('#doc .title').text;
-  const poster = root.querySelector('.poster').text;
+  const $ = cheerio.load(html);
+  const title = $('#doc .title').text();
+  const poster = $('.poster').text();
   const dateStr = `${poster.split(', ')[1]}:00`;
-  const content = root.querySelector('#doc .article').text;
-  const attachments = root.querySelectorAll('div.attach div.block div')
-  .map((attach) => {
-    const link = attach.querySelectorAll('a')[1];
+  const content = $('#doc .article').text();
+  const attachments = $('div.attach div.block div').map((i, attach) => {
+    const link = $(attach).find('a').eq(1);
     return {
-      id: link.attributes.href.match(/.*id=(\d+).*/)[1],
-      name: link.attributes.title,
+      id: link.attr('href').match(/.*id=(\d+).*/)[1],
+      name: link.attr('title'),
     };
-  });
+  }).get();
   return {
     title,
     content,
@@ -211,16 +208,16 @@ function parseMaterialDetail(html) {
 }
 
 function parseAssignmentDetail(html) {
-  const root = HTMLParser.parse(html);
-  const title = root.querySelector('#main span.curr').text;
-  const tr = root.querySelectorAll('tr');
-  const dateStr = `${tr[5].querySelectorAll('td')[1].text}:00`;
-  const content = tr[6].querySelectorAll('td')[1].text;
-  const links = tr[7].querySelectorAll('a');
-  const attachments = links.map(link => ({
-    id: link.attributes.href.match(/.*id=(\d+).*/)[1],
-    name: link.text,
-  }));
+  const $ = cheerio.load(html);
+  const title = $('#main span.curr').text();
+  const tr = $('tr');
+  const dateStr = `${tr.eq(5).find('td').eq(1).text()}:00`;
+  const content = tr.eq(6).find('td').eq(1).text();
+  const links = tr.eq(7).find('a');
+  const attachments = links.map((i, link) => ({
+    id: $(link).attr('href').match(/.*id=(\d+).*/)[1],
+    name: $(link).text(),
+  })).get();
   return {
     title,
     content,
@@ -259,14 +256,14 @@ export function parseForum(posts) {
   };
 }
 
-function parseEmailLine(line) {
-  const type = line.text.split(':')[0].trim();
-  const names = line.text.split(':')[1].split(',')
+function parseEmailLine($, line) {
+  const type = line.text().split(':')[0].trim();
+  const names = line.text().split(':')[1].split(',')
     .map(name => name.trim())
     .filter(name => name !== '無' && name !== 'None');
-  const emails = line.querySelectorAll('img')
-    .filter(img => img.attributes.src.endsWith('mail.png'))
-    .map(img => img.attributes.title);
+  const emails = line.find('img')
+    .filter((i, img) => $(img).attr('src').endsWith('mail.png'))
+    .map((i, img) => $(img).attr('title')).get();
   return names.map((name, i) => ({
     name: `${type}: ${name}`,
     email: emails[i],
@@ -274,34 +271,33 @@ function parseEmailLine(line) {
 }
 
 export function parseEmailList(html) {
-  const root = HTMLParser.parse(html);
-  const boxBody = root.querySelectorAll('#menu div.boxBody');
-  const infoBox = boxBody[boxBody.length - 1];
-  const teacherEmailLine = infoBox.querySelectorAll('div')[4];
-  const taEmailLine = infoBox.querySelectorAll('div')[5];
+  const $ = cheerio.load(html);
+  const boxBody = $('#menu div.boxBody');
+  const infoBox = boxBody.eq(boxBody.length - 1);
+  const teacherEmailLine = infoBox.find('div').eq(4);
+  const taEmailLine = infoBox.find('div').eq(5);
   return [
-    ...parseEmailLine(teacherEmailLine),
-    ...parseEmailLine(taEmailLine),
+    ...parseEmailLine($, teacherEmailLine),
+    ...parseEmailLine($, taEmailLine),
   ];
 }
 
 export function parseScore(html) {
-  const root = HTMLParser.parse(html);
-  if (root.querySelector('#main').text.indexOf('不開放') !== -1) {
+  const $ = cheerio.load(html);
+  if ($('#main table').length === 0) {
     return null;
   }
-  const tr = root.querySelectorAll('#main tr');
-  const scoreHeader = tr[0].querySelectorAll('td').slice(4);
-  const scoreRow = tr[1].querySelectorAll('td').slice(4);
-
-  return scoreRow.map((row, i) => {
-    const text = scoreHeader[i].text;
+  const tr = $('#main tr');
+  const scoreHeader = tr.eq(0).find('td').slice(4);
+  const scoreRow = tr.eq(1).find('td').slice(4);
+  return scoreRow.map((i, row) => {
+    const text = scoreHeader.eq(i).text();
     const percent = text.match(/\((.*)\)/);
     return {
       name: text.replace(/\(.*\)/, ''),
       percent: percent ? percent[1] : '',
-      score: row.text,
+      score: $(row).text(),
     };
-  });
+  }).get();
 }
 
