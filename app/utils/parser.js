@@ -1,5 +1,6 @@
 import { Platform } from 'react-native';
 import HTMLParser from 'fast-html-parser';
+import cheerio from 'cheerio-without-node-native';
 import I18n from 'react-native-i18n';
 
 function parseCourseName(name) {
@@ -38,23 +39,22 @@ function parseDate(dateStr) {
 }
 
 export function parseLatestNews(html) {
-  const root = HTMLParser.parse(html);
-  const block = root.querySelectorAll('#right div.BlockR')[1];
-  const blockItems = block.querySelectorAll('.BlockItem');
-  return blockItems.map((item, i) => {
-    const link = item.querySelectorAll('a');
-    const id = link[0].attributes.href.match(/.*\((\d+).\)*/)[1];
-    const dateStr = `${item.querySelector('.hint').attributes.title} 00:00:00`;
+  const $ = cheerio.load(html);
+  const blockItems = $('#right div.BlockR').eq(1).find('.BlockItem');
+  return blockItems.map((i, item) => {
+    const link = $(item).find('a');
+    const id = link.eq(0).attr('href').match(/.*\((\d+).\)*/)[1];
+    const dateStr = `${$(item).find('.hint').attr('title')} 00:00:00`;
     return {
       id: i,
       itemId: id,
-      title: parseCourseName(link[1].text),
-      subtitle: link[0].text,
+      title: parseCourseName(link.eq(1).text()),
+      subtitle: link.eq(0).text(),
       date: parseDate(dateStr),
       dateStr,
-      courseId: link[1].attributes.href.match(/.*ID=(\d+).*/)[1],
+      courseId: link.eq(1).attr('href').match(/.*ID=(\d+).*/)[1],
     };
-  });
+  }).get();
 }
 
 export function parseProfile(html) {
