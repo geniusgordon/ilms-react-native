@@ -58,103 +58,100 @@ export function parseLatestNews(html) {
 }
 
 export function parseProfile(html) {
-  const root = HTMLParser.parse(html);
-  const name = root.querySelector('#fmName').attributes.value;
-  const email = root.querySelector('#fmEmail').attributes.value;
+  const $ = cheerio.load(html);
+  const name = $('#fmName').attr('value');
+  const email = $('#fmEmail').attr('value');
   return { name, email };
 }
 
 export function parseCourseList(html) {
-  const root = HTMLParser.parse(html);
-  const mnuItems = root.querySelectorAll('.mnuItem a');
+  const $ = cheerio.load(html);
+  const mnuItems = $('.mnuItem a');
   const courseUrlRegex = /^\/course\/(\d+)$/;
-  return mnuItems.filter(item => (
-    courseUrlRegex.test(item.attributes.href)
+  return mnuItems.filter((i, item) => (
+    courseUrlRegex.test($(item).attr('href'))
   ))
-  .map(item => ({
-    id: item.attributes.href.match(courseUrlRegex)[1],
-    name: parseCourseName(item.text),
-  }));
+  .map((i, item) => ({
+    id: $(item).attr('href').match(courseUrlRegex)[1],
+    name: parseCourseName($(item).text()),
+  })).get();
 }
 
 export function parseCourseNameTitle(html) {
   const root = HTMLParser.parse(html);
   const title = root.querySelector('title').text;
-  return title.replace(' - 國立清華大學 iLMS數位學習平台', '');
+  const courseName = title.replace(' - 國立清華大學 iLMS數位學習平台', '');
+  return parseCourseName(courseName);
 }
 
 function parseAnnouncementList(html) {
-  const root = HTMLParser.parse(html);
-  const tr = root.querySelectorAll('#main tr').filter((r, i) => i % 2 === 1);
-  if (root.querySelector('#main').text.indexOf('目前尚無資料') !== -1) {
+  const $ = cheerio.load(html);
+  if ($('#main').text().indexOf('目前尚無資料') !== -1) {
     return [];
   }
-  return tr.map((r) => {
-    const td = r.querySelectorAll('td');
-    const dateStr = td[3].childNodes[0].attributes.title;
+  return $('#main tr').filter(i => i % 2 === 1).map((i, tr) => {
+    const td = $(tr).find('td');
+    const dateStr = td.eq(3).find('span').attr('title');
     return {
-      id: td[0].text,
-      title: td[1].text,
+      id: td.eq(0).text(),
+      title: td.eq(1).text(),
       date: parseDate(dateStr),
       dateStr,
     };
-  });
+  }).get();
 }
 
 function parseMaterialList(html) {
-  const root = HTMLParser.parse(html);
-  const tr = root.querySelectorAll('#main tr').slice(1);
-  if (root.querySelector('#main').text.indexOf('目前尚無資料') !== -1) {
+  const $ = cheerio.load(html);
+  if ($('#main').text().indexOf('目前尚無資料') !== -1) {
     return [];
   }
-  return tr.map((r) => {
-    const td = r.querySelectorAll('td');
-    const dateStr = td[5].childNodes[0].attributes.title;
+  return $('#main tr').slice(1).map((i, tr) => {
+    const td = $(tr).find('td');
+    const dateStr = td.eq(5).find('span').attr('title');
     return {
-      id: td[0].text,
-      title: td[1].text.trim(),
+      id: td.eq(0).text(),
+      title: td.eq(1).text().trim(),
       date: parseDate(dateStr),
       dateStr,
     };
-  });
+  }).get();
 }
 
 function parseAssignmentList(html) {
-  const root = HTMLParser.parse(html);
-  const tr = root.querySelectorAll('#main tr').slice(1);
-  if (root.querySelector('#main').text.indexOf('目前尚無資料') !== -1) {
+  const $ = cheerio.load(html);
+  if ($('#main').text().indexOf('目前尚無資料') !== -1) {
     return [];
   }
-  return tr.map((r) => {
-    const td = r.querySelectorAll('td');
-    const href = td[1].childNodes[0].attributes.href;
-    const dateStr = td[4].childNodes[0].attributes.title;
+  return $('#main tr').slice(1).map((i, tr) => {
+    const td = $(tr).find('td');
+    const href = td.eq(1).find('a').eq(0).attr('href');
+    const dateStr = td.eq(4).find('span').attr('title');
     return {
       id: href.match(/.*hw=(\d+).*/)[1],
-      title: td[1].text.trim(),
+      title: td.eq(1).text().trim(),
       date: parseDate(dateStr),
       dateStr,
     };
-  });
+  }).get();
 }
 
 function parseForumList(html) {
-  const root = HTMLParser.parse(html);
-  const tr = root.querySelectorAll('#main tr').filter((r, i) => i % 2 === 1);
-  if (root.querySelector('#main').text.indexOf('目前尚無資料') !== -1) {
+  const $ = cheerio.load(html);
+  if ($('#main').text().indexOf('目前尚無資料') !== -1) {
     return [];
   }
-  return tr.map((r) => {
-    const td = r.querySelectorAll('td');
-    const count = td[2].querySelectorAll('span')[0].text;
-    const lastEdit = td[3].text.trim();
+  return $('#main tr').filter(i => i % 2 === 1).map((i, tr) => {
+    const td = $(tr).find('td');
+    const count = td.eq(2).find('span').eq(0).text();
+    const lastEdit = td.eq(3).text().trim();
     return {
-      id: td[0].text,
-      title: td[1].text,
-      subtitle: `最後編輯: ${lastEdit}`,
+      id: td.eq(0).text(),
+      title: td.eq(1).text(),
+      subtitle: `${I18n.t('lastEdit')}: ${lastEdit}`,
       count,
     };
-  });
+  }).get();
 }
 
 export function parseItemList(itemType, html) {
