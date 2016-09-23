@@ -1,5 +1,5 @@
 import { Platform } from 'react-native';
-import HTMLParser from 'fast-html-parser';
+import cheerio from 'cheerio-without-node-native';
 import I18n from 'react-native-i18n';
 
 function parseCourseName(name) {
@@ -38,123 +38,119 @@ function parseDate(dateStr) {
 }
 
 export function parseLatestNews(html) {
-  const root = HTMLParser.parse(html);
-  const block = root.querySelectorAll('#right div.BlockR')[1];
-  const blockItems = block.querySelectorAll('.BlockItem');
-  return blockItems.map((item, i) => {
-    const link = item.querySelectorAll('a');
-    const id = link[0].attributes.href.match(/.*\((\d+).\)*/)[1];
-    const dateStr = `${item.querySelector('.hint').attributes.title} 00:00:00`;
+  const $ = cheerio.load(html);
+  const blockItems = $('#right div.BlockR').eq(1).find('.BlockItem');
+  return blockItems.map((i, item) => {
+    const link = $(item).find('a');
+    const id = link.eq(0).attr('href').match(/.*\((\d+).\)*/)[1];
+    const dateStr = `${$(item).find('.hint').attr('title')} 00:00:00`;
     return {
       id: i,
       itemId: id,
-      title: parseCourseName(link[1].text),
-      subtitle: link[0].text,
+      title: parseCourseName(link.eq(1).text()),
+      subtitle: link.eq(0).text(),
       date: parseDate(dateStr),
       dateStr,
-      courseId: link[1].attributes.href.match(/.*ID=(\d+).*/)[1],
+      courseId: link.eq(1).attr('href').match(/.*ID=(\d+).*/)[1],
     };
-  });
+  }).get();
 }
 
 export function parseProfile(html) {
-  const root = HTMLParser.parse(html);
-  const name = root.querySelector('#fmName').attributes.value;
-  const email = root.querySelector('#fmEmail').attributes.value;
+  const $ = cheerio.load(html);
+  const name = $('#fmName').attr('value');
+  const email = $('#fmEmail').attr('value');
   return { name, email };
 }
 
 export function parseCourseList(html) {
-  const root = HTMLParser.parse(html);
-  const mnuItems = root.querySelectorAll('.mnuItem a');
+  const $ = cheerio.load(html);
+  const mnuItems = $('.mnuItem a');
   const courseUrlRegex = /^\/course\/(\d+)$/;
-  return mnuItems.filter(item => (
-    courseUrlRegex.test(item.attributes.href)
+  return mnuItems.filter((i, item) => (
+    courseUrlRegex.test($(item).attr('href'))
   ))
-  .map(item => ({
-    id: item.attributes.href.match(courseUrlRegex)[1],
-    name: parseCourseName(item.text),
-  }));
+  .map((i, item) => ({
+    id: $(item).attr('href').match(courseUrlRegex)[1],
+    name: parseCourseName($(item).text()),
+  })).get();
 }
 
 export function parseCourseNameTitle(html) {
-  const root = HTMLParser.parse(html);
-  const title = root.querySelector('title').text;
-  return title.replace(' - 國立清華大學 iLMS數位學習平台', '');
+  const $ = cheerio.load(html);
+  const title = $('title').text();
+  const courseName = title.replace(' - 國立清華大學 iLMS數位學習平台', '');
+  return parseCourseName(courseName);
 }
 
 function parseAnnouncementList(html) {
-  const root = HTMLParser.parse(html);
-  const tr = root.querySelectorAll('#main tr').filter((r, i) => i % 2 === 1);
-  if (root.querySelector('#main').text.indexOf('目前尚無資料') !== -1) {
+  const $ = cheerio.load(html);
+  if ($('#main').text().indexOf('目前尚無資料') !== -1) {
     return [];
   }
-  return tr.map((r) => {
-    const td = r.querySelectorAll('td');
-    const dateStr = td[3].childNodes[0].attributes.title;
+  return $('#main tr').filter(i => i % 2 === 1).map((i, tr) => {
+    const td = $(tr).find('td');
+    const dateStr = td.eq(3).find('span').attr('title');
     return {
-      id: td[0].text,
-      title: td[1].text,
+      id: td.eq(0).text(),
+      title: td.eq(1).text(),
       date: parseDate(dateStr),
       dateStr,
     };
-  });
+  }).get();
 }
 
 function parseMaterialList(html) {
-  const root = HTMLParser.parse(html);
-  const tr = root.querySelectorAll('#main tr').slice(1);
-  if (root.querySelector('#main').text.indexOf('目前尚無資料') !== -1) {
+  const $ = cheerio.load(html);
+  if ($('#main').text().indexOf('目前尚無資料') !== -1) {
     return [];
   }
-  return tr.map((r) => {
-    const td = r.querySelectorAll('td');
-    const dateStr = td[5].childNodes[0].attributes.title;
+  return $('#main tr').slice(1).map((i, tr) => {
+    const td = $(tr).find('td');
+    const dateStr = td.eq(5).find('span').attr('title');
     return {
-      id: td[0].text,
-      title: td[1].text.trim(),
+      id: td.eq(0).text(),
+      title: td.eq(1).text().trim(),
       date: parseDate(dateStr),
       dateStr,
     };
-  });
+  }).get();
 }
 
 function parseAssignmentList(html) {
-  const root = HTMLParser.parse(html);
-  const tr = root.querySelectorAll('#main tr').slice(1);
-  if (root.querySelector('#main').text.indexOf('目前尚無資料') !== -1) {
+  const $ = cheerio.load(html);
+  if ($('#main').text().indexOf('目前尚無資料') !== -1) {
     return [];
   }
-  return tr.map((r) => {
-    const td = r.querySelectorAll('td');
-    const href = td[1].childNodes[0].attributes.href;
-    const dateStr = td[4].childNodes[0].attributes.title;
+  return $('#main tr').slice(1).map((i, tr) => {
+    const td = $(tr).find('td');
+    const href = td.eq(1).find('a').eq(0).attr('href');
+    const dateStr = td.eq(4).find('span').attr('title');
     return {
       id: href.match(/.*hw=(\d+).*/)[1],
-      title: td[1].text.trim(),
+      title: td.eq(1).text().trim(),
       date: parseDate(dateStr),
       dateStr,
     };
-  });
+  }).get();
 }
 
 function parseForumList(html) {
-  const root = HTMLParser.parse(html);
-  const tr = root.querySelectorAll('#main tr').filter((r, i) => i % 2 === 1);
-  if (root.querySelector('#main').text.indexOf('目前尚無資料') !== -1) {
+  const $ = cheerio.load(html);
+  if ($('#main').text().indexOf('目前尚無資料') !== -1) {
     return [];
   }
-  return tr.map((r) => {
-    const td = r.querySelectorAll('td');
-    const count = td[2].querySelectorAll('span')[0].text;
-    const lastEdit = td[3].text.trim();
+  return $('#main tr').filter(i => i % 2 === 1).map((i, tr) => {
+    const td = $(tr).find('td');
+    const count = td.eq(2).find('span').eq(0).text();
+    const lastEdit = td.eq(3).text().trim();
     return {
-      id: td[0].text,
-      title: td[1].text,
-      subtitle: `最後編輯: ${lastEdit}`,
+      id: td.eq(0).text(),
+      title: td.eq(1).text(),
+      subtitle: `${I18n.t('lastEdit')}: ${lastEdit}`,
       count,
     };
-  });
+  }).get();
 }
 
 export function parseItemList(itemType, html) {
@@ -173,15 +169,16 @@ export function parseItemList(itemType, html) {
   return [];
 }
 
-
 function parseAnnouncementDetail(html) {
   const item = JSON.parse(html).news;
-  const attachRoot = HTMLParser.parse(item.attach);
-  const attachments = attachRoot.querySelectorAll('a')
-  .map(attach => ({
-    id: attach.attributes.href.match(/.*id=(\d+).*/)[1],
-    name: attach.text,
-  }));
+  let attachments = [];
+  if (item.attach) {
+    const $ = cheerio.load(item.attach);
+    attachments = $('a').map((i, attach) => ({
+      id: $(attach).attr('href').match(/.*id=(\d+).*/)[1],
+      name: $(attach).text(),
+    })).get();
+  }
   return {
     content: item.note,
     dateStr: item.createTime,
@@ -191,19 +188,18 @@ function parseAnnouncementDetail(html) {
 }
 
 function parseMaterialDetail(html) {
-  const root = HTMLParser.parse(html);
-  const title = root.querySelector('#doc .title').text;
-  const poster = root.querySelector('.poster').text;
+  const $ = cheerio.load(html);
+  const title = $('#doc .title').text();
+  const poster = $('.poster').text();
   const dateStr = `${poster.split(', ')[1]}:00`;
-  const content = root.querySelector('#doc .article').text;
-  const attachments = root.querySelectorAll('div.attach div.block div')
-  .map((attach) => {
-    const link = attach.querySelectorAll('a')[1];
+  const content = $('#doc .article').text();
+  const attachments = $('div.attach div.block div').map((i, attach) => {
+    const link = $(attach).find('a').eq(1);
     return {
-      id: link.attributes.href.match(/.*id=(\d+).*/)[1],
-      name: link.attributes.title,
+      id: link.attr('href').match(/.*id=(\d+).*/)[1],
+      name: link.attr('title'),
     };
-  });
+  }).get();
   return {
     title,
     content,
@@ -214,16 +210,16 @@ function parseMaterialDetail(html) {
 }
 
 function parseAssignmentDetail(html) {
-  const root = HTMLParser.parse(html);
-  const title = root.querySelector('#main span.curr').text;
-  const tr = root.querySelectorAll('tr');
-  const dateStr = `${tr[5].querySelectorAll('td')[1].text}:00`;
-  const content = tr[6].querySelectorAll('td')[1].text;
-  const links = tr[7].querySelectorAll('a');
-  const attachments = links.map(link => ({
-    id: link.attributes.href.match(/.*id=(\d+).*/)[1],
-    name: link.text,
-  }));
+  const $ = cheerio.load(html);
+  const title = $('#main span.curr').text();
+  const tr = $('tr');
+  const dateStr = `${tr.eq(5).find('td').eq(1).text()}:00`;
+  const content = tr.eq(6).find('td').eq(1).text();
+  const links = tr.eq(7).find('a');
+  const attachments = links.map((i, link) => ({
+    id: $(link).attr('href').match(/.*id=(\d+).*/)[1],
+    name: $(link).text(),
+  })).get();
   return {
     title,
     content,
@@ -262,14 +258,14 @@ export function parseForum(posts) {
   };
 }
 
-function parseEmailLine(line) {
-  const type = line.text.split(':')[0].trim();
-  const names = line.text.split(':')[1].split(',')
+function parseEmailLine($, line) {
+  const type = line.text().split(':')[0].trim();
+  const names = line.text().split(':')[1].split(',')
     .map(name => name.trim())
     .filter(name => name !== '無' && name !== 'None');
-  const emails = line.querySelectorAll('img')
-    .filter(img => img.attributes.src.endsWith('mail.png'))
-    .map(img => img.attributes.title);
+  const emails = line.find('img')
+    .filter((i, img) => $(img).attr('src').endsWith('mail.png'))
+    .map((i, img) => $(img).attr('title')).get();
   return names.map((name, i) => ({
     name: `${type}: ${name}`,
     email: emails[i],
@@ -277,34 +273,33 @@ function parseEmailLine(line) {
 }
 
 export function parseEmailList(html) {
-  const root = HTMLParser.parse(html);
-  const boxBody = root.querySelectorAll('#menu div.boxBody');
-  const infoBox = boxBody[boxBody.length - 1];
-  const teacherEmailLine = infoBox.querySelectorAll('div')[4];
-  const taEmailLine = infoBox.querySelectorAll('div')[5];
+  const $ = cheerio.load(html);
+  const boxBody = $('#menu div.boxBody');
+  const infoBox = boxBody.eq(boxBody.length - 1);
+  const teacherEmailLine = infoBox.find('div').eq(4);
+  const taEmailLine = infoBox.find('div').eq(5);
   return [
-    ...parseEmailLine(teacherEmailLine),
-    ...parseEmailLine(taEmailLine),
+    ...parseEmailLine($, teacherEmailLine),
+    ...parseEmailLine($, taEmailLine),
   ];
 }
 
 export function parseScore(html) {
-  const root = HTMLParser.parse(html);
-  if (root.querySelector('#main').text.indexOf('不開放') !== -1) {
+  const $ = cheerio.load(html);
+  if ($('#main table').length === 0) {
     return null;
   }
-  const tr = root.querySelectorAll('#main tr');
-  const scoreHeader = tr[0].querySelectorAll('td').slice(4);
-  const scoreRow = tr[1].querySelectorAll('td').slice(4);
-
-  return scoreRow.map((row, i) => {
-    const text = scoreHeader[i].text;
+  const tr = $('#main tr');
+  const scoreHeader = tr.eq(0).find('td').slice(4);
+  const scoreRow = tr.eq(1).find('td').slice(4);
+  return scoreRow.map((i, row) => {
+    const text = scoreHeader.eq(i).text();
     const percent = text.match(/\((.*)\)/);
     return {
       name: text.replace(/\(.*\)/, ''),
       percent: percent ? percent[1] : '',
-      score: row.text,
+      score: $(row).text(),
     };
-  });
+  }).get();
 }
 
