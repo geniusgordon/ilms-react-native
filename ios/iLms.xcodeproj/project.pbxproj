@@ -27,6 +27,8 @@
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		1850F318088D4A0CA6B40B5E /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B020309DDF944AE8990945C2 /* Ionicons.ttf */; };
 		1B8A470A96A34BA0B506E415 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 791DF1125CDE423F8894A9FD /* FontAwesome.ttf */; };
+		1E3F53A91D9412C200E5EEA4 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 1E3F53A81D9412C200E5EEA4 /* main.jsbundle */; };
+		1E3F53AB1D941DDC00E5EEA4 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E3F53AA1D941DDC00E5EEA4 /* Default-568h@2x.png */; };
 		1E7CA6C81D87E3D1001688B5 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1E7CA6C01D87E3D1001688B5 /* Entypo.ttf */; };
 		1E7CA6C91D87E3D1001688B5 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1E7CA6C11D87E3D1001688B5 /* EvilIcons.ttf */; };
 		1E7CA6CA1D87E3D1001688B5 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1E7CA6C21D87E3D1001688B5 /* FontAwesome.ttf */; };
@@ -201,6 +203,8 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = iLms/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = iLms/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
+		1E3F53A81D9412C200E5EEA4 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = main.jsbundle; path = ../main.jsbundle; sourceTree = "<group>"; };
+		1E3F53AA1D941DDC00E5EEA4 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../../../Downloads/Default-568h@2x.png"; sourceTree = "<group>"; };
 		1E7CA6C01D87E3D1001688B5 /* Entypo.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Entypo.ttf; sourceTree = "<group>"; };
 		1E7CA6C11D87E3D1001688B5 /* EvilIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = EvilIcons.ttf; sourceTree = "<group>"; };
 		1E7CA6C21D87E3D1001688B5 /* FontAwesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome.ttf; sourceTree = "<group>"; };
@@ -356,6 +360,7 @@
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
+				1E3F53A81D9412C200E5EEA4 /* main.jsbundle */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
@@ -477,6 +482,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				1E3F53AA1D941DDC00E5EEA4 /* Default-568h@2x.png */,
 				1EBD0D751D8DAF3900257F61 /* libsqlite3.0.tbd */,
 				1EBD0D731D8DAF2B00257F61 /* libz.tbd */,
 				1EBD0D711D8DAF1800257F61 /* SystemConfiguration.framework */,
@@ -792,6 +798,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1E3F53A91D9412C200E5EEA4 /* main.jsbundle in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				1E7CA6CB1D87E3D1001688B5 /* Foundation.ttf in Resources */,
 				1E7CA6CA1D87E3D1001688B5 /* FontAwesome.ttf in Resources */,
@@ -804,6 +811,7 @@
 				06637D891E294EBE80113E00 /* Entypo.ttf in Resources */,
 				1E7CA6CD1D87E3D1001688B5 /* MaterialIcons.ttf in Resources */,
 				245D0974AC8649D687357291 /* EvilIcons.ttf in Resources */,
+				1E3F53AB1D941DDC00E5EEA4 /* Default-568h@2x.png in Resources */,
 				1B8A470A96A34BA0B506E415 /* FontAwesome.ttf in Resources */,
 				23DA2205016246DFA0A417CC /* Foundation.ttf in Resources */,
 				1850F318088D4A0CA6B40B5E /* Ionicons.ttf in Resources */,
@@ -920,7 +928,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: shih-an Li (AV8E6EPZXM)";
 				DEAD_CODE_STRIPPING = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -933,13 +941,16 @@
 					"$(SRCROOT)/../node_modules/react-native-i18n/RNI18n",
 				);
 				INFOPLIST_FILE = iLms/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.tx.iLmsDev;
 				PRODUCT_NAME = iLms;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -947,7 +958,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: shih-an Li (AV8E6EPZXM)";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
@@ -959,13 +970,16 @@
 					"$(SRCROOT)/../node_modules/react-native-i18n/RNI18n",
 				);
 				INFOPLIST_FILE = iLms/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.tx.iLmsDev;
 				PRODUCT_NAME = iLms;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
