@@ -1,5 +1,4 @@
 import { Platform } from 'react-native';
-import HTMLParser from 'fast-html-parser';
 import cheerio from 'cheerio-without-node-native';
 import I18n from 'react-native-i18n';
 
