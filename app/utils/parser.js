@@ -77,8 +77,8 @@ export function parseCourseList(html) {
 }
 
 export function parseCourseNameTitle(html) {
-  const root = HTMLParser.parse(html);
-  const title = root.querySelector('title').text;
+  const $ = cheerio.load(html);
+  const title = $('title').text();
   const courseName = title.replace(' - 國立清華大學 iLMS數位學習平台', '');
   return parseCourseName(courseName);
 }
@@ -171,11 +171,14 @@ export function parseItemList(itemType, html) {
 
 function parseAnnouncementDetail(html) {
   const item = JSON.parse(html).news;
-  const $ = cheerio.load(item.attach);
-  const attachments = $('a').map((i, attach) => ({
-    id: $(attach).attr('href').match(/.*id=(\d+).*/)[1],
-    name: $(attach).text(),
-  })).get();
+  let attachments = [];
+  if (item.attach) {
+    const $ = cheerio.load(item.attach);
+    attachments = $('a').map((i, attach) => ({
+      id: $(attach).attr('href').match(/.*id=(\d+).*/)[1],
+      name: $(attach).text(),
+    })).get();
+  }
   return {
     content: item.note,
     dateStr: item.createTime,
