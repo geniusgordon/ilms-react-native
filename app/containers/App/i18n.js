@@ -28,6 +28,10 @@ I18n.translations = {
     nickname: 'Nickname',
     content: 'Content',
     attachment: 'Attachment',
+    updateTitle: 'New version available',
+    updateMessage: 'You can now update iLms app in Google Play!',
+    updateNow: 'Update',
+    updateLater: 'Later',
   },
   zh: {
     account: '帳號',
@@ -54,6 +58,10 @@ I18n.translations = {
     nickname: '暱稱',
     content: '內容',
     attachment: '附檔',
+    updateTitle: '有新版本惹',
+    updateMessage: '可以去Google Play更新新版的iLms app囉～',
+    updateNow: '更新',
+    updateLater: '等一下再說',
   },
 };
 

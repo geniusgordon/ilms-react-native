@@ -5,10 +5,9 @@ import {
   ActivityIndicator,
   ScrollView,
   View,
-  StatusBar,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import ToolBar from '../../components/ToolBar';
+import BaseLayout from '../App/BaseLayout';
 import EmailItem from './EmailItem';
 import { fetchEmailList } from './actions/emailList';
 import styles from './styles';
@@ -45,20 +44,18 @@ class EmailList extends Component {
   };
   render() {
     return (
-      <View style={styles.base}>
-        <StatusBar barStyle="light-content" backgroundColor="#9e9e9e" />
-        <ToolBar
-          title={I18n.t('sendEmail')}
-          leftIcon="close"
-          statusbarColor="#9e9e9e"
-          style={styles.toolbar}
-          onIconClicked={this.handleClose}
-          elevation={5}
-        />
+      <BaseLayout
+        title={I18n.t('sendEmail')}
+        leftIcon="close"
+        statusBarColor="#9e9e9e"
+        toolbarBackgroundColor="white"
+        toolbarElevation={5}
+        onIconClicked={this.handleClose}
+      >
         <ScrollView>
           {this.renderList()}
         </ScrollView>
-      </View>
+      </BaseLayout>
     );
   }
 }

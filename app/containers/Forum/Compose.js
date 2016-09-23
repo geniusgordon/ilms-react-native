@@ -6,9 +6,8 @@ import {
   Text,
   TextInput,
   View,
-  StatusBar,
 } from 'react-native';
-import ToolBar from '../../components/ToolBar';
+import BaseLayout from '../App/BaseLayout';
 import { sendPost } from './actions';
 import styles from './styles';
 
@@ -76,18 +75,16 @@ class Compose extends Component {
     const { name } = this.state;
     const title = action === 'reply' ? I18n.t('reply') : I18n.t('compose');
     return (
-      <View style={styles.base}>
-        <StatusBar barStyle="light-content" backgroundColor="#9e9e9e" />
-        <ToolBar
-          title={title}
-          leftIcon="close"
-          style={[styles.toolbar]}
-          statusbarColor="#9e9e9e"
-          elevation={5}
-          actions={this.actions}
-          onIconClicked={this.handleClose}
-          onActionSelected={this.handleSubmit}
-        />
+      <BaseLayout
+        title={title}
+        leftIcon="close"
+        statusBarColor="#9e9e9e"
+        toolbarBackgroundColor="white"
+        toolbarElevation={5}
+        toolbarActions={this.actions}
+        onIconClicked={this.handleClose}
+        onActionSelected={this.handleSubmit}
+      >
         <View style={styles.inputContainer}>
           {this.renderTitle()}
           <TextInput
@@ -107,7 +104,7 @@ class Compose extends Component {
             multiline
           />
         </View>
-      </View>
+      </BaseLayout>
     );
   }
 }

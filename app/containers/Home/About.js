@@ -1,37 +1,39 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
 import {
   Image,
   View,
   Text,
-  StatusBar,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import ToolBar from '../../components/ToolBar';
+import BaseLayout from '../App/BaseLayout';
 import IconLink from './IconLink';
 import logo from '../../assets/iLms.png';
 import styles from './styles';
 
 class About extends Component {
+  static propTypes = {
+    version: PropTypes.string,
+  };
   handleClose = () => {
     Actions.pop();
   };
   render() {
+    const { version } = this.props;
     return (
-      <View style={styles.base}>
-        <StatusBar backgroundColor="#9e9e9e" />
-        <ToolBar
-          title="about"
-          leftIcon="close"
-          statusbarColor="#9e9e9e"
-          style={styles.toolbar}
-          elevation={5}
-          onIconClicked={this.handleClose}
-        />
+      <BaseLayout
+        title="About"
+        leftIcon="close"
+        statusBarColor="#9e9e9e"
+        toolbarBackgroundColor="white"
+        toolbarElevation={5}
+        onIconClicked={this.handleClose}
+      >
         <View style={styles.logoContainer}>
           <Image source={logo} style={styles.logo} />
           <View style={styles.info}>
             <Text style={styles.appName}>NTHU iLms</Text>
-            <Text style={styles.version}>Version: 2.4.1</Text>
+            <Text style={styles.version}>Version: {version}</Text>
           </View>
         </View>
         <View style={styles.content}>
@@ -58,10 +60,14 @@ class About extends Component {
             link="https://play.google.com/store/apps/details?id=com.geniusgordon.ilms"
           />
         </View>
-      </View>
+      </BaseLayout>
     );
   }
 }
 
-export default About;
+const mapStateToProps = state => ({
+  version: state.app.version,
+});
+
+export default connect(mapStateToProps)(About);
 

@@ -5,15 +5,14 @@ import I18n from 'react-native-i18n';
 import {
   ActivityIndicator,
   View,
-  StatusBar,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import ActionButton from 'react-native-action-button';
+import BaseLayout from '../App/BaseLayout';
 import PostList from './PostList';
 import NoData from '../Course/NoData';
 import Title from '../../components/Title';
 import Padding from '../../components/Padding';
-import ToolBar from '../../components/ToolBar';
 import { fetchForum } from './actions';
 import { route } from '../App/actions';
 import styles from './styles';
@@ -76,15 +75,13 @@ class Forum extends Component {
   render() {
     const { forum } = this.props;
     return (
-      <View style={styles.base}>
-        <StatusBar barStyle="light-content" backgroundColor="#1565c0" />
-        <ToolBar
-          title={I18n.t('forum')}
-          statusbarColor="#1565c0"
-          leftIcon="close"
-          style={{ backgroundColor: '#1e88e5' }}
-          onIconClicked={Actions.pop}
-        />
+      <BaseLayout
+        title={I18n.t('forum')}
+        statusBarColor="#1565c0"
+        toolbarBackgroundColor="#1e88e5"
+        leftIcon="close"
+        onIconClicked={Actions.pop}
+      >
         <Padding backgroundColor="#1e88e5" />
         <View style={styles.list}>
           <Title title={forum.title} subtitle={forum.subtitle} />
@@ -95,7 +92,7 @@ class Forum extends Component {
           icon={<Icon name="edit" size={24} color="#fff" />}
           onPress={this.handleFabPress}
         />
-      </View>
+      </BaseLayout>
     );
   }
 }

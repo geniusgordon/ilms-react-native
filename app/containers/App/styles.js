@@ -1,8 +1,15 @@
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
-  toolbar: {
-    backgroundColor: '#555',
+  toolbarElevation: {
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowRadius: 1,
+    shadowColor: 'black',
+    shadowOpacity: 0.6,
+    elevation: 5,
   },
   drawer: {
     flex: 1,
@@ -42,6 +49,17 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#f44336',
     paddingLeft: 16,
+  },
+  updateNotification: {
+    height: 72,
+    backgroundColor: 'steelblue',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  updateNotificationText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: 'white',
   },
 });
 

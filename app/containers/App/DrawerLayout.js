@@ -1,16 +1,18 @@
 import React, { Component, PropTypes } from 'react';
-import { StatusBar } from 'react-native';
+import { View, StatusBar } from 'react-native';
 import { connect } from 'react-redux';
-import DrawerLayout from 'react-native-drawer-layout';
+import RNDrawerLayout from 'react-native-drawer-layout';
 import Drawer from './Drawer';
 import ToolBar from '../../components/ToolBar';
 import { checkLogin } from '../Auth/actions';
+import styles from './styles';
 
-class Base extends Component {
+class DrawerLayout extends Component {
   static propTypes = {
     title: PropTypes.string,
-    statusBarBackgroundColor: PropTypes.string,
+    statusBarColor: PropTypes.string,
     toolbarBackgroundColor: PropTypes.string,
+    toolbarElevation: PropTypes.number,
     toolbarActions: PropTypes.arrayOf(PropTypes.shape({
       title: PropTypes.string.isRequired,
       show: PropTypes.oneOf(['always', 'ifRoom', 'never']),
@@ -37,36 +39,43 @@ class Base extends Component {
   render() {
     const {
       title,
-      statusBarBackgroundColor,
+      statusBarColor,
       toolbarBackgroundColor,
+      toolbarElevation,
       toolbarActions,
       onActionSelected,
       children,
     } = this.props;
     const renderDrawer = () => <Drawer onItemClick={this.handleDrawerItemClick} />;
+    const toolbarStyle = [{ backgroundColor: toolbarBackgroundColor }];
+    if (toolbarElevation > 0) {
+      toolbarStyle.push(styles.toolbarElevation);
+    }
     return (
-      <DrawerLayout
+      <RNDrawerLayout
         drawerBackgroundColor="#FFFFFF"
         drawerWidth={300}
-        drawerPosition={DrawerLayout.positions.left}
+        drawerPosition={RNDrawerLayout.positions.left}
         renderNavigationView={renderDrawer}
         ref={this.drawerRef}
       >
-        <StatusBar backgroundColor={statusBarBackgroundColor} />
+        <StatusBar backgroundColor={statusBarColor} />
         <ToolBar
           title={title}
           leftIcon="menu"
-          style={{ backgroundColor: toolbarBackgroundColor }}
-          statusbarColor={statusBarBackgroundColor}
+          style={toolbarStyle}
+          statusBarColor={statusBarColor}
           actions={toolbarActions}
           onActionSelected={onActionSelected}
           onIconClicked={this.handleIconClick}
         />
-        {children}
-      </DrawerLayout>
+        <View style={{ flex: 1 }}>
+          {children}
+        </View>
+      </RNDrawerLayout>
     );
   }
 }
 
-export default connect()(Base);
+export default connect()(DrawerLayout);
 
