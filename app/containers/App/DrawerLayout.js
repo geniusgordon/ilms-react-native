@@ -1,16 +1,19 @@
 import React, { Component, PropTypes } from 'react';
-import { StatusBar } from 'react-native';
+import { View, StatusBar } from 'react-native';
 import { connect } from 'react-redux';
 import RNDrawerLayout from 'react-native-drawer-layout';
 import Drawer from './Drawer';
+import UpdateNotification from './UpdateNotification';
 import ToolBar from '../../components/ToolBar';
 import { checkLogin } from '../Auth/actions';
+import styles from './styles';
 
 class DrawerLayout extends Component {
   static propTypes = {
     title: PropTypes.string,
     statusBarColor: PropTypes.string,
     toolbarBackgroundColor: PropTypes.string,
+    toolbarElevation: PropTypes.number,
     toolbarActions: PropTypes.arrayOf(PropTypes.shape({
       title: PropTypes.string.isRequired,
       show: PropTypes.oneOf(['always', 'ifRoom', 'never']),
@@ -39,11 +42,16 @@ class DrawerLayout extends Component {
       title,
       statusBarColor,
       toolbarBackgroundColor,
+      toolbarElevation,
       toolbarActions,
       onActionSelected,
       children,
     } = this.props;
     const renderDrawer = () => <Drawer onItemClick={this.handleDrawerItemClick} />;
+    const toolbarStyle = [{ backgroundColor: toolbarBackgroundColor }];
+    if (toolbarElevation > 0) {
+      toolbarStyle.push(styles.toolbarElevation);
+    }
     return (
       <RNDrawerLayout
         drawerBackgroundColor="#FFFFFF"
@@ -56,13 +64,18 @@ class DrawerLayout extends Component {
         <ToolBar
           title={title}
           leftIcon="menu"
-          style={{ backgroundColor: toolbarBackgroundColor }}
+          style={toolbarStyle}
           statusBarColor={statusBarColor}
           actions={toolbarActions}
           onActionSelected={onActionSelected}
           onIconClicked={this.handleIconClick}
         />
-        {children}
+        <View style={{ flex: 1 }}>
+          <View style={{ flex: 1 }}>
+            {children}
+          </View>
+          <UpdateNotification />
+        </View>
       </RNDrawerLayout>
     );
   }

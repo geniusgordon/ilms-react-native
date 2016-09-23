@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
-  toolbar: {
+  toolbarElevation: {
     shadowOffset: {
       width: 0,
       height: 1,
@@ -49,6 +49,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#f44336',
     paddingLeft: 16,
+  },
+  updateNotification: {
+    height: 72,
+    backgroundColor: 'steelblue',
   },
 });
 

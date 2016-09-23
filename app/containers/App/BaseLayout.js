@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { View, StatusBar } from 'react-native';
+import UpdateNotification from './UpdateNotification';
 import ToolBar from '../../components/ToolBar';
+import styles from './styles';
 
 class BaseLayout extends Component {
   static propTypes = {
@@ -29,20 +31,29 @@ class BaseLayout extends Component {
       onActionSelected,
       children,
     } = this.props;
+    const toolbarStyle = [{ backgroundColor: toolbarBackgroundColor }];
+    if (toolbarElevation > 0) {
+      toolbarStyle.push(styles.toolbarElevation);
+    }
     return (
-      <View>
+      <View style={{ flex: 1 }}>
         <StatusBar backgroundColor={statusBarColor} />
         <ToolBar
           title={title}
           leftIcon={leftIcon}
-          style={{ backgroundColor: toolbarBackgroundColor }}
+          style={toolbarStyle}
           statusBarColor={statusBarColor}
           elevation={toolbarElevation}
           actions={toolbarActions}
           onActionSelected={onActionSelected}
           onIconClicked={onIconClicked}
         />
-        {children}
+        <View style={{ flex: 1 }}>
+          <View style={{ flex: 1 }}>
+            {children}
+          </View>
+          <UpdateNotification />
+        </View>
       </View>
     );
   }
