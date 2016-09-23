@@ -53,6 +53,13 @@ const styles = StyleSheet.create({
   updateNotification: {
     height: 72,
     backgroundColor: 'steelblue',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  updateNotificationText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: 'white',
   },
 });
 

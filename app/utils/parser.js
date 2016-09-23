@@ -303,3 +303,8 @@ export function parseScore(html) {
   }).get();
 }
 
+export function parseAndroidVersion(html) {
+  const $ = cheerio.load(html);
+  return $('[itemprop=softwareVersion]').text().trim();
+}
+

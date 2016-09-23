@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import { ActionSheetIOS } from 'react-native';
 import { connect } from 'react-redux';
 import I18n from 'react-native-i18n';
 import Icon from 'react-native-vector-icons/MaterialIcons';

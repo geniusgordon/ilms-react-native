@@ -12,6 +12,7 @@ import forumSaga from './forum';
 import deepLinkSaga from './deepLink';
 import emailListSaga from './emailList';
 import scoreSaga from './score';
+import checkUpdateSaga from './checkUpdate';
 
 function route({ key, params }) {
   if (Actions[key]) {
@@ -37,5 +38,6 @@ export default function* rootSaga(store) {
   yield fork(deepLinkSaga);
   yield fork(emailListSaga);
   yield fork(scoreSaga);
+  yield fork(checkUpdateSaga, store);
 }
 

@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
 import {
   Image,
   View,
@@ -11,10 +12,14 @@ import logo from '../../assets/iLms.png';
 import styles from './styles';
 
 class About extends Component {
+  static propTypes = {
+    version: PropTypes.string,
+  };
   handleClose = () => {
     Actions.pop();
   };
   render() {
+    const { version } = this.props;
     return (
       <BaseLayout
         title="About"
@@ -28,7 +33,7 @@ class About extends Component {
           <Image source={logo} style={styles.logo} />
           <View style={styles.info}>
             <Text style={styles.appName}>NTHU iLms</Text>
-            <Text style={styles.version}>Version: 2.4.1</Text>
+            <Text style={styles.version}>Version: {version}</Text>
           </View>
         </View>
         <View style={styles.content}>
@@ -60,5 +65,9 @@ class About extends Component {
   }
 }
 
-export default About;
+const mapStateToProps = state => ({
+  version: state.app.version,
+});
+
+export default connect(mapStateToProps)(About);
 

@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import { View, StatusBar } from 'react-native';
-import UpdateNotification from './UpdateNotification';
 import ToolBar from '../../components/ToolBar';
 import styles from './styles';
 
@@ -49,10 +48,7 @@ class BaseLayout extends Component {
           onIconClicked={onIconClicked}
         />
         <View style={{ flex: 1 }}>
-          <View style={{ flex: 1 }}>
-            {children}
-          </View>
-          <UpdateNotification />
+          {children}
         </View>
       </View>
     );

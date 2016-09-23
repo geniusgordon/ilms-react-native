@@ -3,7 +3,6 @@ import { View, StatusBar } from 'react-native';
 import { connect } from 'react-redux';
 import RNDrawerLayout from 'react-native-drawer-layout';
 import Drawer from './Drawer';
-import UpdateNotification from './UpdateNotification';
 import ToolBar from '../../components/ToolBar';
 import { checkLogin } from '../Auth/actions';
 import styles from './styles';
@@ -71,10 +70,7 @@ class DrawerLayout extends Component {
           onIconClicked={this.handleIconClick}
         />
         <View style={{ flex: 1 }}>
-          <View style={{ flex: 1 }}>
-            {children}
-          </View>
-          <UpdateNotification />
+          {children}
         </View>
       </RNDrawerLayout>
     );

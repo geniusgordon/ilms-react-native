@@ -13,7 +13,7 @@ import ScoreList from '../Course/ScoreList';
 import Forum from '../Forum';
 import Compose from '../Forum/Compose';
 import Web from '../../components/Web';
-import { deepLink } from './actions';
+import { checkUpdate, deepLink } from './actions';
 import './i18n';
 
 GoogleAnalytics.setTrackerId('UA-68526607-1');
@@ -35,6 +35,7 @@ class App extends Component {
     dispatch: PropTypes.func,
   };
   componentDidMount() {
+    this.props.dispatch(checkUpdate());
     Linking.getInitialURL().then((url) => {
       if (url) {
         this.props.dispatch(deepLink(url));
