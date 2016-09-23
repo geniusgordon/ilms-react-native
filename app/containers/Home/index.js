@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import I18n from 'react-native-i18n';
-import Base from '../App/Base';
+import DrawerLayout from '../App/DrawerLayout';
 import List from '../Course/List';
 import { fetchLatestNews } from './actions';
 import { route } from '../App/actions';
@@ -31,9 +31,9 @@ class Home extends Component {
   render() {
     const { latestNews, loading, refreshing } = this.props;
     return (
-      <Base
+      <DrawerLayout
         title={I18n.t('latestNews')}
-        statusBarBackgroundColor="#d32f2f"
+        statusBarColor="#d32f2f"
         toolbarBackgroundColor="#f44336"
       >
         <List
@@ -45,7 +45,7 @@ class Home extends Component {
           onItemPress={this.handleItemPress}
           onRefresh={this.handleRefresh}
         />
-      </Base>
+      </DrawerLayout>
     );
   }
 }

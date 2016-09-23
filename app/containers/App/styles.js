@@ -2,7 +2,14 @@ import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   toolbar: {
-    backgroundColor: '#555',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowRadius: 1,
+    shadowColor: 'black',
+    shadowOpacity: 0.6,
+    elevation: 5,
   },
   drawer: {
     flex: 1,

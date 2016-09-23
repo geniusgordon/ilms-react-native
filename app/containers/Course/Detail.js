@@ -6,15 +6,14 @@ import {
   ActivityIndicator,
   Linking,
   ScrollView,
-  StatusBar,
   Text,
   View,
 } from 'react-native';
 import HTMLView from 'react-native-htmlview';
+import BaseLayout from '../App/BaseLayout';
 import Attachment from './Attachment';
 import Title from '../../components/Title';
 import Padding from '../../components/Padding';
-import ToolBar from '../../components/ToolBar';
 import { fetchItemDetail } from './actions/itemDetail';
 import styles from './styles';
 
@@ -114,15 +113,13 @@ class Detail extends Component {
   render() {
     const { itemType } = this.props;
     return (
-      <View style={styles.base}>
-        <StatusBar barStyle="light-content" backgroundColor="#388e3c" />
-        <ToolBar
-          title={this.itemTitles[itemType]}
-          leftIcon="close"
-          statusbarColor="#388e3c"
-          style={{ backgroundColor: '#4caf50' }}
-          onIconClicked={Actions.pop}
-        />
+      <BaseLayout
+        title={this.itemTitles[itemType]}
+        leftIcon="close"
+        statusBarColor="#388e3c"
+        toolbarBackgroundColor="#4caf50"
+        onIconClicked={Actions.pop}
+      >
         <Padding backgroundColor="#4caf50" />
         {this.renderInfo()}
         <ScrollView>
@@ -131,7 +128,7 @@ class Detail extends Component {
             {this.renderAttachments()}
           </View>
         </ScrollView>
-      </View>
+      </BaseLayout>
     );
   }
 }

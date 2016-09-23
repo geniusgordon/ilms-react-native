@@ -1,15 +1,15 @@
 import React, { Component, PropTypes } from 'react';
 import { StatusBar } from 'react-native';
 import { connect } from 'react-redux';
-import DrawerLayout from 'react-native-drawer-layout';
+import RNDrawerLayout from 'react-native-drawer-layout';
 import Drawer from './Drawer';
 import ToolBar from '../../components/ToolBar';
 import { checkLogin } from '../Auth/actions';
 
-class Base extends Component {
+class DrawerLayout extends Component {
   static propTypes = {
     title: PropTypes.string,
-    statusBarBackgroundColor: PropTypes.string,
+    statusBarColor: PropTypes.string,
     toolbarBackgroundColor: PropTypes.string,
     toolbarActions: PropTypes.arrayOf(PropTypes.shape({
       title: PropTypes.string.isRequired,
@@ -37,7 +37,7 @@ class Base extends Component {
   render() {
     const {
       title,
-      statusBarBackgroundColor,
+      statusBarColor,
       toolbarBackgroundColor,
       toolbarActions,
       onActionSelected,
@@ -45,28 +45,28 @@ class Base extends Component {
     } = this.props;
     const renderDrawer = () => <Drawer onItemClick={this.handleDrawerItemClick} />;
     return (
-      <DrawerLayout
+      <RNDrawerLayout
         drawerBackgroundColor="#FFFFFF"
         drawerWidth={300}
-        drawerPosition={DrawerLayout.positions.left}
+        drawerPosition={RNDrawerLayout.positions.left}
         renderNavigationView={renderDrawer}
         ref={this.drawerRef}
       >
-        <StatusBar backgroundColor={statusBarBackgroundColor} />
+        <StatusBar backgroundColor={statusBarColor} />
         <ToolBar
           title={title}
           leftIcon="menu"
           style={{ backgroundColor: toolbarBackgroundColor }}
-          statusbarColor={statusBarBackgroundColor}
+          statusBarColor={statusBarColor}
           actions={toolbarActions}
           onActionSelected={onActionSelected}
           onIconClicked={this.handleIconClick}
         />
         {children}
-      </DrawerLayout>
+      </RNDrawerLayout>
     );
   }
 }
 
-export default connect()(Base);
+export default connect()(DrawerLayout);
 

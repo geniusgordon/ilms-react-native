@@ -6,10 +6,9 @@ import {
   ScrollView,
   View,
   Text,
-  StatusBar,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import ToolBar from '../../components/ToolBar';
+import BaseLayout from '../App/BaseLayout';
 import ScoreItem from './ScoreItem';
 import { fetchScore } from './actions/score';
 import styles from './styles';
@@ -75,18 +74,16 @@ class ScoreList extends Component {
   };
   render() {
     return (
-      <View style={styles.base}>
-        <StatusBar barStyle="light-content" backgroundColor="#9e9e9e" />
-        <ToolBar
-          title={I18n.t('grading')}
-          leftIcon="close"
-          statusbarColor="#9e9e9e"
-          style={styles.toolbar}
-          elevation={5}
-          onIconClicked={this.handleClose}
-        />
+      <BaseLayout
+        title={I18n.t('grading')}
+        leftIcon="close"
+        statusBarColor="#9e9e9e"
+        toolbarBackgroundColor="white"
+        toolbarElevation={5}
+        onIconClicked={this.handleClose}
+      >
         {this.renderScore()}
-      </View>
+      </BaseLayout>
     );
   }
 }

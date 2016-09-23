@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import I18n from 'react-native-i18n';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import ActionButton from 'react-native-action-button';
-import Base from '../App/Base';
+import DrawerLayout from '../App/DrawerLayout';
 import List from './List';
 import TabView from '../../components/TabView';
 import { fetchItemList } from './actions/itemList';
@@ -114,9 +114,9 @@ class Course extends Component {
       forum,
     } = this.props;
     return (
-      <Base
+      <DrawerLayout
         title={course.name}
-        statusBarBackgroundColor="#ffa000"
+        statusBarColor="#ffa000"
         toolbarBackgroundColor="#ffc107"
         toolbarActions={this.toolbarActions}
         onActionSelected={this.handleActionSelect}
@@ -176,7 +176,7 @@ class Course extends Component {
           />
         </TabView>
         {this.renderFixedActionButton()}
-      </Base>
+      </DrawerLayout>
     );
   }
 }
