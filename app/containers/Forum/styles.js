@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
   },
   post: {
     margin: 8,
-    minHeight: 200,
+    height: 200,
     backgroundColor: 'white',
     elevation: 2,
     shadowOffset: {
@@ -46,6 +46,7 @@ const styles = StyleSheet.create({
     shadowColor: 'black',
     shadowOpacity: 0.6,
     position: 'relative',
+
   },
   postBorderTop: {
     height: 16,

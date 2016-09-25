@@ -28,7 +28,6 @@
 		1850F318088D4A0CA6B40B5E /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B020309DDF944AE8990945C2 /* Ionicons.ttf */; };
 		1B8A470A96A34BA0B506E415 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 791DF1125CDE423F8894A9FD /* FontAwesome.ttf */; };
 		1E3F53A91D9412C200E5EEA4 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 1E3F53A81D9412C200E5EEA4 /* main.jsbundle */; };
-		1E3F53AB1D941DDC00E5EEA4 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E3F53AA1D941DDC00E5EEA4 /* Default-568h@2x.png */; };
 		1E7CA6C81D87E3D1001688B5 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1E7CA6C01D87E3D1001688B5 /* Entypo.ttf */; };
 		1E7CA6C91D87E3D1001688B5 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1E7CA6C11D87E3D1001688B5 /* EvilIcons.ttf */; };
 		1E7CA6CA1D87E3D1001688B5 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1E7CA6C21D87E3D1001688B5 /* FontAwesome.ttf */; };
@@ -204,7 +203,6 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = iLms/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		1E3F53A81D9412C200E5EEA4 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = main.jsbundle; path = ../main.jsbundle; sourceTree = "<group>"; };
-		1E3F53AA1D941DDC00E5EEA4 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../../../Downloads/Default-568h@2x.png"; sourceTree = "<group>"; };
 		1E7CA6C01D87E3D1001688B5 /* Entypo.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Entypo.ttf; sourceTree = "<group>"; };
 		1E7CA6C11D87E3D1001688B5 /* EvilIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = EvilIcons.ttf; sourceTree = "<group>"; };
 		1E7CA6C21D87E3D1001688B5 /* FontAwesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome.ttf; sourceTree = "<group>"; };
@@ -482,7 +480,6 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				1E3F53AA1D941DDC00E5EEA4 /* Default-568h@2x.png */,
 				1EBD0D751D8DAF3900257F61 /* libsqlite3.0.tbd */,
 				1EBD0D731D8DAF2B00257F61 /* libz.tbd */,
 				1EBD0D711D8DAF1800257F61 /* SystemConfiguration.framework */,
@@ -572,10 +569,12 @@
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
+						DevelopmentTeam = AV8E6EPZXM;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = AV8E6EPZXM;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -811,7 +810,6 @@
 				06637D891E294EBE80113E00 /* Entypo.ttf in Resources */,
 				1E7CA6CD1D87E3D1001688B5 /* MaterialIcons.ttf in Resources */,
 				245D0974AC8649D687357291 /* EvilIcons.ttf in Resources */,
-				1E3F53AB1D941DDC00E5EEA4 /* Default-568h@2x.png in Resources */,
 				1B8A470A96A34BA0B506E415 /* FontAwesome.ttf in Resources */,
 				23DA2205016246DFA0A417CC /* Foundation.ttf in Resources */,
 				1850F318088D4A0CA6B40B5E /* Ionicons.ttf in Resources */,
@@ -885,6 +883,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = AV8E6EPZXM;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -909,6 +908,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = AV8E6EPZXM;
 				INFOPLIST_FILE = iLmsTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -929,7 +929,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: shih-an Li (AV8E6EPZXM)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEAD_CODE_STRIPPING = NO;
+				DEVELOPMENT_TEAM = AV8E6EPZXM;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
@@ -959,6 +961,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: shih-an Li (AV8E6EPZXM)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = AV8E6EPZXM;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
@@ -979,6 +983,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tx.iLmsDev;
 				PRODUCT_NAME = iLms;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
