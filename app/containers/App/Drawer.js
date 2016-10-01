@@ -24,6 +24,10 @@ class Drawer extends Component {
     this.props.dispatch(route('home'));
     this.props.onItemClick();
   };
+  handleTimetablePress = () => {
+    this.props.dispatch(route('timetable'));
+    this.props.onItemClick();
+  };
   handleAboutPress = () => {
     this.props.dispatch(route('about'));
     this.props.onItemClick();
@@ -45,6 +49,11 @@ class Drawer extends Component {
             onPress={this.handleHomePress}
             icon="stars"
             name={I18n.t('latestNews')}
+          />
+          <DrawerItem
+            onPress={this.handleTimetablePress}
+            icon="schedule"
+            name={I18n.t('timetable')}
           />
           <CourseList
             courseList={courseList}
