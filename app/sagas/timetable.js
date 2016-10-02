@@ -1,6 +1,5 @@
 import { takeEvery } from 'redux-saga';
 import { call, fork, put } from 'redux-saga/effects';
-import api from '../utils/api';
 import { FETCH_TIMETABLE } from '../containers/Timetable/actionTypes';
 import {
   fetchTimetableSuccess,
@@ -22,7 +21,7 @@ const colors = [
 
 function getCourseList(store) {
   const state = store.getState();
-  const { courseById, courseList }  = state.course;
+  const { courseById, courseList } = state.course;
   return courseList.current.map(id => courseById[id]);
 }
 
@@ -44,7 +43,6 @@ function* fetchTimetable(store) {
     const timetable = yield courseList.map((course, i) => call(fetchCourseTime, course, i));
     yield put(fetchTimetableSuccess(timetable));
   } catch (error) {
-    console.log(error);
     yield put(fetchTimetableFail(error.message));
   }
 }

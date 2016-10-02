@@ -6,9 +6,7 @@ import {
   FETCH_SCORE_SUCCESS,
 } from '../actions/actionTypes';
 import {
-  FETCH_TIMETABLE,
   FETCH_TIMETABLE_SUCCESS,
-  FETCH_TIMETABLE_FAIL,
 } from '../../Timetable/actionTypes';
 
 const initalState = {};

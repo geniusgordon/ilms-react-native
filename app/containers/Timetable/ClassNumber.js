@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import{ ScrollView, View, Text } from 'react-native';
+import { ScrollView, View, Text } from 'react-native';
 import styles from './styles';
 
 const classNumber = ['1', '2', '3', '4', 'n', '5', '6', '7', '8', '9', 'a', 'b', 'c'];
@@ -10,13 +10,13 @@ class ClassNumber extends Component {
       this.scrollTo = ref.scrollTo;
     }
   };
-  renderColumn = () => {
-    return classNumber.map(day =>
+  renderColumn = () => (
+    classNumber.map(day =>
       <View key={day} style={styles.classNumber}>
         <Text style={styles.classNumberText}>{day}</Text>
       </View>
-    );
-  };
+    )
+  );
   render() {
     return (
       <View style={styles.classNumberColumn}>

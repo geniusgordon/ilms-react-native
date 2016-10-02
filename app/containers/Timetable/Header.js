@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import{ ScrollView, View, Text } from 'react-native';
+import { ScrollView, View, Text } from 'react-native';
 import styles from './styles';
 
 const weekday = ['MON', 'TUE', 'WED', 'THR', 'FRI', 'SAT'];
@@ -10,13 +10,13 @@ class Header extends Component {
       this.scrollTo = ref.scrollTo;
     }
   };
-  renderRow = () => {
-    return weekday.map(day =>
+  renderRow = () => (
+    weekday.map(day =>
       <View key={day} style={styles.header}>
         <Text style={styles.headerText}>{day}</Text>
       </View>
-    );
-  };
+    )
+  );
   render() {
     return (
       <View style={styles.headerRow}>

@@ -6,7 +6,7 @@ import {
 
 export const fetchTimetable = () => ({ type: FETCH_TIMETABLE });
 
-export const fetchTimetableSuccess = (timetable) => ({
+export const fetchTimetableSuccess = timetable => ({
   type: FETCH_TIMETABLE_SUCCESS,
   timetable,
 });

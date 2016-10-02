@@ -10,15 +10,15 @@ const initalState = {
 };
 
 const reducer = handleActions({
-  [FETCH_TIMETABLE]: (state) => ({
+  [FETCH_TIMETABLE]: state => ({
     ...state,
     loading: true,
   }),
-  [FETCH_TIMETABLE_SUCCESS]: (state) => ({
+  [FETCH_TIMETABLE_SUCCESS]: state => ({
     ...state,
     loading: false,
   }),
-  [FETCH_TIMETABLE_FAIL]: (state) => ({
+  [FETCH_TIMETABLE_FAIL]: state => ({
     ...state,
     loading: false,
   }),

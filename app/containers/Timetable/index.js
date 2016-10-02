@@ -24,15 +24,15 @@ const getCourseList = ({ courseById, courseList }) => (
 
 const getTimetable = (courseList) => {
   const timetable = [];
-  for (let i = 0; i < 13; i++) {
+  for (let i = 0; i < 13; i += 1) {
     timetable.push([]);
-    for (let j = 0; j < 6; j++) {
+    for (let j = 0; j < 6; j += 1) {
       timetable[i].push(null);
     }
   }
-  courseList.forEach(course => {
+  courseList.forEach((course) => {
     if (course.time) {
-      course.time.match(/\w\d/g).forEach(time => {
+      course.time.match(/\w\d/g).forEach((time) => {
         const day = weekday.indexOf(time.charAt(0));
         const number = parseInt(time.charAt(1), 10) - 1;
         timetable[number][day] = course;
@@ -62,14 +62,14 @@ const getCurrentClass = () => {
   };
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   const courseList = getCourseList(state.course);
   const currentClass = getCurrentClass();
   return {
     timetable: getTimetable(courseList),
     loading: state.timetable.loading,
     currentClass,
-  }
+  };
 };
 
 export default connect(mapStateToProps)(Timetable);

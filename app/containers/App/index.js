@@ -36,7 +36,7 @@ class App extends Component {
     dispatch: PropTypes.func,
   };
   componentDidMount() {
-    // this.props.dispatch(checkUpdate());
+    this.props.dispatch(checkUpdate());
     Linking.getInitialURL().then((url) => {
       if (url) {
         this.props.dispatch(deepLink(url));
