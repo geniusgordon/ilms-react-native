@@ -37,6 +37,23 @@ function parseDate(dateStr) {
   };
 }
 
+const pad = [
+  '',
+  ' ',
+  '  ',
+  '   ',
+];
+
+function fixCourseIdPadding(courseId) {
+  try {
+    const department = courseId.match(/[A-Z]+/)[0];
+    const departmentPadded = department + pad[4 - department.length];
+    return courseId.replace(department, departmentPadded);
+  } catch (error) {
+    return '';
+  }
+}
+
 export function parseLatestNews(html) {
   const $ = cheerio.load(html);
   const blockItems = $('#right div.BlockR').eq(1).find('.BlockItem');
@@ -65,14 +82,16 @@ export function parseProfile(html) {
 
 export function parseCourseList(html) {
   const $ = cheerio.load(html);
-  const mnuItems = $('.mnuItem a');
+  const mnu = $('.mnu').eq(0);
+  const mnuItems = mnu.find('.mnuItem');
   const courseUrlRegex = /^\/course\/(\d+)$/;
   return mnuItems.filter((i, item) => (
-    courseUrlRegex.test($(item).attr('href'))
+    courseUrlRegex.test($(item).find('a').attr('href'))
   ))
   .map((i, item) => ({
-    id: $(item).attr('href').match(courseUrlRegex)[1],
-    name: parseCourseName($(item).text()),
+    id: $(item).find('a').attr('href').match(courseUrlRegex)[1],
+    courseId: fixCourseIdPadding($(item).find('span').text().replace(/[()]/g, '')),
+    name: parseCourseName($(item).find('a').text()),
   })).get();
 }
 

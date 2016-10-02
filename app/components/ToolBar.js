@@ -8,7 +8,7 @@ const ToolBar = ({
   title,
   leftIcon,
   statusbarStyle,
-  statusBarColor,
+  statusbarColor,
   actions,
   style,
   elevation,
@@ -53,7 +53,7 @@ const ToolBar = ({
         style={[{ alignItems: 'center', height: 44 }, style]}
         statusBar={{
           style: statusbarStyle || 'light-content',
-          tintColor: statusBarColor,
+          tintColor: statusbarColor,
         }}
         leftButton={
           <CustomNavButton

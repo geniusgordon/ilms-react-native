@@ -5,6 +5,9 @@ import {
   FETCH_EMAIL_LIST_SUCCESS,
   FETCH_SCORE_SUCCESS,
 } from '../actions/actionTypes';
+import {
+  FETCH_TIMETABLE_SUCCESS,
+} from '../../Timetable/actionTypes';
 
 const initalState = {};
 
@@ -53,6 +56,16 @@ const reducer = handleActions({
       scoreList,
     },
   }),
+  [FETCH_TIMETABLE_SUCCESS]: (state, { timetable }) => {
+    const byId = timetable.reduce((reduction, course) => ({
+      ...reduction,
+      [course.id]: {
+        ...state[course.id],
+        ...course,
+      },
+    }), state);
+    return byId;
+  },
 }, initalState);
 
 export default reducer;

@@ -13,6 +13,7 @@ import ScoreList from '../Course/ScoreList';
 import Forum from '../Forum';
 import Compose from '../Forum/Compose';
 import Web from '../../components/Web';
+import Timetable from '../Timetable';
 import { checkUpdate, deepLink } from './actions';
 import './i18n';
 
@@ -55,6 +56,7 @@ class App extends Component {
           <Scene key="email" component={EmailList} {...detailScene} />
           <Scene key="score" component={ScoreList} {...detailScene} />
           <Scene key="about" component={About} {...detailScene} />
+          <Scene key="timetable" component={Timetable} {...detailScene} />
           <Scene key="web" component={Web} {...detailScene} />
         </Scene>
       </Router>

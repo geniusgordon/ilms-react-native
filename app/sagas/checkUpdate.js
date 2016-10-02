@@ -2,7 +2,6 @@ import { Alert, Platform, Linking } from 'react-native';
 import { takeEvery } from 'redux-saga';
 import { call, fork, put } from 'redux-saga/effects';
 import I18n from 'react-native-i18n';
-import api from '../utils/api';
 import { parseAndroidVersion } from '../utils/parser';
 import { CHECK_UPDATE } from '../containers/App/actionTypes';
 import { checkUpdateSuccess } from '../containers/App/actions';
@@ -35,7 +34,7 @@ function* checkUpdate(store) {
       }
     }
   } catch (error) {
-    console.log(error);
+    //
   }
 }
 
