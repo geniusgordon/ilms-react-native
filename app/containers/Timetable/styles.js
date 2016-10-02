@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
   headerRow: {
     height: 56,
     flexDirection: 'row',
-    backgroundColor: 'steelblue',
+    backgroundColor: '#01579b',
     paddingLeft: 24,
   },
   header: {
@@ -16,14 +16,21 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  headerText: {
+    color: 'white',
+    fontWeight: 'bold',
+  },
   classNumberColumn: {
     width: 24,
-    backgroundColor: 'skyblue',
+    backgroundColor: '#0288d1',
   },
   classNumber: {
     height: 72,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  classNumberText: {
+    color: 'white',
   },
   row: {
     flexDirection: 'row',
@@ -34,6 +41,17 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 8,
+  },
+  courseName: {
+    color: 'rgba(0, 0, 0, 0.8)',
+  },
+  courseRoom: {
+    fontSize: 10,
+    color: 'rgba(0, 0, 0, 0.5)',
+  },
+  currentClass: {
+    borderWidth: 2,
+    borderColor: '#b71c1c',
   },
 });
 

@@ -13,7 +13,7 @@ class Header extends Component {
   renderRow = () => {
     return weekday.map(day =>
       <View key={day} style={styles.header}>
-        <Text>{day}</Text>
+        <Text style={styles.headerText}>{day}</Text>
       </View>
     );
   };

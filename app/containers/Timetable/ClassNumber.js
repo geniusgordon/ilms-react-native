@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import{ ScrollView, View, Text } from 'react-native';
 import styles from './styles';
 
-const classNumber = ['1', '2', '3', '4', '5', '6', '7', '8', 'a', 'b', 'c'];
+const classNumber = ['1', '2', '3', '4', 'n', '5', '6', '7', '8', '9', 'a', 'b', 'c'];
 
 class ClassNumber extends Component {
   scrollViewRef = (ref) => {
@@ -13,7 +13,7 @@ class ClassNumber extends Component {
   renderColumn = () => {
     return classNumber.map(day =>
       <View key={day} style={styles.classNumber}>
-        <Text>{day}</Text>
+        <Text style={styles.classNumberText}>{day}</Text>
       </View>
     );
   };

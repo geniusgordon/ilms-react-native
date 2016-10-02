@@ -1,68 +1,22 @@
-import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { Actions } from 'react-native-router-flux';
-import I18n from 'react-native-i18n';
-import{ ScrollView, View, Text } from 'react-native';
-import BaseLayout from '../App/BaseLayout';
-import Header from './Header';
-import ClassNumber from './ClassNumber';
-import Row from './Row';
-import { fetchTimetable } from './actions';
-import styles from './styles';
-
-class Timetable extends Component {
-  static propTypes = {
-  };
-  componentDidMount() {
-    this.props.dispatch(fetchTimetable());
-  }
-  headerRef = (ref) => {
-    if (ref) this.headerScrollTo = ref.scrollTo;
-  };
-  classNumberRef = (ref) => {
-    if (ref) this.classNumberScrollTo = ref.scrollTo;
-  };
-  handleHorizontalScroll = (event) => {
-    this.headerScrollTo({
-      x: event.nativeEvent.contentOffset.x,
-      animated: false,
-    });
-  };
-  handleVerticalScroll = (event) => {
-    this.classNumberScrollTo({
-      y: event.nativeEvent.contentOffset.y,
-      animated: false,
-    });
-  };
-  renderRows = () => {
-    const { timetable } = this.props;
-    return timetable.map((row, i) => <Row key={i} />);
-  };
-  render() {
-    return (
-      <BaseLayout
-        title={I18n.t('timetable')}
-        leftIcon="close"
-        statusBarColor="#9e9e9e"
-        toolbarBackgroundColor="white"
-        toolbarElevation={5}
-        onIconClicked={Actions.pop}
-      >
-        <Header ref={this.headerRef} />
-        <View style={{ flex: 1, flexDirection: 'row' }}>
-          <ClassNumber ref={this.classNumberRef} />
-          <ScrollView style={{ flex: 1 }} horizontal onScroll={this.handleHorizontalScroll}>
-            <ScrollView style={{ flex: 1}} onScroll={this.handleVerticalScroll}>
-              {this.renderRows()}
-            </ScrollView>
-          </ScrollView>
-        </View>
-      </BaseLayout>
-    );
-  }
-}
+import Timetable from './Timetable';
 
 const weekday = ['M', 'T', 'W', 'R', 'F', 'S'];
+const classTime = [
+  { from: [8, 0], to: [9, 0] },
+  { from: [9, 0], to: [10, 0] },
+  { from: [10, 0], to: [11, 10] },
+  { from: [11, 10], to: [12, 10] },
+  { from: [12, 10], to: [13, 10] },
+  { from: [13, 10], to: [14, 20] },
+  { from: [14, 20], to: [15, 20] },
+  { from: [15, 20], to: [16, 30] },
+  { from: [16, 30], to: [17, 30] },
+  { from: [17, 30], to: [18, 30] },
+  { from: [18, 30], to: [19, 30] },
+  { from: [19, 30], to: [20, 30] },
+  { from: [20, 30], to: [21, 20] },
+];
 
 const getCourseList = ({ courseById, courseList }) => (
   courseList.current.map(id => courseById[id])
@@ -70,7 +24,7 @@ const getCourseList = ({ courseById, courseList }) => (
 
 const getTimetable = (courseList) => {
   const timetable = [];
-  for (let i = 0; i < 11; i++) {
+  for (let i = 0; i < 13; i++) {
     timetable.push([]);
     for (let j = 0; j < 6; j++) {
       timetable[i].push(null);
@@ -88,12 +42,33 @@ const getTimetable = (courseList) => {
   return timetable;
 };
 
+const getCurrentClass = () => {
+  const now = new Date();
+  const day = now.getDay() - 1;
+  const hour = now.getHours();
+  const minute = now.getMinutes();
+  let currentClassNumber = -1;
+  classTime.forEach(({ from, to }, i) => {
+    if (
+      (hour === from[0] && minute >= from[1]) ||
+      (hour === to[0] && minute <= to[1])
+    ) {
+      currentClassNumber = i;
+    }
+  });
+  return {
+    day,
+    number: currentClassNumber,
+  };
+};
+
 const mapStateToProps = state => {
   const courseList = getCourseList(state.course);
+  const currentClass = getCurrentClass();
   return {
     timetable: getTimetable(courseList),
-    timetable: getTimetable([]),
     loading: state.timetable.loading,
+    currentClass,
   }
 };
 
