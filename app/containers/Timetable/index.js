@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import Timetable from './Timetable';
 
 const weekday = ['M', 'T', 'W', 'R', 'F', 'S'];
+const classNumber = ['1', '2', '3', '4', 'n', '5', '6', '7', '8', '9', 'a', 'b', 'c'];
 const classTime = [
   { from: [8, 0], to: [9, 0] },
   { from: [9, 0], to: [10, 0] },
@@ -34,7 +35,7 @@ const getTimetable = (courseList) => {
     if (course.time) {
       course.time.match(/\w\d/g).forEach((time) => {
         const day = weekday.indexOf(time.charAt(0));
-        const number = parseInt(time.charAt(1), 10) - 1;
+        const number = classNumber.indexOf(time.charAt(1));
         timetable[number][day] = course;
       });
     }
