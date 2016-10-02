@@ -1,41 +1,27 @@
 import React, { Component, PropTypes } from 'react';
 import{ View, Text } from 'react-native';
-import RippleView from '../../components/RippleView';
+import Cell from './Cell';
 import styles from './styles';
 
 class Row extends Component {
   static propTypes = {
-    row: PropTypes.arrayOf(PropTypes.shape({
-      id: PropTypes.string,
-      name: PropTypes.string,
-      room: PropTypes.string,
-    })),
-    currentClass: PropTypes.shape({
-      day: PropTypes.number,
-      number: PropTypes.number,
-    }),
+    row: PropTypes.arrayOf(Cell.propTypes.course),
+    currentClass: Cell.propTypes.currentClass,
     classNumber: PropTypes.number,
+    onClassPress: PropTypes.func,
   };
   renderRow = () => {
-    const { row, currentClass, classNumber } = this.props;
-    return row.map((course, i) => {
-      const style = [styles.cell];
-      if (currentClass.day === i && currentClass.number === classNumber) {
-        style.push(styles.currentClass);
-      }
-      if (!course) {
-        return <View key={i} style={style} />;
-      }
-      style.push({ backgroundColor: course.color });
-      return (
-        <RippleView key={i} darkRipple>
-          <View style={style} >
-            <Text style={styles.courseName}>{course.name}</Text>
-            <Text style={styles.courseRoom}>{course.room}</Text>
-          </View>
-        </RippleView>
-      );
-    });
+    const { row, currentClass, classNumber, onClassPress } = this.props;
+    return row.map((course, i) =>
+      <Cell
+        key={i}
+        course={course}
+        currentClass={currentClass}
+        day={i}
+        classNumber={classNumber}
+        onPress={onClassPress}
+      />
+    );
   };
   render() {
     return (

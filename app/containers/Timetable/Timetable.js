@@ -7,6 +7,7 @@ import Header from './Header';
 import ClassNumber from './ClassNumber';
 import Row from './Row';
 import { fetchTimetable } from './actions';
+import { route } from '../App/actions';
 import styles from './styles';
 
 class Timetable extends Component {
@@ -36,6 +37,9 @@ class Timetable extends Component {
       animated: false,
     });
   };
+  handleClassPress = (id) => {
+    this.props.dispatch(route('course', { id }));
+  };
   renderRows = () => {
     const { timetable, currentClass } = this.props;
     return timetable.map((row, i) =>
@@ -44,6 +48,7 @@ class Timetable extends Component {
         row={row}
         classNumber={i}
         currentClass={currentClass}
+        onClassPress={this.handleClassPress}
       />
     );
   };
