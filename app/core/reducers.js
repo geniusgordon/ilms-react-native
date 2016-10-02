@@ -4,6 +4,7 @@ import home from '../containers/Home/reducer';
 import auth from '../containers/Auth/reducer';
 import course from '../containers/Course/reducer';
 import forum from '../containers/Forum/reducer';
+import timetable from '../containers/Timetable/reducer';
 
 export default combineReducers({
   app,
@@ -11,5 +12,6 @@ export default combineReducers({
   auth,
   course,
   forum,
+  timetable,
 });
 
