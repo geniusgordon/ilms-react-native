@@ -1,18 +1,20 @@
 import React, { Component, PropTypes } from 'react';
 import { Actions } from 'react-native-router-flux';
 import I18n from 'react-native-i18n';
-import { ScrollView, View } from 'react-native';
+import { ActivityIndicator, ScrollView, View } from 'react-native';
 import BaseLayout from '../App/BaseLayout';
 import Header from './Header';
 import ClassNumber from './ClassNumber';
 import Row from './Row';
 import { fetchTimetable } from './actions';
 import { route } from '../App/actions';
+import styles from './styles';
 
 class Timetable extends Component {
   static propTypes = {
     timetable: PropTypes.arrayOf(Row.propTypes.row),
     currentClass: Row.propTypes.currentClass,
+    loading: PropTypes.bool,
     dispatch: PropTypes.func,
   };
   componentDidMount() {
@@ -51,6 +53,23 @@ class Timetable extends Component {
       />
     );
   };
+  renderTable = () => {
+    const { loading} = this.props;
+    if (loading) {
+      return (
+        <View style={styles.loading}>
+          <ActivityIndicator color="#388e3c" size="large" />
+        </View>
+      );
+    }
+    return (
+      <ScrollView style={{ flex: 1 }} horizontal onScroll={this.handleHorizontalScroll}>
+        <ScrollView style={{ flex: 1 }} onScroll={this.handleVerticalScroll}>
+          {this.renderRows()}
+        </ScrollView>
+      </ScrollView>
+    );
+  };
   render() {
     return (
       <BaseLayout
@@ -64,11 +83,7 @@ class Timetable extends Component {
         <Header ref={this.headerRef} />
         <View style={{ flex: 1, flexDirection: 'row' }}>
           <ClassNumber ref={this.classNumberRef} />
-          <ScrollView style={{ flex: 1 }} horizontal onScroll={this.handleHorizontalScroll}>
-            <ScrollView style={{ flex: 1 }} onScroll={this.handleVerticalScroll}>
-              {this.renderRows()}
-            </ScrollView>
-          </ScrollView>
+          {this.renderTable()}
         </View>
       </BaseLayout>
     );
