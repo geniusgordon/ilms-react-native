@@ -5,6 +5,11 @@ const styles = StyleSheet.create({
     flex: 1,
     position: 'relative',
   },
+  loading: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   headerRow: {
     height: 56,
     flexDirection: 'row',

@@ -1,5 +1,6 @@
 import { takeEvery } from 'redux-saga';
 import { call, fork, put } from 'redux-saga/effects';
+import alert from '../utils/alert';
 import { FETCH_TIMETABLE } from '../containers/Timetable/actionTypes';
 import {
   fetchTimetableSuccess,
@@ -43,6 +44,7 @@ function* fetchTimetable(store) {
     const timetable = yield courseList.map((course, i) => call(fetchCourseTime, course, i));
     yield put(fetchTimetableSuccess(timetable));
   } catch (error) {
+    alert('無法載入課表');
     yield put(fetchTimetableFail(error.message));
   }
 }
