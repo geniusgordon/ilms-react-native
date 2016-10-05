@@ -1,7 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import { Actions } from 'react-native-router-flux';
 import I18n from 'react-native-i18n';
-import { ActivityIndicator, ScrollView, View } from 'react-native';
+import {
+  ActivityIndicator,
+  ScrollView,
+  View,
+} from 'react-native';
 import BaseLayout from '../App/BaseLayout';
 import Header from './Header';
 import ClassNumber from './ClassNumber';
@@ -20,13 +24,29 @@ class Timetable extends Component {
   componentDidMount() {
     this.props.dispatch(fetchTimetable());
   }
+  componentDidUpdate(prevProps) {
+    const { currentClass, loading } = this.props;
+    if (!loading && prevProps.loading && this.horizontalScrollTo) {
+      requestAnimationFrame(() => {
+        this.horizontalScrollTo({ x: (currentClass.day - 1) * 112 });
+        this.verticalScrollTo({ y: (currentClass.number - 1) * 72 });
+      });
+    }
+  }
   headerRef = (ref) => {
     if (ref) this.headerScrollTo = ref.scrollTo;
   };
   classNumberRef = (ref) => {
     if (ref) this.classNumberScrollTo = ref.scrollTo;
   };
+  horizontalScrollRef = (ref) => {
+    if (ref) this.horizontalScrollTo = ref.scrollTo;
+  };
+  verticalScrollRef = (ref) => {
+    if (ref) this.verticalScrollTo = ref.scrollTo;
+  };
   handleHorizontalScroll = (event) => {
+    console.log(event.nativeEvent.contentOffset.x);
     this.headerScrollTo({
       x: event.nativeEvent.contentOffset.x,
       animated: false,
@@ -63,8 +83,17 @@ class Timetable extends Component {
       );
     }
     return (
-      <ScrollView style={{ flex: 1 }} horizontal onScroll={this.handleHorizontalScroll}>
-        <ScrollView style={{ flex: 1 }} onScroll={this.handleVerticalScroll}>
+      <ScrollView
+        style={{ flex: 1 }}
+        horizontal
+        ref={this.horizontalScrollRef}
+        onScroll={this.handleHorizontalScroll}
+      >
+        <ScrollView
+          style={{ flex: 1 }}
+          ref={this.verticalScrollRef}
+          onScroll={this.handleVerticalScroll}
+        >
           {this.renderRows()}
         </ScrollView>
       </ScrollView>
