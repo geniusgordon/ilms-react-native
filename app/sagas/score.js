@@ -1,5 +1,5 @@
 import { takeEvery } from 'redux-saga';
-import { call, fork, put } from 'redux-saga/effects';
+import { call, put } from 'redux-saga/effects';
 import api from '../utils/api';
 import alert from '../utils/alert';
 import { parseScore } from '../utils/parser';
@@ -24,11 +24,7 @@ function* fetchScore({ courseId }) {
   }
 }
 
-function* watchFetchScore() {
-  yield* takeEvery(FETCH_SCORE, fetchScore);
-}
-
 export default function* scoreSaga() {
-  yield fork(watchFetchScore);
+  yield takeEvery(FETCH_SCORE, fetchScore);
 }
 

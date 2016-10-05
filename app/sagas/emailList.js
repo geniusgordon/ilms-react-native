@@ -1,5 +1,5 @@
 import { takeEvery } from 'redux-saga';
-import { call, fork, put } from 'redux-saga/effects';
+import { call, put } from 'redux-saga/effects';
 import api from '../utils/api';
 import alert from '../utils/alert';
 import { parseEmailList } from '../utils/parser';
@@ -23,11 +23,7 @@ function* fetchEmailList({ courseId }) {
   }
 }
 
-function* watchFetchEmailList() {
-  yield* takeEvery(FETCH_EMAIL_LIST, fetchEmailList);
-}
-
 export default function* emailListSaga() {
-  yield fork(watchFetchEmailList);
+  yield takeEvery(FETCH_EMAIL_LIST, fetchEmailList);
 }
 

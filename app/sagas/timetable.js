@@ -1,5 +1,5 @@
 import { takeEvery } from 'redux-saga';
-import { call, fork, put } from 'redux-saga/effects';
+import { call, put } from 'redux-saga/effects';
 import alert from '../utils/alert';
 import { FETCH_TIMETABLE } from '../containers/Timetable/actionTypes';
 import {
@@ -49,11 +49,7 @@ function* fetchTimetable(store) {
   }
 }
 
-function* watchFetchTimetable(store) {
-  yield* takeEvery(FETCH_TIMETABLE, fetchTimetable, store);
-}
-
 export default function* checkUpdateSaga(store) {
-  yield fork(watchFetchTimetable, store);
+  yield takeEvery(FETCH_TIMETABLE, fetchTimetable, store);
 }
 

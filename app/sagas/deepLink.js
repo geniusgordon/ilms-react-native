@@ -1,5 +1,5 @@
 import { takeEvery } from 'redux-saga';
-import { call, fork, put } from 'redux-saga/effects';
+import { call, put } from 'redux-saga/effects';
 import { ActionConst } from 'react-native-router-flux';
 import urlParse from 'url-parse';
 import { DEEP_LINK } from '../containers/App/actionTypes';
@@ -84,11 +84,7 @@ function* deepLink({ url }) {
   yield call(forumDetail, urlObject);
 }
 
-function* watchDeepLink() {
-  yield* takeEvery(DEEP_LINK, deepLink);
-}
-
 export default function* deepLinkSaga() {
-  yield fork(watchDeepLink);
+  yield takeEvery(DEEP_LINK, deepLink);
 }
 

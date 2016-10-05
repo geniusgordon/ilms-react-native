@@ -1,5 +1,5 @@
 import { takeEvery } from 'redux-saga';
-import { call, fork, put } from 'redux-saga/effects';
+import { call, put } from 'redux-saga/effects';
 import RNFetchBlob from 'react-native-fetch-blob';
 import api from '../utils/api';
 import alert from '../utils/alert';
@@ -50,10 +50,6 @@ function* fetchItemDetail({ courseId, itemType, itemId }) {
   }
 }
 
-function* watchFetchItemDetail() {
-  yield* takeEvery(FETCH_ITEM_DETAIL, fetchItemDetail);
-}
-
 function* downloadAttachment({ attachment }) {
   const baseUrl = 'http://lms.nthu.edu.tw';
   const path = `/sys/read_attach.php?id=${attachment.id}`;
@@ -68,12 +64,10 @@ function* downloadAttachment({ attachment }) {
   }).fetch('GET', url, { cookie });
 }
 
-function* watchDownloadAttachment() {
-  yield* takeEvery(DOWNLOAD_ATTACHMENT, downloadAttachment);
-}
-
 export default function* itemDetailSaga() {
-  yield fork(watchFetchItemDetail);
-  yield fork(watchDownloadAttachment);
+  yield [
+    takeEvery(FETCH_ITEM_DETAIL, fetchItemDetail),
+    takeEvery(DOWNLOAD_ATTACHMENT, downloadAttachment),
+  ];
 }
 

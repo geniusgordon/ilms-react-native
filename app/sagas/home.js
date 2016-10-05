@@ -1,5 +1,5 @@
 import { takeEvery } from 'redux-saga';
-import { call, fork, put } from 'redux-saga/effects';
+import { call, put } from 'redux-saga/effects';
 import api from '../utils/api';
 import alert from '../utils/alert';
 import { parseLatestNews } from '../utils/parser';
@@ -23,11 +23,7 @@ function* fetchLatestNews() {
   }
 }
 
-function* watchFetchLatestNews() {
-  yield* takeEvery(FETCH_LATEST_NEWS, fetchLatestNews);
-}
-
 export default function* homeSaga() {
-  yield fork(watchFetchLatestNews);
+  yield takeEvery(FETCH_LATEST_NEWS, fetchLatestNews);
 }
 
