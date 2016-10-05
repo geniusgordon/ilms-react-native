@@ -8,7 +8,7 @@ const ToolBar = ({
   title,
   leftIcon,
   statusbarStyle,
-  statusbarColor,
+  statusBarColor,
   actions,
   style,
   elevation,
@@ -53,7 +53,7 @@ const ToolBar = ({
         style={[{ alignItems: 'center', height: 44 }, style]}
         statusBar={{
           style: statusbarStyle || 'light-content',
-          tintColor: statusbarColor,
+          tintColor: statusBarColor,
         }}
         leftButton={
           <CustomNavButton
@@ -83,7 +83,7 @@ ToolBar.propTypes = {
   title: PropTypes.string,
   leftIcon: PropTypes.string,
   statusbarStyle: PropTypes.string,
-  statusbarColor: PropTypes.string,
+  statusBarColor: PropTypes.string,
   actions: PropTypes.arrayOf(PropTypes.shape({
     title: PropTypes.string.isRequired,
     show: PropTypes.oneOf(['always', 'ifRoom', 'never']),
