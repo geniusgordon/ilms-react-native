@@ -4,7 +4,7 @@ import I18n from 'react-native-i18n';
 
 function parseCourseName(name) {
   const locale = I18n.locale;
-  const englishNameRegex = /[ a-zA-Z0-9().&\-]+/;
+  const englishNameRegex = /[A-Z].+/;
   if (name.length < 10) {
     return name;
   }
