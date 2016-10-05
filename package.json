@@ -63,7 +63,8 @@
     },
     "globals": {
       "fetch": false,
-      "FormData": false
+      "FormData": false,
+      "requestAnimationFrame": false
     }
   }
 }

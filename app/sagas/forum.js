@@ -1,5 +1,5 @@
 import { takeEvery } from 'redux-saga';
-import { call, fork, put } from 'redux-saga/effects';
+import { call, put } from 'redux-saga/effects';
 import { Actions } from 'react-native-router-flux';
 import api from '../utils/api';
 import alert from '../utils/alert';
@@ -24,10 +24,6 @@ function* fetchForum({ forumId }) {
     alert('無法載入');
     yield put(fetchForumFail(error.message));
   }
-}
-
-function* watchFetchForum() {
-  yield* takeEvery(FETCH_FORUM, fetchForum);
 }
 
 function* sendPost(store, { action, courseId, postId, post }) {
@@ -59,12 +55,10 @@ function* sendPost(store, { action, courseId, postId, post }) {
   }
 }
 
-function* watchSendPost(store) {
-  yield* takeEvery(SEND_POST, sendPost, store);
-}
-
 export default function* forumSaga(store) {
-  yield fork(watchFetchForum);
-  yield fork(watchSendPost, store);
+  yield [
+    takeEvery(FETCH_FORUM, fetchForum),
+    takeEvery(SEND_POST, sendPost, store),
+  ];
 }
 

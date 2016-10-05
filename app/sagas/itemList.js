@@ -1,5 +1,5 @@
 import { takeEvery } from 'redux-saga';
-import { call, fork, put } from 'redux-saga/effects';
+import { call, put } from 'redux-saga/effects';
 import api from '../utils/api';
 import alert from '../utils/alert';
 import {
@@ -37,11 +37,7 @@ function* fetchItemList({ courseId, itemType, params }) {
   }
 }
 
-function* watchFetchItemList() {
-  yield* takeEvery(FETCH_ITEM_LIST, fetchItemList);
-}
-
 export default function* itemListSaga() {
-  yield fork(watchFetchItemList);
+  yield takeEvery(FETCH_ITEM_LIST, fetchItemList);
 }
 

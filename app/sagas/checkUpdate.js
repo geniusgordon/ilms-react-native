@@ -1,6 +1,6 @@
 import { Alert, Platform, Linking } from 'react-native';
 import { takeEvery } from 'redux-saga';
-import { call, fork, put } from 'redux-saga/effects';
+import { call, put } from 'redux-saga/effects';
 import I18n from 'react-native-i18n';
 import { parseAndroidVersion } from '../utils/parser';
 import { CHECK_UPDATE } from '../containers/App/actionTypes';
@@ -38,11 +38,7 @@ function* checkUpdate(store) {
   }
 }
 
-function* watchCheckUpdate(store) {
-  yield* takeEvery(CHECK_UPDATE, checkUpdate, store);
-}
-
 export default function* checkUpdateSaga(store) {
-  yield fork(watchCheckUpdate, store);
+  yield takeEvery(CHECK_UPDATE, checkUpdate, store);
 }
 

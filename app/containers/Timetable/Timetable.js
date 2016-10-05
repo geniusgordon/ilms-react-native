@@ -46,7 +46,6 @@ class Timetable extends Component {
     if (ref) this.verticalScrollTo = ref.scrollTo;
   };
   handleHorizontalScroll = (event) => {
-    console.log(event.nativeEvent.contentOffset.x);
     this.headerScrollTo({
       x: event.nativeEvent.contentOffset.x,
       animated: false,
@@ -74,7 +73,7 @@ class Timetable extends Component {
     );
   };
   renderTable = () => {
-    const { loading} = this.props;
+    const { loading } = this.props;
     if (loading) {
       return (
         <View style={styles.loading}>

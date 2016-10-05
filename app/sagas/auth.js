@@ -1,5 +1,5 @@
 import { takeEvery } from 'redux-saga';
-import { call, fork, put, take } from 'redux-saga/effects';
+import { call, put, take } from 'redux-saga/effects';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import api from '../utils/api';
 import alert from '../utils/alert';
@@ -32,10 +32,6 @@ function* checkLogin() {
   yield put(fetchCourseList());
 }
 
-function* watchCheckLogin() {
-  yield* takeEvery(CHECK_LOGIN, checkLogin);
-}
-
 function* login({ account, password }) {
   try {
     const data = {
@@ -63,22 +59,16 @@ function* login({ account, password }) {
   }
 }
 
-function* watchLogin() {
-  yield* takeEvery(LOGIN, login);
-}
-
 function* logout() {
   yield call(api.post, '/sys/lib/ajax/logout.php');
   Actions.login({ type: ActionConst.REPLACE });
 }
 
-function* watchLogout() {
-  yield* takeEvery(LOGOUT, logout);
-}
-
 export default function* authSaga() {
-  yield fork(watchCheckLogin);
-  yield fork(watchLogin);
-  yield fork(watchLogout);
+  yield [
+    takeEvery(CHECK_LOGIN, checkLogin),
+    takeEvery(LOGIN, login),
+    takeEvery(LOGOUT, logout),
+  ];
 }
 

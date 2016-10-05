@@ -24,22 +24,20 @@ function route({ key, params }) {
   }
 }
 
-function* watchRoute() {
-  yield* takeEvery(ROUTE, route);
-}
-
 export default function* rootSaga(store) {
-  yield fork(watchRoute);
-  yield fork(homeSaga);
-  yield fork(authSaga);
-  yield fork(courseListSaga);
-  yield fork(itemListSaga);
-  yield fork(itemDetailSaga);
-  yield fork(forumSaga, store);
-  yield fork(deepLinkSaga);
-  yield fork(emailListSaga);
-  yield fork(scoreSaga);
-  yield fork(checkUpdateSaga, store);
-  yield fork(timetableSaga, store);
+  yield [
+    fork(homeSaga),
+    fork(authSaga),
+    fork(courseListSaga),
+    fork(itemListSaga),
+    fork(itemDetailSaga),
+    fork(forumSaga, store),
+    fork(deepLinkSaga),
+    fork(emailListSaga),
+    fork(scoreSaga),
+    fork(checkUpdateSaga, store),
+    fork(timetableSaga, store),
+    takeEvery(ROUTE, route),
+  ];
 }
 
