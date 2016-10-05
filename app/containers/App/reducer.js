@@ -3,7 +3,7 @@ import { CHECK_UPDATE_SUCCESS } from './actionTypes';
 
 const initalState = {
   needUpdate: false,
-  version: '2.5.0',
+  version: '2.5.1',
 };
 
 const reducer = handleActions({
