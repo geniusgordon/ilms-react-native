@@ -1,6 +1,6 @@
-# iLms react native app
+# iLMS react native app
 
-This is a mobile version of [NTHU iLms](http://lms.nthu.edu.tw), an online course system for NTHU.
+This is a mobile version of [NTHU iLMS](http://lms.nthu.edu.tw), an online course system for NTHU.
 
 It's an UNOFFICIAL app, and I don't have any APIs to call from the site
 
