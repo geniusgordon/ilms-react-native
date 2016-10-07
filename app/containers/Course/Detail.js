@@ -9,7 +9,7 @@ import {
   Text,
   View,
 } from 'react-native';
-import HTMLView from 'react-native-htmlview';
+import HTMLView from '../../components/HTMLView';
 import BaseLayout from '../App/BaseLayout';
 import Attachment from './Attachment';
 import Title from '../../components/Title';
@@ -58,7 +58,7 @@ class Detail extends Component {
     material: I18n.t('material'),
     assignment: I18n.t('assignment'),
   };
-  handleListPress = (url) => {
+  handleLinkPress = (url) => {
     Linking.openURL(url);
   };
   renderAttachments = () => {
@@ -104,8 +104,8 @@ class Detail extends Component {
     return (
       <View style={styles.detailContent}>
         <HTMLView
-          value={item.content}
-          onLinkPress={this.handleListPress}
+          html={item.content}
+          onLinkPress={this.handleLinkPress}
         />
       </View>
     );
