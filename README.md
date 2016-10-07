@@ -50,9 +50,9 @@ react-native run-ios
 
 ### I found a bug!
 
-Great, but before you [report it to us](issues/new), make sure to [check whether this has already been reported](issues).
+Great, but before you [report it to us](https://github.com/geniusgordon/ilms-react-native/issues/new), make sure to [check whether this has already been reported](https://github.com/geniusgordon/ilms-react-native/issues).
 
-If not, [open a new issue](issues/new) that contains:
+If not, [open a new issue](https://github.com/geniusgordon/ilms-react-native/issues/new) that contains:
 
 1. Steps to reproduce the bug
 2. Some screenshots
