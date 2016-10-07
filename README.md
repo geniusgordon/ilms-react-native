@@ -35,3 +35,11 @@ npm install -g react-native-cli
 react-native run-android
 react-native run-ios
 ```
+
+## More Screenshots
+
+![login](screenshots/login.png)
+![timetable](screenshots/timetable.png)
+![course](screenshots/course.png)
+![announcement](screenshots/announcement.png)
+
