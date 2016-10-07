@@ -58,9 +58,6 @@ class Detail extends Component {
     material: I18n.t('material'),
     assignment: I18n.t('assignment'),
   };
-  handleLinkPress = (url) => {
-    Linking.openURL(url);
-  };
   renderAttachments = () => {
     const { item, loading } = this.props;
     const attachments = item.attachments || [];
@@ -103,10 +100,7 @@ class Detail extends Component {
     }
     return (
       <View style={styles.detailContent}>
-        <HTMLView
-          html={item.content}
-          onLinkPress={this.handleLinkPress}
-        />
+        <HTMLView html={item.content} />
       </View>
     );
   };

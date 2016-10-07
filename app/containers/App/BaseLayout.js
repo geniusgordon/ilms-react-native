@@ -19,7 +19,7 @@ const BaseLayout = ({
     toolbarStyle.push(styles.toolbarElevation);
   }
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1, backgroundColor: '#f9f9f9' }}>
       <StatusBar backgroundColor={statusBarColor} />
       <ToolBar
         title={title}

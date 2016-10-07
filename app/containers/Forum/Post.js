@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
-import { Linking, Text, View } from 'react-native';
-import HTMLView from 'react-native-htmlview';
+import { Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import HTMLView from '../../components/HTMLView';
 import styles from './styles';
 
 const Post = ({ post, floor }) => (
@@ -21,10 +21,7 @@ const Post = ({ post, floor }) => (
       </View>
     </View>
     <View style={styles.postContentContainer}>
-      <HTMLView
-        value={post.content}
-        onLinkPress={url => Linking.openURL(url)}
-      />
+      <HTMLView html={post.content} />
     </View>
   </View>
 );
