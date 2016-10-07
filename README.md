@@ -46,4 +46,21 @@ npm install -g react-native-cli
 react-native run-android
 react-native run-ios
 ```
+## Contributing
 
+### I found a bug!
+
+Great, but before you [report it to us](issues/new), make sure to [check whether this has already been reported](issues).
+
+If not, [open a new issue](issues/new) that contains:
+
+1. Steps to reproduce the bug
+2. Some screenshots
+3. Error message if shown
+
+### I have some important changes!
+
+1. Fork this repo to your own git
+2. Make your changes
+3. Submit a pull request with full remarks documenting your changes
+4. Pull request MAY then be accepted by project creators
