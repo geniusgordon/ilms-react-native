@@ -10,6 +10,17 @@ It's an UNOFFICIAL app, all data are parsed from the HTML tags.
 [![App Store Button](http://imgur.com/y8PTxr9.png "App Store Button")](https://itunes.apple.com/us/app/id1058257079)
 [![Play Store Button](http://imgur.com/utWa1co.png "Play Store Button")](https://play.google.com/store/apps/details?id=com.geniusgordon.ilms)
 
+## Features
+
+* Latest news
+* Timetable
+* Announcements
+* Materials
+* Assignments
+* Forum
+* Send email to professor/TA
+* Grading
+
 ## Technologies
 
 * [React](https://facebook.github.io/react/docs/getting-started.html)
@@ -35,11 +46,4 @@ npm install -g react-native-cli
 react-native run-android
 react-native run-ios
 ```
-
-## More Screenshots
-
-![login](screenshots/login.png)
-![timetable](screenshots/timetable.png)
-![course](screenshots/course.png)
-![announcement](screenshots/announcement.png)
 
